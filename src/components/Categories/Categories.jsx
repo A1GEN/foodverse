@@ -35,7 +35,7 @@ function Categories({ handleCategory, selectedCategory }) {
 
       {visible.map((category) => (
         <button
-          key={category.name}
+          key={category.key}
           aria-pressed={selectedCategory === category.api}
           aria-label={t(`categories.${category.key}`)}
           className={selectedCategory === category.api ? styles.active : ''}
