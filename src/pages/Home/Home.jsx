@@ -97,13 +97,13 @@ function Home() {
       <section className={styles.classicCatalog}>
         <div className={styles.classicInner}>
           <div className={styles.topLinks}>
-            <button className={styles.chip}>Добавить в избранное</button>
-            <button className={styles.chip}>Рецепты</button>
-            <button className={styles.chip}>Статьи</button>
-            <button className={styles.chip}>Наша Кухня</button>
-            <button className={styles.chip}>Супер Поиск</button>
-            <button className={styles.chip}>Рассылки</button>
-            <button className={styles.chip}>Добавить рецепт</button>
+            <button type="button" aria-label="Добавить в избранное" className={styles.chip}>Добавить в избранное</button>
+            <button type="button" aria-label="Рецепты" className={styles.chip}>Рецепты</button>
+            <button type="button" aria-label="Статьи" className={styles.chip}>Статьи</button>
+            <button type="button" aria-label="Наша кухня" className={styles.chip}>Наша Кухня</button>
+            <button type="button" aria-label="Супер поиск" className={styles.chip}>Супер Поиск</button>
+            <button type="button" aria-label="Рассылки" className={styles.chip}>Рассылки</button>
+            <button type="button" aria-label="Добавить рецепт" className={styles.chip}>Добавить рецепт</button>
           </div>
 
           <h2 className={styles.classicTitle}>Рецепты по типам блюд</h2>

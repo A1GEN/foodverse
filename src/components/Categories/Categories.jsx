@@ -21,10 +21,20 @@ function Categories({ handleCategory, selectedCategory }) {
 
   return (
     <section className={styles.categories}>
-      <button className={selectedCategory === '' ? styles.active : ''} onClick={() => handleCategory('')}>All</button>
+      <button
+        aria-pressed={selectedCategory === ''}
+        aria-label="Показать все рецепты"
+        className={selectedCategory === '' ? styles.active : ''}
+        onClick={() => handleCategory('')}
+      >
+        All
+      </button>
+
       {visible.map((category) => (
         <button
           key={category.name}
+          aria-pressed={selectedCategory === category.api}
+          aria-label={`Категория ${category.name}`}
           className={selectedCategory === category.api ? styles.active : ''}
           onClick={() => handleCategory(category.api)}
         >
@@ -33,7 +43,14 @@ function Categories({ handleCategory, selectedCategory }) {
       ))}
 
       {allCategories.length > visible.length && (
-        <button className={styles.more} onClick={() => setExpanded(s => !s)}>{expanded ? 'Show Less' : 'More'}</button>
+        <button
+          className={styles.more}
+          aria-expanded={expanded}
+          aria-controls="categories-list"
+          onClick={() => setExpanded((s) => !s)}
+        >
+          {expanded ? 'Show Less' : 'More'}
+        </button>
       )}
     </section>
   )
