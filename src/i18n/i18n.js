@@ -50,6 +50,42 @@ i18n.use(initReactI18next).init({
           chefText: "Tender seafood, tomato sauce and crispy herbs — a quick and impressive dinner.",
           cta: "View recipes"
         },
+        recipeOfDay: {
+          label: "Recipe Of The Day",
+          title: "Grilled Chicken Salad",
+          text: "Healthy, tasty and easy to cook in 20 minutes.",
+          view: "View Recipe"
+        },
+        trending: {
+          title: "Trending Recipes 🔥",
+          subtitle: "Most popular food today 😎",
+          hot: "HOT 🔥",
+          view: "View"
+        }
+                recipeOfDay: {
+                  label: "Рецепт дня",
+                  title: "Жареный куриный салат",
+                  text: "Полезно, вкусно и просто готовится за 20 минут.",
+                  view: "Посмотреть рецепт"
+                },
+                trending: {
+                  title: "Популярные рецепты 🔥",
+                  subtitle: "Самые популярные блюда сегодня 😎",
+                  hot: "ГОРЯЧЕ 🔥",
+                  view: "Посмотреть"
+                }
+                recipeOfDay: {
+                  label: "Күндүн рецепти",
+                  title: "Грилленген тоок салаты",
+                  text: "Ден соолукту чыңдап, даамдуу жана 20 мүнөткө даярдалат.",
+                  view: "Рецептти көрүү"
+                },
+                trending: {
+                  title: "Тренддеги рецепттер 🔥",
+                  subtitle: "Бүгүнкү эң популярдуу тамактар 😎",
+                  hot: "Ысык 🔥",
+                  view: "Көрүү"
+                }
         popularCategories: "Popular categories",
         viewRecipe: "View Recipe",
         save: "Save",

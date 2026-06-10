@@ -1,6 +1,8 @@
 import styles from "./RecipeOfDay.module.css"
+import { useTranslation } from "react-i18next"
 
 function RecipeOfDay() {
+  const { t } = useTranslation()
 
   return (
 
@@ -8,26 +10,25 @@ function RecipeOfDay() {
 
       <img
         src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c"
-        alt="Recipe"
+        alt={t('recipeOfDay.title')}
       />
 
       <div className={styles.content}>
 
         <span>
-          ⭐️ Recipe Of The Day
+          ⭐️ {t('recipeOfDay.label')}
         </span>
 
         <h2>
-          Grilled Chicken Salad
+          {t('recipeOfDay.title')}
         </h2>
 
         <p>
-          Healthy, tasty and easy
-          to cook in 20 minutes.
+          {t('recipeOfDay.text')}
         </p>
 
         <button>
-          View Recipe
+          {t('recipeOfDay.view')}
         </button>
 
       </div>

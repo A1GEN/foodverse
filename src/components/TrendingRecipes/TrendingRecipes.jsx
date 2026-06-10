@@ -1,5 +1,6 @@
 import styles
 from "./TrendingRecipes.module.css"
+import { useTranslation } from "react-i18next"
 
 const trending = [
 
@@ -66,17 +67,18 @@ const trending = [
 ]
 
 function TrendingRecipes() {
+  const { t } = useTranslation()
 
   return (
 
     <section className={styles.trending}>
 
       <h1>
-        Trending Recipes 🔥
+        {t('trending.title')}
       </h1>
 
       <p>
-        Most popular food today 😎
+        {t('trending.subtitle')}
       </p>
 
       <div className={styles.grid}>
@@ -103,7 +105,7 @@ function TrendingRecipes() {
                 <span
                   className={styles.badge}
                 >
-                  HOT 🔥
+                  {t('trending.hot')}
                 </span>
 
               </div>
@@ -125,7 +127,7 @@ function TrendingRecipes() {
                   </span>
 
                   <button>
-                    View
+                    {t('trending.view')}
                   </button>
 
                 </div>
