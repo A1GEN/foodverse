@@ -8,31 +8,18 @@ import {
 } from "recharts"
 
 import styles from "./AnalyticsCharts.module.css"
+import { useTranslation } from "react-i18next"
 
 function AnalyticsCharts() {
+  const { t } = useTranslation()
 
   // 📊 Fake analytics data
   const data = [
 
-    {
-      name:"Recipes",
-      total:120
-    },
-
-    {
-      name:"Users",
-      total:45
-    },
-
-    {
-      name:"Favorites",
-      total:320
-    },
-
-    {
-      name:"Comments",
-      total:90
-    }
+    { name: t('analytics.recipes','Recipes'), total: 120 },
+    { name: t('analytics.users','Users'), total: 45 },
+    { name: t('analytics.favorites','Favorites'), total: 320 },
+    { name: t('analytics.comments','Comments'), total: 90 }
 
   ]
 
