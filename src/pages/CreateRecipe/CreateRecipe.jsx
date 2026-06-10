@@ -91,7 +91,7 @@ function CreateRecipe() {
           {t('create.uploadLabel', '📸 Upload Image')}
         </label>
 
-        {preview && <img src={preview} alt="Preview" className={styles.preview} />}
+        {preview && <img src={preview} alt={t('create.previewAlt','Preview')} className={styles.preview} />}
 
         <button type="submit" disabled={uploading}>{uploading ? t('create.uploading', 'Uploading...') : t('create.createButton', 'Create Recipe 🚀')}</button>
       </form>

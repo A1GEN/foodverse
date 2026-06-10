@@ -1,4 +1,5 @@
 import styles from "./Desserts.module.css"
+import { useTranslation } from 'react-i18next'
 
 const desserts = [
 
@@ -25,7 +26,7 @@ const desserts = [
 ]
 
 function Desserts() {
-  const { t } = require('react-i18next').useTranslation()
+  const { t } = useTranslation()
 
   return (
     <div className={styles.wrapper}>
