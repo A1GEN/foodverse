@@ -16,8 +16,10 @@ import { Suspense, lazy } from "react"
 const AIChatChef = lazy(() => import("../../components/AIChatChef/AIChatChef"))
 import { collection, getDocs } from "firebase/firestore"
 import { getDb } from "../../lib/firebaseClient"
+import { useTranslation } from "react-i18next"
 
 function Home() {
+  const { t } = useTranslation()
   const [recipes, setRecipes] = useState([])
   const [search, setSearch] = useState("")
   const [loading, setLoading] = useState(true)
