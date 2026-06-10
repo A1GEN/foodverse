@@ -31,6 +31,54 @@ i18n.use(initReactI18next).init({
         noAccount: "No account?",
         register: "Register",
         heroCTA: "Explore Recipes",
+        chips: {
+          favorites: "Add to favorites",
+          recipes: "Recipes",
+          articles: "Articles",
+          ourKitchen: "Our Kitchen",
+          superSearch: "Super Search",
+          newsletters: "Newsletters",
+          addRecipe: "Add recipe"
+        },
+        classicTitle: "Recipes by dish types",
+        classicDescription: "Our culinary site is a big cookbook: thousands of recipes with photos, step-by-step instructions and helpful tips. Convenient search by types and topics helps to quickly find the desired dish.",
+        discover: {
+          chefTitle: "Chef's recommendation: Warm seafood pasta",
+          chefText: "Tender seafood, tomato sauce and crispy herbs — a quick and impressive dinner.",
+          cta: "View recipes"
+        },
+                chips: {
+                  favorites: "Добавить в избранное",
+                  recipes: "Рецепты",
+                  articles: "Статьи",
+                  ourKitchen: "Наша Кухня",
+                  superSearch: "Супер Поиск",
+                  newsletters: "Рассылки",
+                  addRecipe: "Добавить рецепт"
+                },
+                classicTitle: "Рецепты по типам блюд",
+                classicDescription: "Наш кулинарный сайт — большая книга рецептов: тысячи рецептов с фото, пошаговыми инструкциями и полезными советами. Удобный поиск по типам и темам поможет быстро найти нужное блюдо.",
+                discover: {
+                  chefTitle: "Рекомендация шефа: Тёплая паста с морепродуктами",
+                  chefText: "Нежные морепродукты, томатный соус и хрустящие травы — быстрый и эффектный ужин.",
+                  cta: "Посмотреть рецепты"
+                },
+                chips: {
+                  favorites: "Избранное",
+                  recipes: "Рецепттер",
+                  articles: "Макалалар",
+                  ourKitchen: "Биздин ашкана",
+                  superSearch: "Супер Издөө",
+                  newsletters: "Жарыялар",
+                  addRecipe: "Рецепт кошуу"
+                },
+                classicTitle: "Табылгалар боюнча рецепттер",
+                classicDescription: "Биздин кулинардык сайт — чоң рецепттер китеби: миңдеген рецепттер сүрөттөрү, кадам-кадам көрсөтмөлөрү жана пайдалуу кеңештери менен. Тема жана түр боюнча ыңгайлуу издөө керектүү табылды тез табууга жардам берет.",
+                discover: {
+                  chefTitle: "Шефтин сунушу: Жылуу деңиз азыктары менен паста",
+                  chefText: "Жумшак деңиз азыктары, помидор соусу жана хрустящий чөптөр — ылдам жана таасирдүү кечки тамак.",
+                  cta: "Рецепттерди көрүү"
+                },
         all: "All",
         more: "More",
         showLess: "Show Less",

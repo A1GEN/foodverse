@@ -97,16 +97,16 @@ function Home() {
       <section className={styles.classicCatalog}>
         <div className={styles.classicInner}>
           <div className={styles.topLinks}>
-            <button type="button" aria-label="Добавить в избранное" className={styles.chip}>Добавить в избранное</button>
-            <button type="button" aria-label="Рецепты" className={styles.chip}>Рецепты</button>
-            <button type="button" aria-label="Статьи" className={styles.chip}>Статьи</button>
-            <button type="button" aria-label="Наша кухня" className={styles.chip}>Наша Кухня</button>
-            <button type="button" aria-label="Супер поиск" className={styles.chip}>Супер Поиск</button>
-            <button type="button" aria-label="Рассылки" className={styles.chip}>Рассылки</button>
-            <button type="button" aria-label="Добавить рецепт" className={styles.chip}>Добавить рецепт</button>
+            <button type="button" aria-label="chip-fav" className={styles.chip}>{t('chips.favorites')}</button>
+            <button type="button" aria-label="chip-recipes" className={styles.chip}>{t('chips.recipes')}</button>
+            <button type="button" aria-label="chip-articles" className={styles.chip}>{t('chips.articles')}</button>
+            <button type="button" aria-label="chip-kitchen" className={styles.chip}>{t('chips.ourKitchen')}</button>
+            <button type="button" aria-label="chip-search" className={styles.chip}>{t('chips.superSearch')}</button>
+            <button type="button" aria-label="chip-news" className={styles.chip}>{t('chips.newsletters')}</button>
+            <button type="button" aria-label="chip-add" className={styles.chip}>{t('chips.addRecipe')}</button>
           </div>
 
-          <h2 className={styles.classicTitle}>Рецепты по типам блюд</h2>
+          <h2 className={styles.classicTitle}>{t('classicTitle')}</h2>
 
           <div className={styles.catalogGrid}>
             <div>
@@ -131,7 +131,7 @@ function Home() {
             </div>
           </div>
 
-          <p className={styles.description}>Наш кулинарный сайт — большая книга рецептов: тысячи рецептов с фото, пошаговыми инструкциями и полезными советами. Удобный поиск по типам и темам поможет быстро найти нужное блюдо.</p>
+          <p className={styles.description}>{t('classicDescription')}</p>
         </div>
       </section>
 
@@ -163,9 +163,9 @@ function Home() {
             <img src="https://images.unsplash.com/photo-1543352634-2c2f6f2d3f0b?q=80&w=1600&auto=format&fit=crop" alt="Featured dish" />
             <div className={styles.discoverOverlay} />
             <div className={styles.discoverTextBlock}>
-              <h2>Рекомендация шефа: Тёплая паста с морепродуктами</h2>
-              <p>Нежные морепродукты, томатный соус и хрустящие травы — быстрый и эффектный ужин.</p>
-              <a href="#recipes" className={styles.cta}>Посмотреть рецепты</a>
+              <h2>{t('discover.chefTitle')}</h2>
+              <p>{t('discover.chefText')}</p>
+              <a href="#recipes" className={styles.cta}>{t('discover.cta')}</a>
             </div>
           </div>
         </div>
