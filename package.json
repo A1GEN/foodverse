@@ -21,7 +21,6 @@
     "react-i18next": "^17.0.8",
     "react-is": "^19.2.6",
     "react-router-dom": "^7.15.1",
-    "react-tinder-card": "^1.6.4",
     "react-toastify": "^11.1.0",
     "recharts": "^3.8.1"
   },
