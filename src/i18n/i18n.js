@@ -31,6 +31,9 @@ i18n.use(initReactI18next).init({
         noAccount: "No account?",
         register: "Register",
         heroCTA: "Explore Recipes",
+        comingSoon: "Feature coming soon"
+          comingSoon: "Функция скоро будет доступна"
+          comingSoon: "Функция жакында ишке ашырылат"
         chips: {
           favorites: "Add to favorites",
           recipes: "Recipes",

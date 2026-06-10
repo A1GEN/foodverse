@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useTranslation } from "react-i18next"
 import { signInWithEmailAndPassword } from "firebase/auth"
 import { getAuth } from "../../lib/firebaseClient"
 import { toast } from "react-toastify"
@@ -48,7 +49,7 @@ function Login() {
 
         <div className={styles.options}>
           <label><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)} /> {t('rememberMe')}</label>
-          <a href="#">{t('forgot')}</a>
+          <button type="button" className={styles.linkBtn} onClick={()=> toast.info(t('comingSoon'))}>{t('forgot')}</button>
         </div>
 
         <button className="btn btn-primary">{t('loginButton')}</button>
