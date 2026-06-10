@@ -32,7 +32,7 @@ function Admin() {
         const data = await getAdminRecipes()
         if(!mounted) return
         setRecipes(data)
-      }catch(e){ console.error('admin recipes fetch', e) }
+      }catch(e){ console.error('admin recipes fetch', e); toast.error('Failed loading admin recipes') }
     })()
     return ()=> mounted = false
   },[])
