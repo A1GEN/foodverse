@@ -7,7 +7,7 @@ import AdminStats
 import styles from "./Admin.module.css"
 import AnalyticsCharts from "../../components/AnalyticsCharts/AnalyticsCharts"
 import { useEffect, useState } from "react"
-import { getAdminRecipes, deleteAdminRecipe, updateAdminRecipe } from "../../services/saveRecipe"
+import { getAdminRecipes, deleteAdminRecipe, updateAdminRecipe, createAdminRecipe } from "../../services/saveRecipe"
 import { toast } from "react-toastify"
 import AdminEditModal from "../../components/AdminEditModal/AdminEditModal"
 
@@ -75,6 +75,22 @@ function Admin() {
                 <option value={12}>12</option>
               </select>
             </label>
+            <div style={{marginLeft:'auto'}}>
+              <button className="btn" onClick={async()=>{
+                const sample = { title: 'Sample Pancakes', status: 'published', category: 'Breakfast', description: 'Tasty test pancakes' }
+                try{
+                  const created = await createAdminRecipe(sample)
+                  setRecipes(rs=> [created, ...rs])
+                  toast.success('Sample recipe created')
+                }catch(e){
+                  // fallback to local insert so UI can be tested without Firestore
+                  console.error('create sample failed', e)
+                  const local = { id: `local-${Date.now()}`, ...sample }
+                  setRecipes(rs=> [local, ...rs])
+                  toast.warn('Could not write to Firestore; sample added locally')
+                }
+              }}>Create sample</button>
+            </div>
           </div>
 
           <div className={styles.list}>

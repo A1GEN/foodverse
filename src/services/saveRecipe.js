@@ -2,6 +2,7 @@ import {
   doc,
   setDoc,
   deleteDoc,
+  addDoc,
   getDocs,
   collection
 } from "firebase/firestore"
@@ -47,4 +48,10 @@ export const deleteAdminRecipe = async (id) => {
 export const updateAdminRecipe = async (id, data) => {
   const db = await getDb()
   await setDoc(doc(db, "recipes", id), data, { merge: true })
+}
+
+export const createAdminRecipe = async (data) => {
+  const db = await getDb()
+  const ref = await addDoc(collection(db, 'recipes'), { ...data, createdAt: Date.now() })
+  return { id: ref.id, ...data }
 }
