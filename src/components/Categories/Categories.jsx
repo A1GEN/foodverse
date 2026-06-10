@@ -1,3 +1,4 @@
+import { useState } from "react"
 import styles from "./Categories.module.css"
 
 function Categories({ handleCategory, selectedCategory }) {
