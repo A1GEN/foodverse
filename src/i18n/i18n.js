@@ -47,6 +47,27 @@ i18n.use(initReactI18next).init({
           chefText: "Tender seafood, tomato sauce and crispy herbs — a quick and impressive dinner.",
           cta: "View recipes"
         },
+        topChefs: {
+          title: "Top Chefs 👨‍🍳",
+          recipesLabel: "recipes",
+          followersLabel: "followers",
+          modalInfo: "Top chef with {{count}} curated recipes and {{followers}} followers.",
+          modalExplore: "Explore signature dishes and cooking tips from {{name}}."
+        },
+                topChefs: {
+                  title: "Top Chefs 👨‍🍳",
+                  recipesLabel: "рецепты",
+                  followersLabel: "подписчики",
+                  modalInfo: "Шеф с {{count}} отобранными рецептами и {{followers}} подписчиками.",
+                  modalExplore: "Изучите фирменные блюда и кулинарные советы от {{name}}."
+                },
+                topChefs: {
+                  title: "Top Chefs 👨‍🍳",
+                  recipesLabel: "рецепттер",
+                  followersLabel: "изилдөөчүлөр",
+                  modalInfo: "Шеф {{count}} асыл рецепттер жана {{followers}} көз салуучулар менен.",
+                  modalExplore: "{{name}} тарабынан тандалган даамдар жана бышыруу кеңештерин караңыз."
+                },
         search: {
           placeholder: "Search recipes...",
           title: "Title",

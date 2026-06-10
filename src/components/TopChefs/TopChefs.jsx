@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import styles from "./TopChefs.module.css"
+import { useTranslation } from "react-i18next"
 
 const chefs = [
 
@@ -27,7 +28,7 @@ const chefs = [
 ]
 
 function TopChefs() {
-
+  const { t } = useTranslation()
   const [selected, setSelected] = useState(null)
 
   useEffect(()=>{
@@ -40,7 +41,7 @@ function TopChefs() {
 
     <section className={styles.section}>
 
-      <h2>Top Chefs 👨‍🍳</h2>
+      <h2>{t('topChefs.title')}</h2>
 
       <div className={styles.grid}>
 
@@ -59,8 +60,8 @@ function TopChefs() {
             <div className={styles.info}>
               <h3>{chef.name}</h3>
               <div className={styles.stats}>
-                <span>🍽 {chef.recipes} recipes</span>
-                <span>❤️ {chef.followers.toLocaleString()}</span>
+                <span>🍽 {chef.recipes} {t('topChefs.recipesLabel')}</span>
+                <span>❤️ {chef.followers.toLocaleString()} {t('topChefs.followersLabel')}</span>
               </div>
             </div>
 
@@ -76,8 +77,8 @@ function TopChefs() {
             <button className={styles.close} onClick={()=>setSelected(null)}>✕</button>
             <img src={chefs[selected].image} alt={chefs[selected].name} />
             <h3>{chefs[selected].name}</h3>
-            <p>Top chef with {chefs[selected].recipes} curated recipes and {chefs[selected].followers.toLocaleString()} followers.</p>
-            <p>Explore signature dishes and cooking tips from {chefs[selected].name}.</p>
+            <p>{t('topChefs.modalInfo', { count: chefs[selected].recipes, followers: chefs[selected].followers.toLocaleString() })}</p>
+            <p>{t('topChefs.modalExplore', { name: chefs[selected].name })}</p>
           </div>
         </div>
       )}
