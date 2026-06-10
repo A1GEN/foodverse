@@ -32,29 +32,31 @@ function Login() {
     }
   }
 
+  const { t } = useTranslation()
+
   return (
     <div className={styles.login}>
       <form onSubmit={handleLogin} className={styles.form}>
-        <h1>Welcome Back</h1>
+        <h1>{t('welcomeBack')}</h1>
 
-        <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} />
+        <input type="email" placeholder={t('emailPlaceholder')} value={email} onChange={e=>setEmail(e.target.value)} />
 
         <div className={styles.passRow}>
-          <input type={show?"text":"password"} placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} />
-          <button type="button" className={styles.showBtn} onClick={()=>setShow(s=>!s)}>{show? 'Hide':'Show'}</button>
+          <input type={show?"text":"password"} placeholder={t('passwordPlaceholder')} value={password} onChange={e=>setPassword(e.target.value)} />
+          <button type="button" className={styles.showBtn} onClick={()=>setShow(s=>!s)}>{show? t('hide'):t('show')}</button>
         </div>
 
         <div className={styles.options}>
-          <label><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)} /> Remember me</label>
-          <a href="#">Forgot?</a>
+          <label><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)} /> {t('rememberMe')}</label>
+          <a href="#">{t('forgot')}</a>
         </div>
 
-        <button className="btn btn-primary">Login</button>
+        <button className="btn btn-primary">{t('loginButton')}</button>
 
         <div className={styles.sample}>
-          <div>Demo: <strong>{sampleCreds.email}</strong> / <strong>{sampleCreds.password}</strong></div>
-          <button type="button" onClick={()=>{ setEmail(sampleCreds.email); setPassword(sampleCreds.password) }}>Use demo</button>
-          <div className={styles.regLink}>No account? <a href="/register">Register</a></div>
+          <div>{t('demoText')} <strong>{sampleCreds.email}</strong> / <strong>{sampleCreds.password}</strong></div>
+          <button type="button" onClick={()=>{ setEmail(sampleCreds.email); setPassword(sampleCreds.password) }}>{t('useDemo')}</button>
+          <div className={styles.regLink}>{t('noAccount')} <a href="/register">{t('register')}</a></div>
         </div>
 
       </form>

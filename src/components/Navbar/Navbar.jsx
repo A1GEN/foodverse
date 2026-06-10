@@ -123,17 +123,17 @@ function Navbar() {
         </div>
 
         <div className={styles.center}>
-          <nav className={styles.links} aria-label="Main navigation">
+            <nav className={styles.links} aria-label="Main navigation">
             <Link to="/" className={location.pathname === "/" ? styles.activeLink : ""}>{t("home")}</Link>
             <Link to="/favorites" className={location.pathname === "/favorites" ? styles.activeLink : ""}>{t("favorites")}</Link>
-            <Link to="/create" className={location.pathname === "/create" ? styles.activeLink : ""}>Create</Link>
+            <Link to="/create" className={location.pathname === "/create" ? styles.activeLink : ""}>{t("create")}</Link>
           </nav>
         </div>
 
         <div className={styles.right}>
           {!user && <Link to="/login">{t("login")}</Link>}
-          {user && <Link to="/profile">{user.displayName || 'Profile'}</Link>}
-          {user && user.email && user.email.toLowerCase() === 'argen@gmail.com' && (<Link to="/admin">Admin</Link>)}
+          {user && <Link to="/profile">{user.displayName || t('profile')}</Link>}
+          {user && user.email && user.email.toLowerCase() === 'argen@gmail.com' && (<Link to="/admin">{t('admin')}</Link>)}
 
           <div className={styles.controls}>
             <div className={styles.languages}>
@@ -144,11 +144,11 @@ function Navbar() {
               ))}
             </div>
 
-            <Motion.button className={styles.themeBtn} onClick={toggleTheme} whileHover={{ scale:1.05 }} whileTap={{ scale:0.95 }} aria-label="Toggle theme">
+                <Motion.button className={styles.themeBtn} onClick={toggleTheme} whileHover={{ scale:1.05 }} whileTap={{ scale:0.95 }} aria-label="Toggle theme">
               { darkMode ? <Sun /> : <Moon /> }
             </Motion.button>
 
-            {user && (<button className={styles.logout} onClick={logout}>Logout</button>)}
+            {user && (<button className={styles.logout} onClick={logout}>{t('logout')}</button>)}
 
             <button className={styles.menuBtn} onClick={() => setMenuOpen(v=>!v)} aria-label="menu" aria-expanded={menuOpen}>☰</button>
           </div>
