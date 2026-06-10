@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import styles from './AdminEditModal.module.css'
+import { useTranslation } from 'react-i18next'
 
 export default function AdminEditModal({ open, data, onClose, onSave }){
+  const { t } = useTranslation()
   const [form, setForm] = useState({ title: '', status: '' })
 
   useEffect(()=>{
@@ -20,16 +22,16 @@ export default function AdminEditModal({ open, data, onClose, onSave }){
         exit={{ opacity: 0, y: 8, scale: 0.99 }}
         transition={{ duration: 0.16, ease: 'easeOut' }}
       >
-        <h3>Edit recipe</h3>
-        <label>Title
+        <h3>{t('admin.editModal.title','Edit recipe')}</h3>
+        <label>{t('admin.editModal.fields.title','Title')}
           <input value={form.title} onChange={e=> setForm(f=> ({...f, title: e.target.value}))} />
         </label>
-        <label>Status
+        <label>{t('admin.editModal.fields.status','Status')}
           <input value={form.status} onChange={e=> setForm(f=> ({...f, status: e.target.value}))} />
         </label>
         <div className={styles.actions}>
-          <button className="btn btn-primary" onClick={()=> onSave({ ...data, title: form.title, status: form.status })}>Save</button>
-          <button className="btn btn-ghost" onClick={onClose}>Cancel</button>
+          <button className="btn btn-primary" onClick={()=> onSave({ ...data, title: form.title, status: form.status })}>{t('admin.editModal.save','Save')}</button>
+          <button className="btn btn-ghost" onClick={onClose}>{t('admin.editModal.cancel','Cancel')}</button>
         </div>
       </motion.div>
     </div>
