@@ -158,16 +158,14 @@ function Home() {
 
       {/* Recipes Grid */}
       <section id="recipes" className={styles.section}>
-        <h1 className={styles.title}>Discover Amazing Recipes</h1>
-
         <div className={styles.discoverBanner}>
           <div className={styles.discoverImageWrap}>
-            <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?q=80&w=1600&auto=format&fit=crop" alt="Discover" />
+            <img src="https://images.unsplash.com/photo-1543352634-2c2f6f2d3f0b?q=80&w=1600&auto=format&fit=crop" alt="Featured dish" />
             <div className={styles.discoverOverlay} />
             <div className={styles.discoverTextBlock}>
-              <h2>Discover Amazing Recipes</h2>
-              <p>Inspire your next meal with curated recipes, step‑by‑step photos and chef tips.</p>
-              <a href="#recipes" className={styles.cta}>Browse Recipes</a>
+              <h2>Рекомендация шефа: Тёплая паста с морепродуктами</h2>
+              <p>Нежные морепродукты, томатный соус и хрустящие травы — быстрый и эффектный ужин.</p>
+              <a href="#recipes" className={styles.cta}>Посмотреть рецепты</a>
             </div>
           </div>
         </div>
