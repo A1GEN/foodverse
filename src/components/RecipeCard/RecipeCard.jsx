@@ -20,10 +20,12 @@ import {
 import {
   LikesContext
 } from "../../context/LikesContext/LikesContext"
+import { useTranslation } from "react-i18next"
 
 function RecipeCard({
   recipe
 }) {
+  const { t } = useTranslation()
 
   const {
     addToFavorites,
@@ -104,14 +106,14 @@ function RecipeCard({
 
         <div className={styles.actions}>
           <Link to={`/recipe/${recipe.idMeal}`}>
-            <button className={`${styles.viewButton} btn btn-primary`}>View Recipe</button>
+            <button className={`${styles.viewButton} btn btn-primary`}>{t('viewRecipe')}</button>
           </Link>
 
           <div className={styles.icons}>
             {isFavorite(recipe.idMeal) ? (
-              <button className={`${styles.favoriteButton} btn btn-ghost`} onClick={() => removeFromFavorites(recipe.idMeal)}>💖 Saved</button>
+              <button className={`${styles.favoriteButton} btn btn-ghost`} onClick={() => removeFromFavorites(recipe.idMeal)}>💖 {t('saved')}</button>
             ) : (
-              <button className={`${styles.favoriteButton} btn btn-ghost`} onClick={() => addToFavorites(recipe)}>🤍 Save</button>
+              <button className={`${styles.favoriteButton} btn btn-ghost`} onClick={() => addToFavorites(recipe)}>🤍 {t('save')}</button>
             )}
             <button className={`${styles.likeButton} btn btn-ghost`} onClick={() => toggleLike(recipe.idMeal)}>{likes[recipe.idMeal] || 0} ❤️</button>
           </div>

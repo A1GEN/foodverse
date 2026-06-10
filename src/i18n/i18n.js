@@ -47,6 +47,21 @@ i18n.use(initReactI18next).init({
           chefText: "Tender seafood, tomato sauce and crispy herbs — a quick and impressive dinner.",
           cta: "View recipes"
         },
+        popularCategories: "Popular categories",
+        viewRecipe: "View Recipe",
+        save: "Save",
+        saved: "Saved",
+        minutesShort: "m"
+          popularCategories: "Популярные категории",
+          viewRecipe: "Посмотреть рецепт",
+          save: "Сохранить",
+          saved: "Сохранено",
+          minutesShort: "м"
+          popularCategories: "Популярдуу категориялар",
+          viewRecipe: "Рецептти көрүү",
+          save: "Сактоо",
+          saved: "Сакталды",
+          minutesShort: "м"
         topChefs: {
           title: "Top Chefs 👨‍🍳",
           recipesLabel: "recipes",
