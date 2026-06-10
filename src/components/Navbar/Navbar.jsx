@@ -159,11 +159,11 @@ function Navbar() {
           <Motion.div className={styles.mobileMenu} role="menu" initial={{ opacity:0, y:-8 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.18 }}>
             <Link to="/" className={location.pathname === "/" ? styles.activeLink : ""}>{t("home")}</Link>
             <Link to="/favorites" className={location.pathname === "/favorites" ? styles.activeLink : ""}>{t("favorites")}</Link>
-            <Link to="/create" className={location.pathname === "/create" ? styles.activeLink : ""}>Create</Link>
+            <Link to="/create" className={location.pathname === "/create" ? styles.activeLink : ""}>{t('create')}</Link>
             {!user && <Link to="/login">{t("login")}</Link>}
             {user && <Link to="/profile">{user.displayName || 'Profile'}</Link>}
             <div className={styles.mobileControls}>
-              <div className={styles.languages}>
+                <div className={styles.languages}>
                 <button onClick={() => i18n.changeLanguage("en")}>EN</button>
                 <button onClick={() => i18n.changeLanguage("ru")}>RU</button>
               </div>
