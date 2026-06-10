@@ -1,19 +1,22 @@
 import { useState } from "react"
 import styles from "./Categories.module.css"
+import { useTranslation } from "react-i18next"
 
 function Categories({ handleCategory, selectedCategory }) {
 
+  const { t } = useTranslation()
+
   const allCategories = [
-    { name: "🍕 Pizza", api: "Pizza" },
-    { name: "🍰 Desserts", api: "Dessert" },
-    { name: "🥗 Salads", api: "Salad" },
-    { name: "🍦 Ice Cream", api: "Ice Cream" },
-    { name: "🍜 Soups", api: "Soups" },
-    { name: "🍔 Fast Food", api: "Fast Food" },
-    { name: "🥩 Meat", api: "Meat" },
-    { name: "🐟 Seafood", api: "Seafood" },
-    { name: "🌮 Street Food", api: "Street Food" },
-    { name: "🥐 Bakery", api: "Bakery" }
+    { key: 'pizza', api: "Pizza" },
+    { key: 'desserts', api: "Dessert" },
+    { key: 'salads', api: "Salad" },
+    { key: 'iceCream', api: "Ice Cream" },
+    { key: 'soups', api: "Soups" },
+    { key: 'fastFood', api: "Fast Food" },
+    { key: 'meat', api: "Meat" },
+    { key: 'seafood', api: "Seafood" },
+    { key: 'streetFood', api: "Street Food" },
+    { key: 'bakery', api: "Bakery" }
   ]
 
   const [expanded, setExpanded] = useState(false)
@@ -23,22 +26,22 @@ function Categories({ handleCategory, selectedCategory }) {
     <section className={styles.categories}>
       <button
         aria-pressed={selectedCategory === ''}
-        aria-label="Показать все рецепты"
+        aria-label={t('all')}
         className={selectedCategory === '' ? styles.active : ''}
         onClick={() => handleCategory('')}
       >
-        All
+        {t('all')}
       </button>
 
       {visible.map((category) => (
         <button
           key={category.name}
           aria-pressed={selectedCategory === category.api}
-          aria-label={`Категория ${category.name}`}
+          aria-label={t(`categories.${category.key}`)}
           className={selectedCategory === category.api ? styles.active : ''}
           onClick={() => handleCategory(category.api)}
         >
-          {category.name}
+          {t(`categories.${category.key}`)}
         </button>
       ))}
 
@@ -49,7 +52,7 @@ function Categories({ handleCategory, selectedCategory }) {
           aria-controls="categories-list"
           onClick={() => setExpanded((s) => !s)}
         >
-          {expanded ? 'Show Less' : 'More'}
+          {expanded ? t('showLess') : t('more')}
         </button>
       )}
     </section>

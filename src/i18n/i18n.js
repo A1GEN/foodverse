@@ -31,6 +31,51 @@ i18n.use(initReactI18next).init({
         noAccount: "No account?",
         register: "Register",
         heroCTA: "Explore Recipes",
+        all: "All",
+        more: "More",
+        showLess: "Show Less",
+        categories: {
+          pizza: "🍕 Pizza",
+          desserts: "🍰 Desserts",
+          salads: "🥗 Salads",
+          iceCream: "🍦 Ice Cream",
+          soups: "🍜 Soups",
+          fastFood: "🍔 Fast Food",
+          meat: "🥩 Meat",
+          seafood: "🐟 Seafood",
+          streetFood: "🌮 Street Food",
+          bakery: "🥐 Bakery"
+        }
+        all: "Все",
+        more: "Ещё",
+        showLess: "Свернуть",
+        categories: {
+          pizza: "🍕 Пицца",
+          desserts: "🍰 Десерты",
+          salads: "🥗 Салаты",
+          iceCream: "🍦 Мороженое",
+          soups: "🍜 Супы",
+          fastFood: "🍔 Фастфуд",
+          meat: "🥩 Мясо",
+          seafood: "🐟 Морепродукты",
+          streetFood: "🌮 Уличная еда",
+          bakery: "🥐 Выпечка"
+        }
+        all: "Бардыгы",
+        more: "Көбүрөөк",
+        showLess: "Азайтуу",
+        categories: {
+          pizza: "🍕 Пицца",
+          desserts: "🍰 Десерттер",
+          salads: "🥗 Салаттар",
+          iceCream: "🍦 Мороженое",
+          soups: "🍜 Шорпалар",
+          fastFood: "🍔 Фастфуд",
+          meat: "🥩 Эт",
+          seafood: "🐟 Деңиз азыктары",
+          streetFood: "🌮 Уличная тамак",
+          bakery: "🥐 Пишири"
+        }
 
         heroTitle:
           "Discover Amazing Recipes",
