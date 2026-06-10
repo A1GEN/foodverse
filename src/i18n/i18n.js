@@ -56,6 +56,107 @@ i18n.use(initReactI18next).init({
       }
     }
 
+    ,es: {
+      translation: {
+        home: "Inicio",
+        favorites: "Favoritos",
+        login: "Iniciar sesión",
+        heroTitle: "Descubre recetas increíbles",
+        heroText: "Encuentra comida deliciosa de todo el mundo",
+        heroCTA: "Explorar recetas"
+      }
+    },
+    fr: {
+      translation: {
+        home: "Accueil",
+        favorites: "Favoris",
+        login: "Connexion",
+        heroTitle: "Découvrez des recettes étonnantes",
+        heroText: "Trouvez de délicieux plats du monde entier",
+        heroCTA: "Explorer les recettes"
+      }
+    },
+    de: {
+      translation: {
+        home: "Startseite",
+        favorites: "Favoriten",
+        login: "Anmelden",
+        heroTitle: "Entdecke fantastische Rezepte",
+        heroText: "Finde leckeres Essen aus aller Welt",
+        heroCTA: "Rezepte entdecken"
+      }
+    },
+    it: {
+      translation: {
+        home: "Home",
+        favorites: "Preferiti",
+        login: "Accedi",
+        heroTitle: "Scopri ricette straordinarie",
+        heroText: "Trova cibo delizioso da tutto il mondo",
+        heroCTA: "Esplora ricette"
+      }
+    },
+    pt: {
+      translation: {
+        home: "Início",
+        favorites: "Favoritos",
+        login: "Entrar",
+        heroTitle: "Descubra receitas incríveis",
+        heroText: "Encontre comidas deliciosas de todo o mundo",
+        heroCTA: "Explorar receitas"
+      }
+    },
+    zh: {
+      translation: {
+        home: "首页",
+        favorites: "收藏",
+        login: "登录",
+        heroTitle: "发现惊人的食谱",
+        heroText: "找到来自世界各地的美味食物",
+        heroCTA: "探索食谱"
+      }
+    },
+    ja: {
+      translation: {
+        home: "ホーム",
+        favorites: "お気に入り",
+        login: "ログイン",
+        heroTitle: "素晴らしいレシピを見つけよう",
+        heroText: "世界中のおいしい料理を見つける",
+        heroCTA: "レシピを見る"
+      }
+    },
+    hi: {
+      translation: {
+        home: "मुख्यपृष्ठ",
+        favorites: "पसंदीदा",
+        login: "लॉगिन",
+        heroTitle: "अद्भुत व्यंजन खोजें",
+        heroText: "दुनिया भर के स्वादिष्ट व्यंजन खोजें",
+        heroCTA: "रेसिपी देखें"
+      }
+    },
+    ar: {
+      translation: {
+        home: "الصفحة الرئيسية",
+        favorites: "المفضلات",
+        login: "تسجيل الدخول",
+        heroTitle: "اكتشف وصفات رائعة",
+        heroText: "اعثر على أطعمة لذيذة من جميع أنحاء العالم",
+        heroCTA: "استكشاف الوصفات"
+      }
+    },
+    tr: {
+      translation: {
+        home: "Ana Sayfa",
+        favorites: "Favoriler",
+        login: "Giriş",
+        heroTitle: "Harika Tarifler Keşfedin",
+        heroText: "Dünyanın dört bir yanından lezzetli yemekler bulun",
+        heroCTA: "Tarifleri Keşfet"
+      }
+    }
+
   },
 
   lng:"en",

@@ -137,9 +137,11 @@ function Navbar() {
 
           <div className={styles.controls}>
             <div className={styles.languages}>
-              <button onClick={() => i18n.changeLanguage("en")}>EN</button>
-              <button onClick={() => i18n.changeLanguage("ru")}>RU</button>
-              <button onClick={() => i18n.changeLanguage("kg")}>KG</button>
+              {[
+                ['en','EN'],['ru','RU'],['kg','KG'],['es','ES'],['fr','FR'],['de','DE'],['it','IT'],['pt','PT'],['zh','中'],['ja','JP'],['hi','HI'],['ar','AR'],['tr','TR']
+              ].map(([code,label])=> (
+                <button key={code} onClick={() => i18n.changeLanguage(code)} aria-label={`lang-${code}`}>{label}</button>
+              ))}
             </div>
 
             <Motion.button className={styles.themeBtn} onClick={toggleTheme} whileHover={{ scale:1.05 }} whileTap={{ scale:0.95 }} aria-label="Toggle theme">
