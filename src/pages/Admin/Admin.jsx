@@ -10,6 +10,7 @@ import { useEffect, useState } from "react"
 import { getAdminRecipes, deleteAdminRecipe, updateAdminRecipe, createAdminRecipe } from "../../services/saveRecipe"
 import { toast } from "react-toastify"
 import AdminEditModal from "../../components/AdminEditModal/AdminEditModal"
+import { useTranslation } from "react-i18next"
 
 function Admin() {
 
@@ -24,6 +25,7 @@ function Admin() {
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(8)
   const [filterStatus, setFilterStatus] = useState('all')
+  const { t } = useTranslation()
 
   useEffect(()=>{
     let mounted = true
@@ -52,14 +54,14 @@ function Admin() {
 
       <main className={styles.content}>
 
-        <h1>Dashboard 👑</h1>
+        <h1>{t('admin.title','Dashboard 👑')}</h1>
 
         <AdminStats />
 
         <AnalyticsCharts />
 
         <section className={styles.section} aria-label="Recipes admin">
-          <h2>Recipes</h2>
+          <h2>{t('admin.recipesTitle','Recipes')}</h2>
 
           <div className={styles.controls}>
             <label>Filter:
@@ -81,20 +83,20 @@ function Admin() {
                 try{
                   const created = await createAdminRecipe(sample)
                   setRecipes(rs=> [created, ...rs])
-                  toast.success('Sample recipe created')
+                  toast.success(t('admin.sampleCreated','Sample recipe created'))
                 }catch(e){
                   // fallback to local insert so UI can be tested without Firestore
                   console.error('create sample failed', e)
                   const local = { id: `local-${Date.now()}`, ...sample }
                   setRecipes(rs=> [local, ...rs])
-                  toast.warn('Could not write to Firestore; sample added locally')
+                  toast.warn(t('admin.sampleLocalWarn','Could not write to Firestore; sample added locally'))
                 }
-              }}>Create sample</button>
+              }}>{t('admin.createSample','Create sample')}</button>
             </div>
           </div>
 
           <div className={styles.list}>
-            {recipes.length === 0 && <div className={styles.muted}>No recipes found in Firestore.</div>}
+            {recipes.length === 0 && <div className={styles.muted}>{t('admin.noRecipes','No recipes found in Firestore.')}</div>}
             {paginated.map(r=> (
               <div key={r.id} className={styles.row}>
                 <div>
@@ -102,24 +104,24 @@ function Admin() {
                   <div className={styles.muted}>{r.status || r.category || '—'}</div>
                 </div>
                 <div className={styles.actions}>
-                  <button className="btn btn-ghost" onClick={()=>{ setEditData(r); setEditModal(true) }}>Edit</button>
+                  <button className="btn btn-ghost" onClick={()=>{ setEditData(r); setEditModal(true) }}>{t('admin.edit','Edit')}</button>
                   <button className="btn" onClick={async()=>{
-                    if(!confirm('Delete recipe?')) return
+                    if(!confirm(t('admin.deleteConfirm','Delete recipe?'))) return
                     try{
                       await deleteAdminRecipe(r.id)
                       setRecipes(rs=> rs.filter(x=> x.id !== r.id))
-                      toast.success('Recipe deleted')
-                    }catch(e){ console.error(e); toast.error('Delete failed') }
-                  }}>Delete</button>
+                      toast.success(t('admin.deleted','Recipe deleted'))
+                    }catch(e){ console.error(e); toast.error(t('admin.deleteFailed','Delete failed')) }
+                  }}>{t('admin.delete','Delete')}</button>
                 </div>
               </div>
             ))}
           </div>
 
           <div className={styles.pager}>
-            <button onClick={()=>setPage(p=> Math.max(0,p-1))} disabled={page===0}>Prev</button>
-            <span>Page {page+1} / {totalPages}</span>
-            <button onClick={()=>setPage(p=> Math.min(totalPages-1,p+1))} disabled={page >= totalPages-1}>Next</button>
+            <button onClick={()=>setPage(p=> Math.max(0,p-1))} disabled={page===0}>{t('admin.prev','Prev')}</button>
+            <span>{t('admin.page','Page')} {page+1} / {totalPages}</span>
+            <button onClick={()=>setPage(p=> Math.min(totalPages-1,p+1))} disabled={page >= totalPages-1}>{t('admin.next','Next')}</button>
           </div>
 
           <AdminEditModal
