@@ -1,0 +1,113 @@
+*{
+
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+
+}
+:root{
+  --bg: #ffffff;
+  --panel: #f8fafc;
+  --muted: #334155;
+  --primary: #fb923c; /* warmer orange */
+  --accent: #ffdd57;
+  --text: #0f172a;
+  --hero-bg: url('/hero.jpg');
+  /* spacing scale */
+  --space-xs: 6px;
+  --space-sm: 12px;
+  --space-md: 20px;
+  --space-lg: 32px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+}
+
+body{
+  font-family: "Inter", "Poppins", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: linear-gradient(135deg, var(--bg), #f8fafc);
+  color: var(--text);
+  overflow-x: hidden;
+  transition: background .35s ease, color .35s ease;
+}
+
+body.dark{
+  --bg: #0f172a;
+  --panel: rgba(255,255,255,0.04);
+  --muted: #334155;
+  --primary: #f97316;
+  --text: #ffffff;
+}
+
+.glass{
+  background: var(--panel);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,0.06);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  color: var(--text);
+}
+
+button{
+
+  transition:0.18s cubic-bezier(.2,.9,.2,1);
+
+}
+
+button:hover{
+  transform: translateY(-3px) scale(1.03);
+  box-shadow: 0 10px 25px rgba(249,115,22,0.12);
+}
+
+html{
+
+  scroll-behavior:smooth;
+
+}
+
+.gradientText{
+
+  background:
+    linear-gradient(
+      90deg,
+      orange,
+      pink,
+      cyan
+    );
+
+  -webkit-background-clip:text;
+
+  -webkit-text-fill-color:
+    transparent;
+
+}
+
+body{
+
+  overscroll-behavior:none;
+
+  -webkit-tap-highlight-color:
+    transparent;
+
+}
+
+::-webkit-scrollbar{
+
+  width:0;
+
+}
+
+/* Global UI primitives */
+.btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 14px; border-radius:var(--radius-md); border:none; cursor:pointer; font-weight:700 }
+.btn-primary{ background: linear-gradient(90deg,var(--primary), #ffb86b); color: #07102a; box-shadow:0 8px 24px rgba(249,115,22,0.14) }
+.btn-primary{ border-radius:16px }
+.btn-ghost{ background: transparent; color: var(--text); border:1px solid rgba(255,255,255,0.06) }
+.card-base{ background: var(--panel); border-radius:var(--radius-lg); padding:var(--space-md); box-shadow:0 8px 32px rgba(2,6,23,0.4) }
+.heading-large{ font-size:48px; font-weight:800; margin-bottom:var(--space-md) }
+.heading-medium{ font-size:28px; font-weight:700 }
+
+/* subtle UI animations */
+.fadeIn{ animation:fadeIn .4s ease both }
+@keyframes fadeIn{ from{ opacity:0; transform:translateY(6px) } to{ opacity:1; transform:none } }
+
+/* utility */
+.muted{ color:var(--muted) }

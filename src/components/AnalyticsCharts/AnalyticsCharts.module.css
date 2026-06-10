@@ -1,0 +1,12 @@
+.chartContainer{
+  width:100%;
+  background:#111827;
+  padding:30px;
+  border-radius:20px;
+  margin-top:40px;
+}
+
+.chartContainer h2{
+  color:white;
+  margin-bottom:30px;
+}

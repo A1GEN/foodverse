@@ -1,0 +1,18 @@
+.favorites{
+  min-height:100vh;
+  background:#0f172a;
+  padding:80px 5%;
+}
+
+.favorites h1{
+  color:white;
+  margin-bottom:40px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:
+    repeat(auto-fit,minmax(300px,1fr));
+
+  gap:30px;
+}

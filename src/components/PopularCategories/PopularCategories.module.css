@@ -1,0 +1,34 @@
+.categories{
+  padding:60px 5%;
+}
+
+.categories h2{
+  color:white;
+  font-size:32px;
+  margin-bottom:25px;
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:
+  repeat(auto-fit,minmax(180px,1fr));
+
+  gap:20px;
+}
+
+.card{
+  background:#1e293b;
+  color:white;
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  font-size:22px;
+  font-weight:600;
+  transition:.3s;
+  cursor:pointer;
+}
+
+.card:hover{
+  transform:translateY(-5px);
+  background:#f97316;
+}

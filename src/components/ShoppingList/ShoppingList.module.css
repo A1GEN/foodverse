@@ -1,0 +1,38 @@
+.shopping{
+  margin-top:50px;
+}
+
+.shopping h2{
+  margin-bottom:20px;
+}
+
+.list{
+  display:flex;
+  flex-direction:column;
+  gap:15px;
+}
+
+.item{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  background:#111827;
+  padding:15px 20px;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.item:hover{
+  background:#1f2937;
+}
+
+.item input{
+  width:20px;
+  height:20px;
+}
+
+.checked{
+  text-decoration:line-through;
+  opacity:0.6;
+}

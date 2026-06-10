@@ -1,0 +1,53 @@
+.bottomNav{
+
+  position:fixed;
+
+  bottom:20px;
+
+  left:50%;
+
+  transform:translateX(-50%);
+
+  width:90%;
+
+  max-width:500px;
+
+  background:
+    rgba(30,41,59,0.85);
+
+  backdrop-filter:
+    blur(14px);
+
+  border:
+    1px solid rgba(255,255,255,0.1);
+
+  border-radius:24px;
+
+  display:flex;
+
+  justify-content:space-around;
+
+  padding:18px;
+
+  z-index:9999;
+
+  box-shadow:
+    0 8px 30px rgba(0,0,0,0.4);
+
+}
+
+.bottomNav a{
+
+  color:white;
+
+  transition:0.3s;
+
+}
+
+.bottomNav a:hover{
+
+  transform:scale(1.2);
+
+  color:orange;
+
+}

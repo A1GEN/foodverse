@@ -1,0 +1,136 @@
+.trending{
+
+  padding:80px 5%;
+
+  background:#111827;
+
+  color:white;
+
+  text-align:center;
+
+}
+
+.trending h1{
+
+  font-size:55px;
+
+  margin-bottom:10px;
+
+}
+
+.trending p{
+
+  color:#9ca3af;
+
+  margin-bottom:40px;
+
+}
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(280px,1fr));
+
+  gap:30px;
+
+}
+
+.card{
+
+  background:#1f2937;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  transition:0.3s;
+
+}
+
+.card:hover{
+
+  transform:
+    translateY(-10px);
+
+}
+
+.imageBox{
+
+  position:relative;
+
+}
+
+.imageBox img{
+
+  width:100%;
+
+  height:250px;
+
+  object-fit:cover;
+
+}
+
+.badge{
+
+  position:absolute;
+
+  top:15px;
+  left:15px;
+
+  background:#ff6b35;
+
+  padding:8px 14px;
+
+  border-radius:12px;
+
+  font-size:14px;
+
+}
+
+.content{
+
+  padding:20px;
+
+}
+
+.content h2{
+
+  margin-bottom:10px;
+
+}
+
+.content p{
+
+  color:#d1d5db;
+
+  margin-bottom:20px;
+
+}
+
+.bottom{
+
+  display:flex;
+
+  justify-content:space-between;
+
+  align-items:center;
+
+}
+
+.bottom button{
+
+  border:none;
+
+  padding:12px 18px;
+
+  border-radius:12px;
+
+  background:#ff6b35;
+
+  color:white;
+
+  cursor:pointer;
+
+}

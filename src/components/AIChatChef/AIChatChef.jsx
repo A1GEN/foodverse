@@ -1,0 +1,86 @@
+import { useState } from "react"
+
+import {
+  askAI
+} from "../../services/ai"
+
+import styles
+from "./AIChatChef.module.css"
+
+function AIChatChef() {
+
+  const [question, setQuestion] = useState("")
+  const [answer, setAnswer] = useState("")
+  const [loading, setLoading] = useState(false)
+  const [history, setHistory] = useState([])
+  const [error, setError] = useState("")
+
+  const handleAsk = async () => {
+    if (!question) return
+    setLoading(true)
+    setError("")
+    try{
+      const timeoutMs = 12000
+      const p = askAI(question)
+      const response = await Promise.race([
+        p,
+        new Promise((_,rej)=> setTimeout(()=> rej(new Error('timeout')), timeoutMs))
+      ])
+      setAnswer(response)
+      setHistory((h) => [{ q: question, a: response }].concat(h).slice(0, 8))
+    }catch(e){
+      console.error('AI error', e)
+      setError(e.message || 'AI service error')
+      setAnswer('')
+    }finally{
+      setLoading(false)
+      setQuestion("")
+    }
+  }
+
+  return (
+
+    <div className={styles.chat}>
+
+      <h2>AI Chef 🤖</h2>
+
+      <div className={styles.chatBox}>
+        <textarea
+          rows={3}
+          placeholder="Ask recipe ideas, substitutes or cooking tips..."
+          value={question}
+          onChange={(e) => setQuestion(e.target.value)}
+        />
+
+        <div style={{display:'flex',flexDirection:'column',gap:10}}>
+          <button onClick={handleAsk} disabled={loading || !question}>{loading ? 'Thinking...' : 'Ask AI'}</button>
+          <div className={styles.suggestions}>
+            <button onClick={()=>setQuestion('Easy weeknight chicken recipe')}>Chicken idea</button>
+            <button onClick={()=>setQuestion('Vegetarian dinner for 2')}>Veg dinner</button>
+          </div>
+        </div>
+      </div>
+
+      <div className={styles.answer}>
+        {answer ? <p>{answer}</p> : <p className={styles.hint}>Ask me for recipe ideas, substitutes, or cooking tips.</p>}
+      </div>
+
+      {history.length>0 && (
+        <div className={styles.history}>
+          <h4>History</h4>
+          {history.map((h,i)=> (
+            <div key={i} className={styles.hRow}>
+              <strong>Q:</strong> <span>{h.q}</span>
+              <div><strong>A:</strong> <span>{h.a}</span></div>
+            </div>
+          ))}
+        </div>
+      )}
+
+    </div>
+
+  )
+
+}
+
+export default AIChatChef

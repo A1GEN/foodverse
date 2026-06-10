@@ -1,0 +1,58 @@
+.wrapper{
+
+  margin-top:80px;
+
+}
+
+.wrapper h2{
+
+  font-size:40px;
+
+  margin-bottom:30px;
+
+}
+
+.grid{
+
+  display:grid;
+
+  grid-template-columns:
+    repeat(auto-fit,minmax(250px,1fr));
+
+  gap:25px;
+
+}
+
+.card{
+
+  overflow:hidden;
+
+  border-radius:25px;
+
+  background:#111827;
+
+  transition:0.3s;
+
+}
+
+.card:hover{
+
+  transform:translateY(-8px);
+
+}
+
+.card img{
+
+  width:100%;
+
+  height:220px;
+
+  object-fit:cover;
+
+}
+
+.card h3{
+
+  padding:20px;
+
+}

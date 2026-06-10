@@ -1,0 +1,27 @@
+.admin{
+  display:flex;
+  min-height:100vh;
+  background:#0f172a;
+}
+
+.content{
+  flex:1;
+  padding:40px;
+}
+
+.content h1{
+  color:white;
+  margin-bottom:40px;
+}
+
+@media(max-width:768px){
+
+  .admin{
+    flex-direction:column;
+  }
+
+  .sidebar{
+    width:100%;
+  }
+
+}
