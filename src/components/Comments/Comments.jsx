@@ -3,9 +3,11 @@ import styles from "./Comments.module.css"
 import { getDb } from "../../lib/firebaseClient"
 import { collection, addDoc, query, orderBy, onSnapshot, serverTimestamp, deleteDoc, doc } from "firebase/firestore"
 import { AuthContext } from "../../context/AuthContext/AuthContext"
+import { useTranslation } from "react-i18next"
 
 function Comments({ recipeId }){
   const { user, userData } = useContext(AuthContext)
+  const { t } = useTranslation()
   const [comments, setComments] = useState([])
   const [message, setMessage] = useState("")
   const [replyTo, setReplyTo] = useState(null)
@@ -28,13 +30,13 @@ function Comments({ recipeId }){
   },[recipeId])
 
   const addComment = async () =>{
-    if(!message.trim()) return
+      if(!message.trim()) return
     const db = await getDb()
     const commentsRef = collection(db, 'recipeMeta', recipeId, 'comments')
     try{
       await addDoc(commentsRef, {
         uid: user?.uid || null,
-        username: userData?.displayName || user?.displayName || 'Guest',
+        username: userData?.displayName || user?.displayName || t('comments.guest','Guest'),
         message,
         parentId: null,
         createdAt: serverTimestamp()
@@ -52,7 +54,7 @@ function Comments({ recipeId }){
     try{
       await addDoc(commentsRef, {
         uid: user?.uid || null,
-        username: userData?.displayName || user?.displayName || 'Guest',
+        username: userData?.displayName || user?.displayName || t('comments.guest','Guest'),
         message: replyText,
         parentId,
         createdAt: serverTimestamp()
@@ -64,7 +66,7 @@ function Comments({ recipeId }){
 
   const deleteComment = async (id, uid) =>{
     // allow delete if you are author or admin
-    if(!user) return
+      if(!user) return
     const isAdmin = user.email && user.email.toLowerCase() === 'argen@gmail.com'
     if(uid !== user.uid && !isAdmin) return
     try{
@@ -75,10 +77,10 @@ function Comments({ recipeId }){
 
   return (
     <div className={styles.comments}>
-      <h2>Comments 💬</h2>
+      <h2>{t('comments.title','Comments 💬')}</h2>
       <div className={styles.form}>
-        <textarea placeholder="Write comment..." value={message} onChange={e=>setMessage(e.target.value)} />
-        <button onClick={addComment}>Add Comment</button>
+        <textarea placeholder={t('comments.placeholder','Write comment...')} value={message} onChange={e=>setMessage(e.target.value)} />
+        <button onClick={addComment}>{t('comments.add','Add Comment')}</button>
       </div>
 
       <div className={styles.list}>
@@ -88,24 +90,24 @@ function Comments({ recipeId }){
             <div className={styles.top}>
               <h3>{c.username}</h3>
               <div>
-                <button onClick={()=>setReplyTo(c.id)}>Reply</button>
-                <button onClick={()=>deleteComment(c.id, c.uid)}>Delete</button>
+                <button onClick={()=>setReplyTo(c.id)}>{t('comments.reply','Reply')}</button>
+                <button onClick={()=>deleteComment(c.id, c.uid)}>{t('comments.delete','Delete')}</button>
               </div>
             </div>
             <p>{c.message}</p>
 
             {replyTo === c.id && (
               <div className={styles.replyForm}>
-                <textarea value={replyText} onChange={e=>setReplyText(e.target.value)} placeholder="Write a reply..." />
-                <button onClick={()=>addReply(c.id)}>Send Reply</button>
-                <button onClick={()=>{ setReplyTo(null); setReplyText("") }}>Cancel</button>
+                <textarea value={replyText} onChange={e=>setReplyText(e.target.value)} placeholder={t('comments.replyPlaceholder','Write a reply...')} />
+                <button onClick={()=>addReply(c.id)}>{t('comments.sendReply','Send Reply')}</button>
+                <button onClick={()=>{ setReplyTo(null); setReplyText("") }}>{t('comments.cancel','Cancel')}</button>
               </div>
             )}
 
             <div className={styles.replies}>
               {comments.filter(r=>r.parentId===c.id).map(r=> (
                 <div key={r.id} className={styles.reply}>
-                  <div className={styles.top}><h4>{r.username}</h4><button onClick={()=>deleteComment(r.id, r.uid)}>Delete</button></div>
+                  <div className={styles.top}><h4>{r.username}</h4><button onClick={()=>deleteComment(r.id, r.uid)}>{t('comments.delete','Delete')}</button></div>
                   <p>{r.message}</p>
                 </div>
               ))}

@@ -25,43 +25,22 @@ const desserts = [
 ]
 
 function Desserts() {
+  const { t } = require('react-i18next').useTranslation()
 
   return (
-
     <div className={styles.wrapper}>
-
-      <h2>Desserts 🍫</h2>
+      <h2>{t('desserts.title','Desserts 🍫')}</h2>
 
       <div className={styles.grid}>
-
-        {
-
-          desserts.map((item,index)=>(
-
-            <div
-              key={index}
-              className={styles.card}
-            >
-
-              <img
-                src={item.image}
-                alt={item.name}
-              />
-
-              <h3>{item.name}</h3>
-
-            </div>
-
-          ))
-
-        }
-
+        {desserts.map((item,index)=>(
+          <div key={index} className={styles.card}>
+            <img src={item.image} alt={item.name} />
+            <h3>{item.name}</h3>
+          </div>
+        ))}
       </div>
-
     </div>
-
   )
-
 }
 
 export default Desserts

@@ -1,14 +1,10 @@
-import {
-  useState
-} from "react"
-
-import styles
-from "./UploadRecipe.module.css"
+import { useState } from "react"
+import styles from "./UploadRecipe.module.css"
+import { useTranslation } from "react-i18next"
 
 function UploadRecipe() {
-
-  const [preview,setPreview] =
-    useState("")
+  const { t } = useTranslation()
+  const [preview,setPreview] = useState("")
 
   // 📸 Upload image
   const handleImage = (e)=>{
@@ -26,13 +22,9 @@ function UploadRecipe() {
 
     <section className={styles.upload}>
 
-      <h1>
-        Upload Recipe 📸
-      </h1>
+      <h1>{t('upload.title','Upload Recipe 📸')}</h1>
 
-      <p>
-        Share your food image 😎
-      </p>
+      <p>{t('upload.share','Share your food image 😎')}</p>
 
       <label
         className={styles.uploadBox}
@@ -50,7 +42,7 @@ function UploadRecipe() {
 
         />
 
-        📸 Choose Image
+        {t('upload.choose','📸 Choose Image')}
 
       </label>
 
@@ -60,10 +52,7 @@ function UploadRecipe() {
 
           <div className={styles.preview}>
 
-            <img
-              src={preview}
-              alt="Preview"
-            />
+            <img src={preview} alt={t('upload.previewAlt','Preview')} />
 
           </div>
 
