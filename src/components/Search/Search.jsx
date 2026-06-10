@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { useTranslation } from "react-i18next"
 
 import {
   motion as Motion
@@ -8,6 +9,7 @@ import styles
 from "./Search.module.css"
 
 function Search({ search, setSearch, handleSearch }) {
+  const { t } = useTranslation()
 
   const [mode, setMode] = useState('title')
 
@@ -48,12 +50,12 @@ function Search({ search, setSearch, handleSearch }) {
 
     <div className={styles.searchBox}>
 
-      <input type="text" placeholder="Search recipes..." value={search} onChange={(e)=> setSearch(e.target.value)} />
+      <input type="text" placeholder={t('search.placeholder')} value={search} onChange={(e)=> setSearch(e.target.value)} />
 
       <select value={mode} onChange={e=>setMode(e.target.value)} className={styles.modeSelect}>
-        <option value="title">Title</option>
-        <option value="category">Category</option>
-        <option value="ingredient">Ingredient</option>
+        <option value="title">{t('search.title')}</option>
+        <option value="category">{t('search.category')}</option>
+        <option value="ingredient">{t('search.ingredient')}</option>
       </select>
 
       <Motion.button
@@ -67,7 +69,7 @@ function Search({ search, setSearch, handleSearch }) {
           scale:0.95
         }}
 
-      >Search</Motion.button>
+      >{t('search.searchButton')}</Motion.button>
 
       <Motion.button
 
