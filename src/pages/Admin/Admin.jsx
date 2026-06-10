@@ -9,6 +9,7 @@ import AnalyticsCharts from "../../components/AnalyticsCharts/AnalyticsCharts"
 import { useEffect, useState } from "react"
 import { getAdminRecipes, deleteAdminRecipe, updateAdminRecipe } from "../../services/saveRecipe"
 import { toast } from "react-toastify"
+import AdminEditModal from "../../components/AdminEditModal/AdminEditModal"
 
 function Admin() {
 
@@ -105,31 +106,20 @@ function Admin() {
             <button onClick={()=>setPage(p=> Math.min(totalPages-1,p+1))} disabled={page >= totalPages-1}>Next</button>
           </div>
 
-          {editModal && editData && (
-            <div className={styles.modalOverlay} onClick={()=>setEditModal(false)}>
-              <div className={styles.modal} onClick={e=>e.stopPropagation()}>
-                <h3>Edit recipe</h3>
-                <label>Title
-                  <input value={editData.title || editData.name || ''} onChange={e=> setEditData(d=> ({...d, title: e.target.value}))} />
-                </label>
-                <label>Status
-                  <input value={editData.status || ''} onChange={e=> setEditData(d=> ({...d, status: e.target.value}))} />
-                </label>
-                <div style={{display:'flex',gap:10,marginTop:12}}>
-                  <button className="btn btn-primary" onClick={async()=>{
-                    try{
-                      await updateAdminRecipe(editData.id, { title: editData.title, status: editData.status })
-                      setRecipes(rs=> rs.map(x=> x.id===editData.id? {...x, title: editData.title, status: editData.status }: x))
-                      toast.success('Recipe updated')
-                      setEditModal(false)
-                      setEditData(null)
-                    }catch(e){ console.error(e); toast.error('Update failed') }
-                  }}>Save</button>
-                  <button className="btn btn-ghost" onClick={()=>{ setEditModal(false); setEditData(null) }}>Cancel</button>
-                </div>
-              </div>
-            </div>
-          )}
+          <AdminEditModal
+            open={editModal}
+            data={editData}
+            onClose={()=>{ setEditModal(false); setEditData(null) }}
+            onSave={async(updated)=>{
+              try{
+                await updateAdminRecipe(updated.id, { title: updated.title, status: updated.status })
+                setRecipes(rs=> rs.map(x=> x.id===updated.id? {...x, title: updated.title, status: updated.status }: x))
+                toast.success('Recipe updated')
+                setEditModal(false)
+                setEditData(null)
+              }catch(e){ console.error(e); toast.error('Update failed') }
+            }}
+          />
         </section>
 
         <section className={styles.section} aria-label="Users admin">
