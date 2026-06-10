@@ -4,11 +4,10 @@ import {
 } from "react"
 
 import styles from "./ShoppingList.module.css"
+import { useTranslation } from "react-i18next"
 
-function ShoppingList({
-  ingredients,
-  recipeId
-}) {
+function ShoppingList({ ingredients, recipeId }) {
+  const { t } = useTranslation()
 
   const [checkedItems, setCheckedItems] =
     useState(() => JSON.parse(localStorage.getItem(`shopping-${recipeId}`)) || [])
@@ -50,10 +49,7 @@ function ShoppingList({
   return (
 
     <div className={styles.shopping}>
-
-      <h2>
-        Shopping List 🛒
-      </h2>
+      <h2>{t('shopping.title','Shopping List 🛒')}</h2>
 
       <div className={styles.list}>
 

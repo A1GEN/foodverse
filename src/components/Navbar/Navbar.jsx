@@ -1,8 +1,8 @@
 import {
-
   useContext,
   useEffect,
-  useState
+  useState,
+  useRef
 
 } from "react"
 
@@ -48,6 +48,8 @@ function Navbar() {
   const { user, logout } = useContext(AuthContext)
 
   const [menuOpen, setMenuOpen] = useState(false)
+  const [langOpen, setLangOpen] = useState(false)
+  const langRef = useRef()
 
   const [scrolled,setScrolled] =
     useState(false)
@@ -59,6 +61,17 @@ function Navbar() {
     const t = setTimeout(()=> setMenuOpen(false), 0)
     return ()=> clearTimeout(t)
   },[location.pathname, menuOpen])
+
+  // close language menu on outside click
+  useEffect(()=>{
+    const onDoc = (e)=>{
+      if(langRef.current && !langRef.current.contains(e.target)){
+        setLangOpen(false)
+      }
+    }
+    document.addEventListener('click', onDoc)
+    return ()=> document.removeEventListener('click', onDoc)
+  },[])
 
   useEffect(()=>{
 
@@ -131,20 +144,29 @@ function Navbar() {
         </div>
 
         <div className={styles.right}>
+
           {!user && <Link to="/login">{t("login")}</Link>}
           {user && <Link to="/profile">{user.displayName || t('profile')}</Link>}
           {user && user.email && user.email.toLowerCase() === 'argen@gmail.com' && (<Link to="/admin">{t('admin')}</Link>)}
 
           <div className={styles.controls}>
-            <div className={styles.languages}>
-              {[
-                ['en','EN'],['ru','RU'],['kg','KG'],['es','ES'],['fr','FR'],['de','DE'],['it','IT'],['pt','PT'],['zh','中'],['ja','JP'],['hi','HI'],['ar','AR'],['tr','TR']
-              ].map(([code,label])=> (
-                <button key={code} onClick={() => i18n.changeLanguage(code)} aria-label={`lang-${code}`}>{label}</button>
-              ))}
+            <div className={styles.langWrapper} ref={langRef}>
+              <button className={`${styles.langToggle} ${langOpen ? styles.open : ''}`} onClick={() => setLangOpen(v=>!v)} aria-haspopup="menu" aria-expanded={langOpen} aria-label={`lang-${i18n.language}`}>
+                <span>{i18n.language && i18n.language.toUpperCase()}</span>
+                <span className={styles.arrow}>▾</span>
+              </button>
+              {langOpen && (
+                <Motion.div className={styles.langMenu} role="menu" initial={{ opacity:0, y:-8 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.18 }}>
+                  {[
+                    ['en','EN'],['ru','RU'],['kg','KG'],['es','ES'],['fr','FR'],['de','DE'],['it','IT'],['pt','PT'],['zh','中'],['ja','JP'],['hi','HI'],['ar','AR'],['tr','TR']
+                  ].map(([code,label])=> (
+                    <button key={code} onClick={() => { i18n.changeLanguage(code); setLangOpen(false) }} aria-label={`lang-${code}`} role="menuitem">{label}</button>
+                  ))}
+                </Motion.div>
+              )}
             </div>
 
-                <Motion.button className={styles.themeBtn} onClick={toggleTheme} whileHover={{ scale:1.05 }} whileTap={{ scale:0.95 }} aria-label="Toggle theme">
+            <Motion.button className={styles.themeBtn} onClick={toggleTheme} whileHover={{ scale:1.05 }} whileTap={{ scale:0.95 }} aria-label="Toggle theme">
               { darkMode ? <Sun /> : <Moon /> }
             </Motion.button>
 
@@ -163,9 +185,12 @@ function Navbar() {
             {!user && <Link to="/login">{t("login")}</Link>}
             {user && <Link to="/profile">{user.displayName || 'Profile'}</Link>}
             <div className={styles.mobileControls}>
-                <div className={styles.languages}>
-                <button onClick={() => i18n.changeLanguage("en")}>EN</button>
-                <button onClick={() => i18n.changeLanguage("ru")}>RU</button>
+              <div className={styles.mobileLanguages}>
+                {[
+                  ['en','EN'],['ru','RU'],['kg','KG'],['es','ES'],['fr','FR'],['de','DE'],['it','IT'],['pt','PT'],['zh','中'],['ja','JP'],['hi','HI'],['ar','AR'],['tr','TR']
+                ].map(([code,label])=> (
+                  <button key={code} onClick={() => { i18n.changeLanguage(code); setMenuOpen(false) }}>{label}</button>
+                ))}
               </div>
               <Motion.button className={styles.themeBtn} onClick={toggleTheme} aria-label="Toggle theme">{ darkMode ? <Sun /> : <Moon /> }</Motion.button>
             </div>

@@ -1,14 +1,12 @@
 import { useState } from "react"
 
-import {
-  askAI
-} from "../../services/ai"
+import { askAI } from "../../services/ai"
 
-import styles
-from "./AIChatChef.module.css"
+import styles from "./AIChatChef.module.css"
+import { useTranslation } from "react-i18next"
 
 function AIChatChef() {
-
+  const { t } = useTranslation()
   const [question, setQuestion] = useState("")
   const [answer, setAnswer] = useState("")
   const [loading, setLoading] = useState(false)
@@ -42,32 +40,32 @@ function AIChatChef() {
 
     <div className={styles.chat}>
 
-      <h2>AI Chef 🤖</h2>
+      <h2>{t('aiChat.title','AI Chef 🤖')}</h2>
 
       <div className={styles.chatBox}>
         <textarea
           rows={3}
-          placeholder="Ask recipe ideas, substitutes or cooking tips..."
+          placeholder={t('aiChat.placeholder','Ask recipe ideas, substitutes or cooking tips...')}
           value={question}
           onChange={(e) => setQuestion(e.target.value)}
         />
 
         <div style={{display:'flex',flexDirection:'column',gap:10}}>
-          <button onClick={handleAsk} disabled={loading || !question}>{loading ? 'Thinking...' : 'Ask AI'}</button>
+          <button onClick={handleAsk} disabled={loading || !question}>{loading ? t('aiChat.thinking','Thinking...') : t('aiChat.ask','Ask AI')}</button>
           <div className={styles.suggestions}>
-            <button onClick={()=>setQuestion('Easy weeknight chicken recipe')}>Chicken idea</button>
-            <button onClick={()=>setQuestion('Vegetarian dinner for 2')}>Veg dinner</button>
+            <button onClick={()=>setQuestion(t('aiChat.suggestion1','Easy weeknight chicken recipe'))}>{t('aiChat.suggestionLabel1','Chicken idea')}</button>
+            <button onClick={()=>setQuestion(t('aiChat.suggestion2','Vegetarian dinner for 2'))}>{t('aiChat.suggestionLabel2','Veg dinner')}</button>
           </div>
         </div>
       </div>
 
       <div className={styles.answer}>
-        {answer ? <p>{answer}</p> : <p className={styles.hint}>Ask me for recipe ideas, substitutes, or cooking tips.</p>}
+        {answer ? <p>{answer}</p> : <p className={styles.hint}>{t('aiChat.hint','Ask me for recipe ideas, substitutes, or cooking tips.')}</p>}
       </div>
 
       {history.length>0 && (
         <div className={styles.history}>
-          <h4>History</h4>
+          <h4>{t('aiChat.history','History')}</h4>
           {history.map((h,i)=> (
             <div key={i} className={styles.hRow}>
               <strong>Q:</strong> <span>{h.q}</span>

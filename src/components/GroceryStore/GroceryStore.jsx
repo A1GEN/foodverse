@@ -1,17 +1,11 @@
-import {
-  useState
-} from "react"
-
-import styles
-from "./GroceryStore.module.css"
+import { useState } from "react"
+import styles from "./GroceryStore.module.css"
+import { useTranslation } from "react-i18next"
 
 function GroceryStore() {
-
-  const [items,setItems] =
-    useState([])
-
-  const [input,setInput] =
-    useState("")
+  const { t } = useTranslation()
+  const [items,setItems] = useState([])
+  const [input,setInput] = useState("")
 
   // ➕ Add item
   const addItem = ()=>{
@@ -50,40 +44,23 @@ function GroceryStore() {
   return (
 
     <section className={styles.store}>
-
-      <h1>
-        Grocery Store 🛒
-      </h1>
-
-      <p>
-        Create your shopping list 😎
-      </p>
+      <h1>{t('grocery.title','Grocery Store 🛒')}</h1>
+      <p>{t('grocery.subtitle','Create your shopping list 😎')}</p>
 
       <div className={styles.top}>
 
         <input
           type="text"
-          placeholder="Add ingredient..."
+          placeholder={t('grocery.placeholder','Add ingredient...')}
           value={input}
-          onChange={(e)=>
-            setInput(e.target.value)
-          }
+          onChange={(e)=> setInput(e.target.value)}
         />
 
-        <button
-          onClick={addItem}
-        >
-          Add
-        </button>
+        <button onClick={addItem}>{t('grocery.add','Add')}</button>
 
       </div>
 
-      <div className={styles.total}>
-
-        Total Items:
-        {items.length}
-
-      </div>
+      <div className={styles.total}>{t('grocery.total','Total Items:')} {items.length}</div>
 
       <div className={styles.list}>
 

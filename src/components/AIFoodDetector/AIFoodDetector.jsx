@@ -1,17 +1,11 @@
-import {
-  useState
-} from "react"
-
-import styles
-from "./AIFoodDetector.module.css"
+import { useState } from "react"
+import styles from "./AIFoodDetector.module.css"
+import { useTranslation } from "react-i18next"
 
 function AIFoodDetector() {
-
-  const [preview,setPreview] =
-    useState("")
-
-  const [result,setResult] =
-    useState(null)
+  const { t } = useTranslation()
+  const [preview,setPreview] = useState("")
+  const [result,setResult] = useState(null)
   const [loading,setLoading] = useState(false)
 
   // 📸 Upload
@@ -42,115 +36,34 @@ function AIFoodDetector() {
   }
 
   return (
-
     <section className={styles.ai}>
+      <h1>{t('aiDetector.title','AI Food Detector 🤖')}</h1>
+      <p>{t('aiDetector.subtitle','Upload food image and let AI detect it 😎')}</p>
 
-      <h1>
-        AI Food Detector 🤖
-      </h1>
-
-      <p>
-        Upload food image and let AI detect it 😎
-      </p>
-
-      {/* 📸 Upload */}
       <label className={styles.upload}>
-
-        <input
-
-          type="file"
-
-          accept="image/*"
-
-          hidden
-
-          onChange={handleImage}
-
-        />
-
-        Upload Food Image 📸
-
+        <input type="file" accept="image/*" hidden onChange={handleImage} />
+        {t('aiDetector.uploadLabel','Upload Food Image 📸')}
       </label>
 
-      {/* 🖼 Preview */}
-      {
+      {preview && <img src={preview} alt={t('aiDetector.previewAlt','Food')} className={styles.preview} />}
 
-        preview && (
+      {preview && (
+        <button onClick={detectFood} className={styles.detectBtn} disabled={loading}>
+          {loading ? t('aiDetector.detecting','Detecting...') : t('aiDetector.detect','Detect Food 🤖')}
+        </button>
+      )}
 
-          <img
-
-            src={preview}
-
-            alt="Food"
-
-            className={styles.preview}
-
-          />
-
-        )
-
-      }
-
-      {/* 🤖 Detect */}
-      {
-
-        preview && (
-          <button onClick={detectFood} className={styles.detectBtn} disabled={loading}>
-            {loading ? 'Detecting...' : 'Detect Food 🤖'}
-          </button>
-        )
-
-      }
-
-      {/* 🍔 Result */}
-      {
-
-        result && (
-
-          <div className={styles.result}>
-
-            <h2>
-              {result.name}
-            </h2>
-
-            <p>
-              🔥 {result.calories}
-            </p>
-
-            <p>
-              🍽 {result.category}
-            </p>
-
-            <h3>
-              Ingredients:
-            </h3>
-
-            <ul>
-
-              {
-
-                result.ingredients.map(
-                  (item,index)=>(
-
-                    <li key={index}>
-                      {item}
-                    </li>
-
-                  )
-                )
-
-              }
-
-            </ul>
-
-          </div>
-
-        )
-
-      }
+      {result && (
+        <div className={styles.result}>
+          <h2>{result.name}</h2>
+          <p>🔥 {result.calories}</p>
+          <p>🍽 {result.category}</p>
+          <h3>{t('aiDetector.ingredients','Ingredients:')}</h3>
+          <ul>{result.ingredients.map((item,index)=>(<li key={index}>{item}</li>))}</ul>
+        </div>
+      )}
 
     </section>
-
   )
 
 }

@@ -84,6 +84,14 @@
 .controls{ display:flex; align-items:center; gap:8px }
 .logout{ border:none; background:transparent; color:var(--text); padding:6px 10px; border-radius:8px; cursor:pointer }
 
+.langWrapper{ position:relative; display:inline-flex }
+.langToggle{ border:none; background: rgba(255,255,255,0.03); padding:6px 10px; border-radius:8px; color:var(--text); cursor:pointer; display:inline-flex; align-items:center; gap:8px; font-weight:700 }
+.langToggle .arrow{ display:inline-block; width:10px; height:10px; transition: transform .18s ease }
+.open .arrow{ transform: rotate(180deg) }
+.langMenu{ position:absolute; right:0; top:44px; background: var(--panel, rgba(15,23,42,0.96)); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:8px; display:flex; flex-direction:column; gap:6px; min-width:140px; box-shadow: 0 8px 30px rgba(2,6,23,0.6); z-index:10002 }
+.langMenu button{ border:none; background:transparent; color:var(--text); padding:8px 10px; text-align:left; border-radius:8px; cursor:pointer }
+.langMenu button:hover{ background: rgba(249,115,22,0.06) }
+
 /* mobile */
 .menuBtn{
   display:none;

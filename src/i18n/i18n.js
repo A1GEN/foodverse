@@ -92,6 +92,44 @@ const resources = {
       },
       heroTitle: "Discover Amazing Recipes",
       heroText: "Find delicious food from around the world"
+      ,
+      app: {
+        name: "FoodVerse"
+      },
+      loading: {
+        tag: "Discover & Share Recipes"
+      },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: {
+        title: "Shopping List 🛒"
+      }
     }
   },
   ru: {
@@ -118,6 +156,44 @@ const resources = {
       heroCTA: "Изучить рецепты",
       heroTitle: "Открой Вкусные Рецепты",
       heroText: "Находи блюда со всего мира"
+      ,
+      app: {
+        name: "FoodVerse"
+      },
+      loading: {
+        tag: "Открывайте и делитесь рецептами"
+      },
+      aiDetector: {
+        title: "AI Детектор еды 🤖",
+        subtitle: "Загрузите фото еды, и ИИ определит его 😎",
+        uploadLabel: "Загрузить фото еды 📸",
+        previewAlt: "Еда",
+        detecting: "Определение...",
+        detect: "Определить 🤖",
+        ingredients: "Ингредиенты:"
+      },
+      aiChat: {
+        title: "AI Шеф-повар 🤖",
+        placeholder: "Спросите идеи рецептов, заменители или советы по готовке...",
+        thinking: "Думаю...",
+        ask: "Спросить ИИ",
+        suggestion1: "Простой куриный рецепт на будни",
+        suggestion2: "Вегетарианский ужин на 2",
+        suggestionLabel1: "Идея с курицей",
+        suggestionLabel2: "Вег ужин",
+        hint: "Спросите меня о идеях рецептов, заменителях или советах по готовке.",
+        history: "История"
+      },
+      grocery: {
+        title: "Продуктовый магазин 🛒",
+        subtitle: "Составьте список покупок 😎",
+        placeholder: "Добавить ингредиент...",
+        add: "Добавить",
+        total: "Всего элементов:"
+      },
+      shopping: {
+        title: "Список покупок 🛒"
+      }
     }
   },
   kg: {
@@ -144,6 +220,38 @@ const resources = {
       heroCTA: "Рецепттерди карап чыгуу",
       heroTitle: "Даамдуу Тамактарды Тап",
       heroText: "Дүйнөдөгү тамактарды изде"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   },
   es: {
@@ -154,6 +262,38 @@ const resources = {
       heroTitle: "Descubre recetas increíbles",
       heroText: "Encuentra comida deliciosa de todo el mundo",
       heroCTA: "Explorar recetas"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   },
   fr: {
@@ -164,6 +304,38 @@ const resources = {
       heroTitle: "Découvrez des recettes étonnantes",
       heroText: "Trouvez de délicieux plats du monde entier",
       heroCTA: "Explorer les recettes"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   },
   de: {
@@ -174,6 +346,38 @@ const resources = {
       heroTitle: "Entdecke fantastische Rezepte",
       heroText: "Finde leckeres Essen aus aller Welt",
       heroCTA: "Rezepte entdecken"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   },
   it: {
@@ -184,6 +388,38 @@ const resources = {
       heroTitle: "Scopri ricette straordinarie",
       heroText: "Trova cibo delizioso da tutto il mondo",
       heroCTA: "Esplora ricette"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   },
   pt: {
@@ -194,6 +430,38 @@ const resources = {
       heroTitle: "Descubra receitas incríveis",
       heroText: "Encontre comidas deliciosas de todo o mundo",
       heroCTA: "Explorar receitas"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   },
   zh: {
@@ -204,6 +472,38 @@ const resources = {
       heroTitle: "发现惊人的食谱",
       heroText: "找到来自世界各地的美味食物",
       heroCTA: "探索食谱"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   },
   ja: {
@@ -214,6 +514,38 @@ const resources = {
       heroTitle: "素晴らしいレシピを見つけよう",
       heroText: "世界中のおいしい料理を見つける",
       heroCTA: "レシピを見る"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   },
   hi: {
@@ -224,6 +556,38 @@ const resources = {
       heroTitle: "अद्भुत व्यंजन खोजें",
       heroText: "दुनिया भर के स्वादिष्ट व्यंजन खोजें",
       heroCTA: "रेसिपी देखें"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   },
   ar: {
@@ -234,6 +598,38 @@ const resources = {
       heroTitle: "اكتشف وصفات رائعة",
       heroText: "اعثر على أطعمة لذيذة من جميع أنحاء العالم",
       heroCTA: "استكشاف الوصفات"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   },
   tr: {
@@ -244,13 +640,47 @@ const resources = {
       heroTitle: "Harika Tarifler Keşfedin",
       heroText: "Dünyanın dört bir yanından lezzetli yemekler bulun",
       heroCTA: "Tarifleri Keşfet"
+      ,
+      app: { name: "FoodVerse" },
+      loading: { tag: "Discover & Share Recipes" },
+      aiDetector: {
+        title: "AI Food Detector 🤖",
+        subtitle: "Upload food image and let AI detect it 😎",
+        uploadLabel: "Upload Food Image 📸",
+        previewAlt: "Food",
+        detecting: "Detecting...",
+        detect: "Detect Food 🤖",
+        ingredients: "Ingredients:"
+      },
+      aiChat: {
+        title: "AI Chef 🤖",
+        placeholder: "Ask recipe ideas, substitutes or cooking tips...",
+        thinking: "Thinking...",
+        ask: "Ask AI",
+        suggestion1: "Easy weeknight chicken recipe",
+        suggestion2: "Vegetarian dinner for 2",
+        suggestionLabel1: "Chicken idea",
+        suggestionLabel2: "Veg dinner",
+        hint: "Ask me for recipe ideas, substitutes, or cooking tips.",
+        history: "History"
+      },
+      grocery: {
+        title: "Grocery Store 🛒",
+        subtitle: "Create your shopping list 😎",
+        placeholder: "Add ingredient...",
+        add: "Add",
+        total: "Total Items:"
+      },
+      shopping: { title: "Shopping List 🛒" }
     }
   }
 }
 
+
+// NOTE: default language temporarily set to 'ru' for verification.
 i18n.use(initReactI18next).init({
   resources,
-  lng: "en",
+  lng: "ru",
   fallbackLng: "en",
   interpolation: { escapeValue: false }
 })
