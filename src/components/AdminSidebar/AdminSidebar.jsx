@@ -1,42 +1,33 @@
-import {
-  LayoutDashboard,
-  Utensils,
-  Users
-} from "lucide-react"
-
+import { LayoutDashboard, Utensils, Users } from "lucide-react"
+import { Link } from "react-router-dom"
 import styles from "./AdminSidebar.module.css"
+import { useTranslation } from "react-i18next"
 
 function AdminSidebar() {
+  const { t } = useTranslation()
 
   return (
-
     <aside className={styles.sidebar}>
-
-      <h1>Admin 👑</h1>
+      <h1>{t('admin', 'Admin')} 👑</h1>
 
       <nav>
-
-        <a href="#dashboard" aria-label="Перейти в панель" title="Dashboard">
+        <Link to="#dashboard" aria-label="Перейти в панель" title={t('admin.dashboard', 'Dashboard')}>
           <LayoutDashboard size={20} />
-          Dashboard
-        </a>
+          {t('admin.dashboard', 'Dashboard')}
+        </Link>
 
-        <a href="#recipes" aria-label="Перейти к рецептам" title="Recipes">
+        <Link to="#recipes" aria-label="Перейти к рецептам" title={t('admin.recipes', 'Recipes')}>
           <Utensils size={20} />
-          Recipes
-        </a>
+          {t('admin.recipes', 'Recipes')}
+        </Link>
 
-        <a href="#users" aria-label="Перейти к пользователям" title="Users">
+        <Link to="#users" aria-label="Перейти к пользователям" title={t('admin.users', 'Users')}>
           <Users size={20} />
-          Users
-        </a>
-
+          {t('admin.users', 'Users')}
+        </Link>
       </nav>
-
     </aside>
-
   )
-
 }
 
 export default AdminSidebar

@@ -1,39 +1,27 @@
-import {
-  House,
-  Heart,
-  PlusSquare,
-  User
-} from "lucide-react"
-
-import styles
-from "./BottomNav.module.css"
+import { House, Heart, PlusSquare, User } from "lucide-react"
+import styles from "./BottomNav.module.css"
+import { Link } from "react-router-dom"
 
 function BottomNav() {
-
   return (
-
     <div className={styles.bottomNav}>
-
-      <a href="/">
+      <Link to="/">
         <House />
-      </a>
+      </Link>
 
-      <a href="/favorites">
+      <Link to="/favorites">
         <Heart />
-      </a>
+      </Link>
 
-      <a href="/create">
+      <Link to="/create">
         <PlusSquare />
-      </a>
+      </Link>
 
-      <a href="/profile">
+      <Link to="/profile">
         <User />
-      </a>
-
+      </Link>
     </div>
-
   )
-
 }
 
 export default BottomNav

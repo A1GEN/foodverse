@@ -5,8 +5,10 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import { collection, addDoc, serverTimestamp } from "firebase/firestore"
 import { AuthContext } from "../../context/AuthContext/AuthContext"
 import { toast } from "react-toastify"
+import { useTranslation } from "react-i18next"
 
 function CreateRecipe() {
+  const { t } = useTranslation()
   const { user } = useContext(AuthContext)
 
   const [title,setTitle] = useState("")
@@ -27,7 +29,7 @@ function CreateRecipe() {
 
   const handleSubmit = async (e)=>{
     e.preventDefault()
-    if(!title.trim() || !category.trim() || !ingredients.trim() || !instructions.trim()) return toast.error('Please fill all fields')
+      if(!title.trim() || !category.trim() || !ingredients.trim() || !instructions.trim()) return toast.error(t('create.fillFields', 'Please fill all fields'))
     setUploading(true)
 
     try{
@@ -55,7 +57,7 @@ function CreateRecipe() {
         createdAt: serverTimestamp()
       })
 
-      toast.success('Recipe uploaded!')
+      toast.success(t('create.uploadSuccess', 'Recipe uploaded!'))
 
       // reset
       setTitle("")
@@ -67,7 +69,7 @@ function CreateRecipe() {
 
     }catch(error){
       console.error(error)
-      toast.error('Upload failed')
+      toast.error(t('create.uploadFailed', 'Upload failed'))
     } finally {
       setUploading(false)
     }
@@ -75,23 +77,23 @@ function CreateRecipe() {
 
   return (
     <section className={styles.create}>
-      <h1>Create Recipe 🍳</h1>
-      <p>Share your amazing food 😎</p>
+        <h1>{t('create.title', 'Create Recipe 🍳')}</h1>
+      <p>{t('create.share', 'Share your amazing food 😎')}</p>
 
       <form onSubmit={handleSubmit} className={styles.form}>
-        <input type="text" placeholder="Recipe title" value={title} onChange={e=>setTitle(e.target.value)} required />
-        <input type="text" placeholder="Category" value={category} onChange={e=>setCategory(e.target.value)} required />
-        <textarea placeholder="Ingredients (one per line)" value={ingredients} onChange={e=>setIngredients(e.target.value)} required />
-        <textarea placeholder="Instructions" value={instructions} onChange={e=>setInstructions(e.target.value)} required />
+        <input type="text" placeholder={t('create.placeholders.title', 'Recipe title')} value={title} onChange={e=>setTitle(e.target.value)} required />
+        <input type="text" placeholder={t('create.placeholders.category', 'Category')} value={category} onChange={e=>setCategory(e.target.value)} required />
+        <textarea placeholder={t('create.placeholders.ingredients', 'Ingredients (one per line)')} value={ingredients} onChange={e=>setIngredients(e.target.value)} required />
+        <textarea placeholder={t('create.placeholders.instructions', 'Instructions')} value={instructions} onChange={e=>setInstructions(e.target.value)} required />
 
         <label className={styles.upload}>
           <input type="file" accept="image/*" onChange={handleImage} hidden />
-          📸 Upload Image
+          {t('create.uploadLabel', '📸 Upload Image')}
         </label>
 
         {preview && <img src={preview} alt="Preview" className={styles.preview} />}
 
-        <button type="submit" disabled={uploading}>{uploading ? 'Uploading...' : 'Create Recipe 🚀'}</button>
+        <button type="submit" disabled={uploading}>{uploading ? t('create.uploading', 'Uploading...') : t('create.createButton', 'Create Recipe 🚀')}</button>
       </form>
     </section>
   )
