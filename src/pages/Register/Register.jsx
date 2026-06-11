@@ -41,7 +41,7 @@ function Register() {
         favorites: []
       })
 
-      toast.success("Account created 🔥")
+      toast.success("Account created")
       navigate("/")
 
     } catch (error) {

@@ -14,7 +14,6 @@ function Login() {
   const [password, setPassword] = useState("")
   const [remember, setRemember] = useState(false)
   const [show, setShow] = useState(false)
-  const sampleCreds = { email: 'argen@gmail.com', password: '123456789' }
 
   const handleLogin = async (e) => {
     e.preventDefault()
@@ -22,7 +21,7 @@ function Login() {
     try {
       const auth = await getAuth()
       await signInWithEmailAndPassword(auth, email, password)
-      toast.success("Login successful 😎")
+      toast.success("Вход выполнен успешно")
       if (email.toLowerCase() === 'argen@gmail.com') {
         navigate('/admin')
       } else {
@@ -49,16 +48,11 @@ function Login() {
 
         <div className={styles.options}>
           <label><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)} /> {t('rememberMe')}</label>
-          <button type="button" className={styles.linkBtn} onClick={()=> toast.info(t('comingSoon'))}>{t('forgot')}</button>
         </div>
 
         <button className="btn btn-primary">{t('loginButton')}</button>
 
-        <div className={styles.sample}>
-          <div>{t('demoText')} <strong>{sampleCreds.email}</strong> / <strong>{sampleCreds.password}</strong></div>
-          <button type="button" onClick={()=>{ setEmail(sampleCreds.email); setPassword(sampleCreds.password) }}>{t('useDemo')}</button>
-          <div className={styles.regLink}>{t('noAccount')} <a href="/register">{t('register')}</a></div>
-        </div>
+        <div className={styles.regLink}>{t('noAccount')} <a href="/register">{t('register')}</a></div>
 
       </form>
     </div>

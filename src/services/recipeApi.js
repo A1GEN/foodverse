@@ -97,3 +97,22 @@ export const getRecipeById = async (id) => {
   }
 
 }
+
+// 📂 Get recipes by category
+export const getRecipesByCategory = async (category) => {
+
+  try {
+
+    const response = await axios.get(
+      `${API_URL}/filter.php?c=${category}`
+    )
+
+    return response.data
+
+  } catch (error) {
+
+    console.log("Recipes by category error:", error)
+
+  }
+
+}

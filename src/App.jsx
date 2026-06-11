@@ -21,6 +21,10 @@ import ProtectedAdmin from "./routes/ProtectedAdmin"
 
 import CreateRecipe from "./pages/CreateRecipe/CreateRecipe"
 import RecipeDetails from "./pages/RecipeDetails/RecipeDetails"
+import Cart from "./pages/Cart/Cart"
+import Catalog from "./pages/Catalog/Catalog"
+import Recipes from "./pages/Recipes/Recipes"
+import Checkout from "./pages/Checkout/Checkout"
 
 function App() {
 
@@ -48,6 +52,10 @@ function App() {
 
         <Route path="/create" element={<CreateRecipe />} />
         <Route path="/recipe/:id" element={<RecipeDetails />} />
+        <Route path="/cart" element={<Cart />} />
+        <Route path="/catalog" element={<Catalog />} />
+        <Route path="/recipes" element={<Recipes />} />
+        <Route path="/checkout" element={<Checkout />} />
 
       </Routes>
 

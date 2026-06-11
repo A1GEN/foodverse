@@ -45,7 +45,7 @@ function ThemeProvider({ children }) {
     }
   }, [darkMode])
 
-  // 🔥 Toggle
+  // Toggle
   const toggleTheme = () => {
 
     setDarkMode(!darkMode)

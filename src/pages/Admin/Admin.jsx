@@ -11,14 +11,17 @@ import { getAdminRecipes, deleteAdminRecipe, updateAdminRecipe, createAdminRecip
 import { toast } from "react-toastify"
 import AdminEditModal from "../../components/AdminEditModal/AdminEditModal"
 import { useTranslation } from "react-i18next"
+import { Users, TrendingUp, Activity, Settings, Search, Filter, Plus, Edit2, Trash2, Eye, Calendar, Clock, Star } from "lucide-react"
 
 function Admin() {
 
   const [recipes, setRecipes] = useState([])
   const [users, setUsers] = useState([
-    { id: 'u1', name: 'Olga Petrova', email: 'olga@example.com', role: 'user' },
-    { id: 'u2', name: 'Argen Admin', email: 'argen@gmail.com', role: 'admin' }
+    { id: 'u1', name: 'Ольга Петрова', email: 'olga@example.com', role: 'user', joined: '2024-01-15', recipes: 12 },
+    { id: 'u2', name: 'Арген Админ', email: 'argen@gmail.com', role: 'admin', joined: '2024-01-01', recipes: 45 }
   ])
+  const [activeTab, setActiveTab] = useState('overview')
+  const [searchQuery, setSearchQuery] = useState('')
 
   const [editModal, setEditModal] = useState(false)
   const [editData, setEditData] = useState(null)
@@ -34,17 +37,29 @@ function Admin() {
         const data = await getAdminRecipes()
         if(!mounted) return
         setRecipes(data)
-      }catch(e){ console.error('admin recipes fetch', e); toast.error('Failed loading admin recipes') }
+      }catch(e){ console.error('admin recipes fetch', e); toast.error('Ошибка загрузки рецептов') }
     })()
     return ()=> mounted = false
   },[])
 
   const statuses = Array.from(new Set(recipes.map(r=> r.status).filter(Boolean)))
-  const filtered = recipes.filter(r => filterStatus === 'all' ? true : (r.status || '').toLowerCase() === filterStatus)
+  const filtered = recipes.filter(r => {
+    const matchesStatus = filterStatus === 'all' ? true : (r.status || '').toLowerCase() === filterStatus
+    const matchesSearch = searchQuery === '' || (r.title || r.name || '').toLowerCase().includes(searchQuery.toLowerCase())
+    return matchesStatus && matchesSearch
+  })
   const totalPages = Math.max(1, Math.ceil(filtered.length / pageSize))
   const paginated = filtered.slice(page * pageSize, page * pageSize + pageSize)
 
   useEffect(()=>{ if(page >= totalPages) setPage(0) },[totalPages])
+
+  const stats = {
+    totalRecipes: recipes.length,
+    publishedRecipes: recipes.filter(r => r.status === 'published').length,
+    draftRecipes: recipes.filter(r => r.status === 'draft').length,
+    totalUsers: users.length,
+    activeUsers: users.filter(u => u.role === 'user').length
+  }
 
   return (
 
@@ -54,109 +69,241 @@ function Admin() {
 
       <main className={styles.content}>
 
-        <h1>{t('admin.title','Dashboard 👑')}</h1>
+        <div className={styles.header}>
+          <h1>Панель администратора</h1>
+          <div className={styles.headerStats}>
+            <div className={styles.statCard}>
+              <Users size={24} className={styles.statIcon} />
+              <div>
+                <div className={styles.statValue}>{stats.totalUsers}</div>
+                <div className={styles.statLabel}>Пользователей</div>
+              </div>
+            </div>
+            <div className={styles.statCard}>
+              <TrendingUp size={24} className={styles.statIcon} />
+              <div>
+                <div className={styles.statValue}>{stats.totalRecipes}</div>
+                <div className={styles.statLabel}>Рецептов</div>
+              </div>
+            </div>
+            <div className={styles.statCard}>
+              <Activity size={24} className={styles.statIcon} />
+              <div>
+                <div className={styles.statValue}>{stats.publishedRecipes}</div>
+                <div className={styles.statLabel}>Опубликовано</div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <AdminStats />
+        <div className={styles.tabs}>
+          <button 
+            className={`${styles.tab} ${activeTab === 'overview' ? styles.active : ''}`}
+            onClick={() => setActiveTab('overview')}
+          >
+            <Activity size={18} /> Обзор
+          </button>
+          <button 
+            className={`${styles.tab} ${activeTab === 'recipes' ? styles.active : ''}`}
+            onClick={() => setActiveTab('recipes')}
+          >
+            <Star size={18} /> Рецепты
+          </button>
+          <button 
+            className={`${styles.tab} ${activeTab === 'users' ? styles.active : ''}`}
+            onClick={() => setActiveTab('users')}
+          >
+            <Users size={18} /> Пользователи
+          </button>
+          <button 
+            className={`${styles.tab} ${activeTab === 'settings' ? styles.active : ''}`}
+            onClick={() => setActiveTab('settings')}
+          >
+            <Settings size={18} /> Настройки
+          </button>
+        </div>
 
-        <AnalyticsCharts />
+        {activeTab === 'overview' && (
+          <>
+            <AdminStats />
+            <AnalyticsCharts />
+          </>
+        )}
 
-        <section className={styles.section} aria-label="Recipes admin">
-          <h2>{t('admin.recipesTitle','Recipes')}</h2>
-
-          <div className={styles.controls}>
-            <label>Filter:
-              <select value={filterStatus} onChange={e=>{ setFilterStatus(e.target.value); setPage(0) }}>
-                <option value="all">All</option>
-                {statuses.map(s=> <option key={s} value={s.toLowerCase()}>{s}</option>)}
-              </select>
-            </label>
-            <label>Per page:
-              <select value={pageSize} onChange={e=>{ setPageSize(Number(e.target.value)); setPage(0) }}>
-                <option value={6}>6</option>
-                <option value={8}>8</option>
-                <option value={12}>12</option>
-              </select>
-            </label>
-            <div style={{marginLeft:'auto'}}>
-              <button className="btn" onClick={async()=>{
-                const sample = { title: 'Sample Pancakes', status: 'published', category: 'Breakfast', description: 'Tasty test pancakes' }
+        {activeTab === 'recipes' && (
+          <section className={styles.section} aria-label="Recipes admin">
+            <div className={styles.sectionHeader}>
+              <h2>Управление рецептами</h2>
+              <button className={styles.createBtn} onClick={async()=>{
+                const sample = { title: 'Пример рецепта', status: 'published', category: 'Завтрак', description: 'Вкусный тестовый рецепт' }
                 try{
                   const created = await createAdminRecipe(sample)
                   setRecipes(rs=> [created, ...rs])
-                  toast.success(t('admin.sampleCreated','Sample recipe created'))
+                  toast.success('Пример рецепта создан')
                 }catch(e){
-                  // fallback to local insert so UI can be tested without Firestore
                   console.error('create sample failed', e)
                   const local = { id: `local-${Date.now()}`, ...sample }
                   setRecipes(rs=> [local, ...rs])
-                  toast.warn(t('admin.sampleLocalWarn','Could not write to Firestore; sample added locally'))
+                  toast.warn('Не удалось записать в Firestore; пример добавлен локально')
                 }
-              }}>{t('admin.createSample','Create sample')}</button>
+              }}>
+                <Plus size={18} /> Создать рецепт
+              </button>
             </div>
-          </div>
 
-          <div className={styles.list}>
-            {recipes.length === 0 && <div className={styles.muted}>{t('admin.noRecipes','No recipes found in Firestore.')}</div>}
-            {paginated.map(r=> (
-              <div key={r.id} className={styles.row}>
-                <div>
-                  <strong>{r.title || r.name || 'Untitled'}</strong>
-                  <div className={styles.muted}>{r.status || r.category || '—'}</div>
-                </div>
-                <div className={styles.actions}>
-                  <button className="btn btn-ghost" onClick={()=>{ setEditData(r); setEditModal(true) }}>{t('admin.edit','Edit')}</button>
-                  <button className="btn" onClick={async()=>{
-                    if(!confirm(t('admin.deleteConfirm','Delete recipe?'))) return
-                    try{
-                      await deleteAdminRecipe(r.id)
-                      setRecipes(rs=> rs.filter(x=> x.id !== r.id))
-                      toast.success(t('admin.deleted','Recipe deleted'))
-                    }catch(e){ console.error(e); toast.error(t('admin.deleteFailed','Delete failed')) }
-                  }}>{t('admin.delete','Delete')}</button>
-                </div>
+            <div className={styles.controls}>
+              <div className={styles.searchBox}>
+                <Search size={18} className={styles.searchIcon} />
+                <input
+                  type="text"
+                  placeholder="Поиск рецептов..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className={styles.searchInput}
+                />
               </div>
-            ))}
-          </div>
-
-          <div className={styles.pager}>
-            <button onClick={()=>setPage(p=> Math.max(0,p-1))} disabled={page===0}>{t('admin.prev','Prev')}</button>
-            <span>{t('admin.page','Page')} {page+1} / {totalPages}</span>
-            <button onClick={()=>setPage(p=> Math.min(totalPages-1,p+1))} disabled={page >= totalPages-1}>{t('admin.next','Next')}</button>
-          </div>
-
-          <AdminEditModal
-            open={editModal}
-            data={editData}
-            onClose={()=>{ setEditModal(false); setEditData(null) }}
-            onSave={async(updated)=>{
-              try{
-                await updateAdminRecipe(updated.id, { title: updated.title, status: updated.status })
-                setRecipes(rs=> rs.map(x=> x.id===updated.id? {...x, title: updated.title, status: updated.status }: x))
-                toast.success('Recipe updated')
-                setEditModal(false)
-                setEditData(null)
-              }catch(e){ console.error(e); toast.error('Update failed') }
-            }}
-          />
-        </section>
-
-        <section className={styles.section} aria-label="Users admin">
-          <h2>Users</h2>
-          <div className={styles.list}>
-            {users.map(u=> (
-              <div key={u.id} className={styles.row}>
-                <div>
-                  <strong>{u.name}</strong>
-                  <div className={styles.muted}>{u.email} • {u.role}</div>
-                </div>
-                <div className={styles.actions}>
-                  <button className="btn btn-ghost">Profile</button>
-                  <button className="btn">Disable</button>
-                </div>
+              <div className={styles.filterBox}>
+                <Filter size={18} className={styles.filterIcon} />
+                <select value={filterStatus} onChange={e=>{ setFilterStatus(e.target.value); setPage(0) }} className={styles.filterSelect}>
+                  <option value="all">Все статусы</option>
+                  {statuses.map(s=> <option key={s} value={s.toLowerCase()}>{s}</option>)}
+                </select>
               </div>
-            ))}
-          </div>
-        </section>
+              <div className={styles.pageSizeBox}>
+                <select value={pageSize} onChange={e=>{ setPageSize(Number(e.target.value)); setPage(0) }} className={styles.pageSizeSelect}>
+                  <option value={6}>6 на странице</option>
+                  <option value={8}>8 на странице</option>
+                  <option value={12}>12 на странице</option>
+                </select>
+              </div>
+            </div>
+
+            <div className={styles.list}>
+              {recipes.length === 0 && <div className={styles.empty}>Рецепты не найдены</div>}
+              {paginated.map(r=> (
+                <div key={r.id} className={styles.row}>
+                  <div className={styles.rowInfo}>
+                    <div className={styles.rowTitle}>{r.title || r.name || 'Без названия'}</div>
+                    <div className={styles.rowMeta}>
+                      <span className={styles.rowStatus}>{r.status || r.category || '—'}</span>
+                      {r.category && <span className={styles.rowCategory}>{r.category}</span>}
+                    </div>
+                  </div>
+                  <div className={styles.actions}>
+                    <button className={styles.actionBtn} onClick={()=>{ setEditData(r); setEditModal(true) }} title="Редактировать">
+                      <Edit2 size={16} />
+                    </button>
+                    <button className={styles.actionBtn} onClick={()=> window.open(`/recipe/${r.id}`, '_blank')} title="Просмотр">
+                      <Eye size={16} />
+                    </button>
+                    <button className={`${styles.actionBtn} ${styles.deleteBtn}`} onClick={async()=>{
+                      if(!confirm('Удалить рецепт?')) return
+                      try{
+                        await deleteAdminRecipe(r.id)
+                        setRecipes(rs=> rs.filter(x=> x.id !== r.id))
+                        toast.success('Рецепт удален')
+                      }catch(e){ console.error(e); toast.error('Ошибка удаления') }
+                    }} title="Удалить">
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.pager}>
+              <button onClick={()=>setPage(p=> Math.max(0,p-1))} disabled={page===0} className={styles.pageBtn}>
+                ← Назад
+              </button>
+              <span className={styles.pageInfo}>Страница {page+1} из {totalPages}</span>
+              <button onClick={()=>setPage(p=> Math.min(totalPages-1,p+1))} disabled={page >= totalPages-1} className={styles.pageBtn}>
+                Вперед →
+              </button>
+            </div>
+
+            <AdminEditModal
+              open={editModal}
+              data={editData}
+              onClose={()=>{ setEditModal(false); setEditData(null) }}
+              onSave={async(updated)=>{
+                try{
+                  await updateAdminRecipe(updated.id, { title: updated.title, status: updated.status })
+                  setRecipes(rs=> rs.map(x=> x.id===updated.id? {...x, title: updated.title, status: updated.status }: x))
+                  toast.success('Рецепт обновлен')
+                  setEditModal(false)
+                  setEditData(null)
+                }catch(e){ console.error(e); toast.error('Ошибка обновления') }
+              }}
+            />
+          </section>
+        )}
+
+        {activeTab === 'users' && (
+          <section className={styles.section} aria-label="Users admin">
+            <div className={styles.sectionHeader}>
+              <h2>Управление пользователями</h2>
+              <div className={styles.userStats}>
+                <span>Всего: {users.length}</span>
+                <span>Активных: {stats.activeUsers}</span>
+              </div>
+            </div>
+            <div className={styles.list}>
+              {users.map(u=> (
+                <div key={u.id} className={styles.row}>
+                  <div className={styles.rowInfo}>
+                    <div className={styles.rowTitle}>{u.name}</div>
+                    <div className={styles.rowMeta}>
+                      <span>{u.email}</span>
+                      <span className={styles.rowRole}>{u.role === 'admin' ? 'Админ' : 'Пользователь'}</span>
+                      <span className={styles.rowDate}><Calendar size={14} /> {u.joined}</span>
+                    </div>
+                  </div>
+                  <div className={styles.actions}>
+                    <button className={styles.actionBtn} onClick={()=> window.open(`/profile`, '_blank')} title="Профиль">
+                      <Eye size={16} />
+                    </button>
+                    <button className={styles.actionBtn} onClick={()=> toast.info('Редактирование пользователя')} title="Редактировать">
+                      <Edit2 size={16} />
+                    </button>
+                    <button className={`${styles.actionBtn} ${styles.deleteBtn}`} onClick={()=> toast.info('Пользователь заблокирован')} title="Блокировать">
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {activeTab === 'settings' && (
+          <section className={styles.section} aria-label="Settings">
+            <div className={styles.sectionHeader}>
+              <h2>Настройки</h2>
+            </div>
+            <div className={styles.settingsGrid}>
+              <div className={styles.settingCard}>
+                <h3>Общие настройки</h3>
+                <p>Настройте основные параметры сайта</p>
+                <button className={styles.settingBtn} onClick={()=> toast.info('Настройки общих параметров')}>Настроить</button>
+              </div>
+              <div className={styles.settingCard}>
+                <h3>Уведомления</h3>
+                <p>Управляйте email уведомлениями</p>
+                <button className={styles.settingBtn} onClick={()=> toast.info('Настройки уведомлений')}>Настроить</button>
+              </div>
+              <div className={styles.settingCard}>
+                <h3>Безопасность</h3>
+                <p>Настройки безопасности и доступа</p>
+                <button className={styles.settingBtn} onClick={()=> toast.info('Настройки безопасности')}>Настроить</button>
+              </div>
+              <div className={styles.settingCard}>
+                <h3>Интеграции</h3>
+                <p>Настройки сторонних сервисов</p>
+                <button className={styles.settingBtn} onClick={()=> toast.info('Настройки интеграций')}>Настроить</button>
+              </div>
+            </div>
+          </section>
+        )}
 
       </main>
 

@@ -21,11 +21,15 @@ import {
   LikesContext
 } from "../../context/LikesContext/LikesContext"
 import { useTranslation } from "react-i18next"
+import { Heart, Clock, ShoppingCart } from "lucide-react"
+import { useDispatch } from 'react-redux'
+import { addToCart } from '../../redux/cartSlice'
 
 function RecipeCard({
   recipe
 }) {
   const { t } = useTranslation()
+  const dispatch = useDispatch()
 
   const {
     addToFavorites,
@@ -41,6 +45,10 @@ function RecipeCard({
   } = useContext(
     LikesContext
   )
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(recipe))
+  }
 
   const getRating = (id) => {
     const n = parseInt(id,10) || 7
@@ -98,9 +106,9 @@ function RecipeCard({
               {Array.from({length:5}).map((_,i)=>{
                 const val = Math.round(getRating(recipe.idMeal))
                 return <span key={i} style={{color: i<val? '#f97316':'rgba(255,255,255,0.25)'}}>{i<val? '★':'☆'}</span>
-              })} <span style={{marginLeft:8}}>{getRating(recipe.idMeal)}</span>
+              })} <span style={{marginLeft:8,fontSize:'14px'}}>{getRating(recipe.idMeal)}</span>
             </div>
-            <div className={styles.badge}>⏱️ {prepTime(recipe.idMeal)}m</div>
+            <div className={styles.badge}><Clock size={14} /> {prepTime(recipe.idMeal)}m</div>
           </div>
         </div>
 
@@ -111,11 +119,12 @@ function RecipeCard({
 
           <div className={styles.icons}>
             {isFavorite(recipe.idMeal) ? (
-              <button className={`${styles.favoriteButton} btn btn-ghost`} onClick={() => removeFromFavorites(recipe.idMeal)}>💖 {t('saved')}</button>
+              <button className={`${styles.favoriteButton} btn btn-ghost`} onClick={() => removeFromFavorites(recipe.idMeal)}><Heart size={18} fill="#ff6b35" color="#ff6b35" /> {t('saved', 'Сохранено')}</button>
             ) : (
-              <button className={`${styles.favoriteButton} btn btn-ghost`} onClick={() => addToFavorites(recipe)}>🤍 {t('save')}</button>
+              <button className={`${styles.favoriteButton} btn btn-ghost`} onClick={() => addToFavorites(recipe)}><Heart size={18} /> {t('save', 'Сохранить')}</button>
             )}
-            <button className={`${styles.likeButton} btn btn-ghost`} onClick={() => toggleLike(recipe.idMeal)}>{likes[recipe.idMeal] || 0} ❤️</button>
+            <button className={`${styles.likeButton} btn btn-ghost`} onClick={() => toggleLike(recipe.idMeal)}>{likes[recipe.idMeal] || 0} <Heart size={16} /></button>
+            <button className={`${styles.cartButton} btn btn-ghost`} onClick={handleAddToCart} aria-label="Add to cart"><ShoppingCart size={18} /></button>
           </div>
         </div>
 

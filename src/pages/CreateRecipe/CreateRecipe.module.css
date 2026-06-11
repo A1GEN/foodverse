@@ -77,6 +77,86 @@
 
   cursor:pointer;
 
+  text-align:center;
+
+}
+
+.imageOptions{
+
+  display:flex;
+
+  flex-direction:column;
+
+  gap:16px;
+
+}
+
+.toggleButtons{
+
+  display:flex;
+
+  gap:12px;
+
+}
+
+.toggleBtn{
+
+  flex:1;
+
+  padding:12px 20px;
+
+  border-radius:10px;
+
+  background:#1f2937;
+
+  border:1px solid rgba(255,255,255,0.1);
+
+  color:white;
+
+  cursor:pointer;
+
+  font-size:15px;
+
+  font-weight:500;
+
+  transition:all 0.2s ease;
+
+}
+
+.toggleBtn:hover{
+
+  background:#374151;
+
+}
+
+.toggleBtn.active{
+
+  background:#ff6b35;
+
+  border-color:transparent;
+
+}
+
+.urlInput{
+
+  padding:18px;
+
+  border:none;
+
+  border-radius:16px;
+
+  background:#1f2937;
+
+  color:white;
+
+  font-size:16px;
+
+}
+
+.urlInput::placeholder{
+
+  color:#9ca3af;
+
 }
 
 .preview{

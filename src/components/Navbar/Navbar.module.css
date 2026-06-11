@@ -34,13 +34,18 @@
 
 .left{ flex:1; display:flex; align-items:center; }
 .center{ flex:1; display:flex; justify-content:center; }
-.right{ flex:1; display:flex; justify-content:flex-end; align-items:center; gap:12px }
+.right{ flex:1; display:flex; justify-content:flex-end; align-items:center; gap:8px }
+
+.logoLink{
+  text-decoration:none;
+}
 
 .logo{
   font-size:22px;
   font-weight:900;
   color:var(--text, #fff);
   letter-spacing:0.6px;
+  margin:0;
 }
 
 .links{
@@ -76,13 +81,137 @@
 
 .links a[aria-current="page"]{ font-weight:800 }
 
+.iconBtn{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:8px;
+  border-radius:10px;
+  background: rgba(255,255,255,0.04);
+  color:var(--text);
+  border:1px solid rgba(255,255,255,0.06);
+  cursor:pointer;
+  text-decoration:none;
+  position:relative;
+  transition:all 0.18s ease;
+}
+
+.iconBtn:hover{
+  background: rgba(249,115,22,0.1);
+  border-color: rgba(249,115,22,0.3);
+  transform:translateY(-2px);
+}
+
+.badge{
+  position:absolute;
+  top:-4px;
+  right:-4px;
+  background:linear-gradient(90deg,#ff6b35,#ff8a4d);
+  color:#fff;
+  font-size:10px;
+  font-weight:700;
+  min-width:16px;
+  height:16px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 4px;
+  box-shadow:0 2px 8px rgba(255,107,53,0.4);
+}
+
+.searchWrapper{
+  position:relative;
+}
+
+.searchForm{
+  position:absolute;
+  right:0;
+  top:100%;
+  margin-top:8px;
+  display:flex;
+  gap:8px;
+  background:var(--panel, rgba(15,23,42,0.96));
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:12px;
+  padding:8px;
+  box-shadow:0 8px 30px rgba(2,6,23,0.6);
+  z-index:10002;
+}
+
+.searchInput{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:8px;
+  padding:8px 12px;
+  color:var(--text);
+  font-size:14px;
+  min-width:200px;
+  outline:none;
+}
+
+.searchInput::placeholder{
+  color:rgba(255,255,255,0.5);
+}
+
+.searchInput:focus{
+  border-color:rgba(249,115,22,0.4);
+}
+
+.searchSubmit{
+  padding:8px;
+  border-radius:8px;
+  background:linear-gradient(90deg,#ff6b35,#ff8a4d);
+  border:none;
+  color:#fff;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.loginBtn{
+  padding:8px 16px;
+  border-radius:10px;
+  background:linear-gradient(90deg,#ff6b35,#ff8a4d);
+  color:#fff;
+  border:none;
+  font-weight:600;
+  cursor:pointer;
+  text-decoration:none;
+  transition:all 0.18s ease;
+}
+
+.loginBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(255,107,53,0.3);
+}
+
+.adminBtn{
+  padding:8px 16px;
+  border-radius:10px;
+  background:linear-gradient(90deg,#8b5cf6,#a78bfa);
+  color:#fff;
+  border:none;
+  font-weight:600;
+  cursor:pointer;
+  text-decoration:none;
+  transition:all 0.18s ease;
+}
+
+.adminBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(139,92,246,0.3);
+}
+
 .languages{ display:flex; gap:8px; }
 .languages button{ border:none; padding:6px 10px; border-radius:8px; background:transparent; color:var(--text); cursor:pointer; font-weight:700 }
 
 .themeBtn{ border:none; padding:8px; border-radius:10px; background: rgba(255,255,255,0.04); color:var(--text); cursor:pointer; display:inline-flex; align-items:center }
 
 .controls{ display:flex; align-items:center; gap:8px }
-.logout{ border:none; background:transparent; color:var(--text); padding:6px 10px; border-radius:8px; cursor:pointer }
+.logout{ border:none; background:transparent; color:var(--text); padding:6px 10px; border-radius:8px; cursor:pointer; font-size:14px; transition:all 0.18s ease }
+.logout:hover{ background:rgba(255,107,53,0.1); color:#ff6b35 }
 
 .langWrapper{ position:relative; display:inline-flex }
 .langToggle{ border:none; background: rgba(255,255,255,0.03); padding:6px 10px; border-radius:8px; color:var(--text); cursor:pointer; display:inline-flex; align-items:center; gap:8px; font-weight:700 }
@@ -98,7 +227,7 @@
   border:none;
   background:transparent;
   color:var(--text);
-  font-size:20px;
+  padding:8px;
 }
 
 @media(max-width:880px){
@@ -108,6 +237,8 @@
   .right{ gap:6px }
   .nav{ padding:12px 14px }
   .logo{ font-size:18px }
+  .searchForm{ right:-60px; min-width:180px; }
+  .searchInput{ min-width:140px; }
 }
 
 .mobileMenu{
@@ -129,3 +260,5 @@
 
 .mobileMenu a{ padding:8px 12px; border-radius:8px; color:var(--text) }
 .mobileControls{ display:flex; justify-content:space-between; align-items:center; gap:8px; padding-top:6px }
+.mobileLanguages{ display:flex; flex-wrap:wrap; gap:6px }
+.mobileLanguages button{ border:none; padding:6px 10px; border-radius:8px; background:rgba(255,255,255,0.06); color:var(--text); cursor:pointer; font-size:12px }

@@ -25,6 +25,8 @@
 .viewButton{ background: linear-gradient(90deg,#f97316,#ffb86b); border:none; color:#07102a; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer; box-shadow: 0 8px 24px rgba(249,115,22,0.18); }
 
 .icons{ display:flex; gap:8px; align-items:center; }
-.favoriteButton, .likeButton{ border:none; background:transparent; color:#ff6b35; padding:8px 10px; border-radius:10px; cursor:pointer; font-weight:700; }
+.favoriteButton, .likeButton, .cartButton{ border:none; background:transparent; color:#ff6b35; padding:8px 10px; border-radius:10px; cursor:pointer; font-weight:700; }
+.cartButton{ color:var(--text, #fff); }
+.cartButton:hover{ background:rgba(249,115,22,0.1); }
 
 @media(max-width:480px){ .card img{ height:180px;} .badges{ flex-direction:row; gap:8px; } }

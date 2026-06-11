@@ -13,7 +13,7 @@ import SkeletonCard from "../../components/SkeletonCard/SkeletonCard"
 import Desserts from "../../components/Desserts/Desserts"
 import TopChefs from "../../components/TopChefs/TopChefs"
 import { Suspense, lazy } from "react"
-const AIChatChef = lazy(() => import("../../components/AIChatChef/AIChatChef"))
+const AIChatChef = lazy(() => import("../../components/AdminSidebar/AIChatChef/AIChatChef"))
 import { collection, getDocs } from "firebase/firestore"
 import { getDb } from "../../lib/firebaseClient"
 import { useTranslation } from "react-i18next"

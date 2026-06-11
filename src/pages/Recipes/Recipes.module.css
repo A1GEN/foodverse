@@ -1,0 +1,41 @@
+.recipes{
+  min-height: 100vh;
+  background: var(--bg, #0f172a);
+  padding: 100px 5% 40px;
+}
+
+.container{
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.backBtn{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: all 0.2s ease;
+}
+
+.backBtn:hover{
+  background: rgba(249,115,22,0.1);
+  border-color: rgba(249,115,22,0.3);
+}
+
+h1{
+  color: white;
+  font-size: 36px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+p{
+  color: rgba(255,255,255,0.6);
+  font-size: 18px;
+}

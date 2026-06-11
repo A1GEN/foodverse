@@ -23,29 +23,6 @@ function Search({ search, setSearch, handleSearch }) {
     return ()=>clearTimeout(t)
   },[search, mode, handleSearch])
 
-  // 🎤 Voice Search
-  const startVoiceSearch = ()=>{
-
-    const recognition =
-
-      new window.webkitSpeechRecognition()
-
-    recognition.lang = "en-US"
-
-    recognition.start()
-
-    recognition.onresult = (event)=>{
-
-      const transcript =
-
-        event.results[0][0].transcript
-
-      setSearch(transcript)
-
-    }
-
-  }
-
   return (
 
     <div className={styles.searchBox}>
@@ -70,22 +47,6 @@ function Search({ search, setSearch, handleSearch }) {
         }}
 
       >{t('search.searchButton')}</Motion.button>
-
-      <Motion.button
-
-        onClick={startVoiceSearch}
-
-        whileHover={{
-          scale:1.05
-        }}
-
-        whileTap={{
-          scale:0.95
-        }}
-
-      >
-        🎤
-      </Motion.button>
 
     </div>
 

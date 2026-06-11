@@ -18,6 +18,7 @@ import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext/AuthContext"
 import { getDb } from "../../lib/firebaseClient"
 import { collection, doc, setDoc, onSnapshot } from "firebase/firestore"
+import { UtensilsCrossed, Globe, ChefHat, Video } from "lucide-react"
 
 function RecipeDetails() {
 
@@ -84,7 +85,7 @@ function RecipeDetails() {
 
   }
 
-  // 🍔 Ingredients
+  // Ingredients
   const ingredients = []
 
   for(let i = 1; i <= 20; i++) {
@@ -129,11 +130,11 @@ function RecipeDetails() {
         <div className={styles.info}>
 
           <span>
-            🍔 {recipe.strCategory}
+            <UtensilsCrossed size={16} /> {recipe.strCategory}
           </span>
 
           <span>
-            🌍 {recipe.strArea}
+            <Globe size={16} /> {recipe.strArea}
           </span>
 
         </div>
@@ -163,7 +164,7 @@ function RecipeDetails() {
 
         </ul>
 
-        <h2>Instructions 👨‍🍳</h2>
+        <h2><ChefHat size={20} /> Instructions</h2>
 
         <p>
           {recipe.strInstructions}
@@ -173,7 +174,7 @@ function RecipeDetails() {
 
   <div className={styles.videoSection}>
 
-    <h2>Recipe Video 🎬</h2>
+    <h2><Video size={20} /> Recipe Video</h2>
 
     <iframe
       src={

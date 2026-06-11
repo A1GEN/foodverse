@@ -141,6 +141,8 @@ const resources = {
       profile: "Профиль",
       logout: "Выйти",
       admin: "Админ",
+      catalog: "Каталог",
+      recipes: "Рецепты",
       welcomeBack: "С возвращением",
       emailPlaceholder: "Email",
       passwordPlaceholder: "Пароль",
@@ -164,16 +166,16 @@ const resources = {
         tag: "Открывайте и делитесь рецептами"
       },
       aiDetector: {
-        title: "AI Детектор еды 🤖",
-        subtitle: "Загрузите фото еды, и ИИ определит его 😎",
-        uploadLabel: "Загрузить фото еды 📸",
+        title: "AI Детектор еды",
+        subtitle: "Загрузите фото еды, и ИИ определит его",
+        uploadLabel: "Загрузить фото еды",
         previewAlt: "Еда",
         detecting: "Определение...",
-        detect: "Определить 🤖",
+        detect: "Определить",
         ingredients: "Ингредиенты:"
       },
       aiChat: {
-        title: "AI Шеф-повар 🤖",
+        title: "AI Шеф-повар",
         placeholder: "Спросите идеи рецептов, заменители или советы по готовке...",
         thinking: "Думаю...",
         ask: "Спросить ИИ",
@@ -185,14 +187,21 @@ const resources = {
         history: "История"
       },
       grocery: {
-        title: "Продуктовый магазин 🛒",
-        subtitle: "Составьте список покупок 😎",
+        title: "Продуктовый магазин",
+        subtitle: "Составьте список покупок",
         placeholder: "Добавить ингредиент...",
         add: "Добавить",
         total: "Всего элементов:"
       },
       shopping: {
-        title: "Список покупок 🛒"
+        title: "Список покупок"
+      },
+      viewRecipe: "Посмотреть рецепт",
+      save: "Сохранить",
+      saved: "Сохранено",
+      popularCategories: "Популярные категории",
+      search: {
+        placeholder: "Поиск рецептов..."
       }
     }
   },

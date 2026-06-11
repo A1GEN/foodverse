@@ -7,6 +7,13 @@
 .favorites h1{
   color:white;
   margin-bottom:40px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.titleIcon{
+  color:var(--accent, #ff6b35);
 }
 
 .grid{
