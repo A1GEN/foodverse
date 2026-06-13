@@ -37,22 +37,24 @@ function Login() {
   return (
     <div className={styles.login}>
       <form onSubmit={handleLogin} className={styles.form}>
-        <h1>{t('welcomeBack')}</h1>
+        <h1>Вход в аккаунт</h1>
+        <p className={styles.subtitle}>Введите свои данные для входа</p>
 
-        <input type="email" placeholder={t('emailPlaceholder')} value={email} onChange={e=>setEmail(e.target.value)} />
-
-        <div className={styles.passRow}>
-          <input type={show?"text":"password"} placeholder={t('passwordPlaceholder')} value={password} onChange={e=>setPassword(e.target.value)} />
-          <button type="button" className={styles.showBtn} onClick={()=>setShow(s=>!s)}>{show? t('hide'):t('show')}</button>
+        <div className={styles.inputGroup}>
+          <label>Email</label>
+          <input type="email" placeholder="example@email.com" value={email} onChange={e=>setEmail(e.target.value)} />
         </div>
 
-        <div className={styles.options}>
-          <label><input type="checkbox" checked={remember} onChange={e=>setRemember(e.target.checked)} /> {t('rememberMe')}</label>
+        <div className={styles.inputGroup}>
+          <label>Пароль</label>
+          <input type="password" placeholder="Минимум 6 символов" value={password} onChange={e=>setPassword(e.target.value)} />
         </div>
 
-        <button className="btn btn-primary">{t('loginButton')}</button>
+        <button className="btn btn-primary">Войти</button>
 
-        <div className={styles.regLink}>{t('noAccount')} <a href="/register">{t('register')}</a></div>
+        <div className={styles.switch}>
+          Нет аккаунта? <a href="/register">Зарегистрироваться</a>
+        </div>
 
       </form>
     </div>

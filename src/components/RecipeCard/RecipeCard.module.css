@@ -25,8 +25,16 @@
 .viewButton{ background: linear-gradient(90deg,#f97316,#ffb86b); border:none; color:#07102a; padding:10px 14px; border-radius:12px; font-weight:700; cursor:pointer; box-shadow: 0 8px 24px rgba(249,115,22,0.18); }
 
 .icons{ display:flex; gap:8px; align-items:center; }
-.favoriteButton, .likeButton, .cartButton{ border:none; background:transparent; color:#ff6b35; padding:8px 10px; border-radius:10px; cursor:pointer; font-weight:700; }
+.favoriteButton, .likeButton, .cartButton, .shareButton{ border:none; background:transparent; color:#ff6b35; padding:8px 10px; border-radius:10px; cursor:pointer; font-weight:700; }
 .cartButton{ color:var(--text, #fff); }
 .cartButton:hover{ background:rgba(249,115,22,0.1); }
+.shareButton{ color:rgba(255,255,255,0.7); }
+.shareButton:hover{ background:rgba(249,115,22,0.1); color:#ff6b35; }
+
+.shareWrapper{ position:relative; }
+.shareMenu{ position:absolute; bottom:100%; right:0; margin-bottom:8px; background:rgba(15,23,42,0.98); border:1px solid rgba(255,255,255,0.1); border-radius:12px; padding:8px; display:flex; flex-direction:column; gap:4px; min-width:160px; z-index:10; animation:fadeIn 0.2s ease; }
+@keyframes fadeIn{ from{opacity:0; transform:translateY(10px);} to{opacity:1; transform:translateY(0);} }
+.shareOption{ display:flex; align-items:center; gap:8px; padding:8px 12px; border-radius:8px; background:transparent; border:none; color:white; cursor:pointer; font-size:14px; text-align:left; transition:all 0.2s ease; }
+.shareOption:hover{ background:rgba(249,115,22,0.1); }
 
 @media(max-width:480px){ .card img{ height:180px;} .badges{ flex-direction:row; gap:8px; } }

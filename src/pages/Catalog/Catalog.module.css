@@ -91,11 +91,31 @@
   font-size: 16px;
   font-weight: 600;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .filterToggle:hover{
   background: rgba(249,115,22,0.1);
   border-color: rgba(249,115,22,0.3);
+}
+
+.filterToggle.hasFilters{
+  background: linear-gradient(90deg, #ff6b35, #ff8a4d);
+  border-color: transparent;
+}
+
+.badge{
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background: #ef4444;
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 18px;
+  text-align: center;
 }
 
 .filters{
@@ -104,13 +124,65 @@
   border-radius: 12px;
   padding: 24px;
   margin-bottom: 30px;
+  animation: slideDown 0.3s ease;
 }
 
-.filters h3{
+@keyframes slideDown{
+  from{
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to{
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.filtersHeader{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.filtersHeader h3{
   color: white;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.clearAllBtn{
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.clearAllBtn:hover{
+  background: rgba(239,68,68,0.2);
+}
+
+.filterSection{
+  margin-bottom: 24px;
+}
+
+.filterSection:last-child{
+  margin-bottom: 0;
+}
+
+.filterSection h4{
+  color: rgba(255,255,255,0.8);
+  font-size: 15px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin: 0 0 12px 0;
 }
 
 .categoryList{
@@ -120,7 +192,7 @@
 }
 
 .categoryBtn{
-  padding: 10px 20px;
+  padding: 10px 16px;
   border-radius: 8px;
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.1);
@@ -129,6 +201,13 @@
   font-size: 14px;
   font-weight: 500;
   transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.categoryIcon{
+  font-size: 16px;
 }
 
 .categoryBtn:hover{
@@ -139,6 +218,102 @@
 .categoryBtn.active{
   background: linear-gradient(90deg, #ff6b35, #ff8a4d);
   border-color: transparent;
+}
+
+.sortList{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sortBtn{
+  padding: 10px 16px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sortBtn:hover{
+  background: rgba(249,115,22,0.1);
+  border-color: rgba(249,115,22,0.3);
+}
+
+.sortBtn.active{
+  background: linear-gradient(90deg, #ff6b35, #ff8a4d);
+  border-color: transparent;
+}
+
+.priceList{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.priceBtn{
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.priceBtn:hover{
+  background: rgba(249,115,22,0.1);
+  border-color: rgba(249,115,22,0.3);
+}
+
+.priceBtn.active{
+  background: linear-gradient(90deg, #ff6b35, #ff8a4d);
+  border-color: transparent;
+}
+
+.resetBtn{
+  margin-top: 16px;
+  padding: 12px 24px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, #ff6b35, #ff8a4d);
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.resetBtn:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,107,53,0.3);
+}
+
+.clearFiltersBtn{
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.clearFiltersBtn:hover{
+  background: rgba(239,68,68,0.2);
 }
 
 .loading{

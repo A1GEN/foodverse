@@ -1,6 +1,6 @@
 .home{
   position:relative;
-  background: linear-gradient(135deg, #0f172a 0%, #0f172a 40%);
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
   min-height:100vh;
   overflow-x:hidden;
   padding-top:76px;
@@ -12,9 +12,8 @@
   position:fixed;
   inset:0;
   z-index:0;
-  background: linear-gradient(270deg, rgba(249,115,22,0.06), rgba(255,221,87,0.04), rgba(30,41,59,0.06));
-  background-size: 600% 600%;
-  animation: gradientMove 18s ease infinite;
+  background: radial-gradient(ellipse at top, rgba(249,115,22,0.08) 0%, transparent 50%),
+              radial-gradient(ellipse at bottom right, rgba(255,221,87,0.05) 0%, transparent 50%);
   pointer-events:none;
 }
 
@@ -22,8 +21,8 @@
   position:relative;
   z-index:1;
   max-width:1400px;
-  margin:auto;
-  padding:80px 5%;
+  margin:60px auto;
+  padding:60px 5%;
 }
 
 .heroWrap{
@@ -213,3 +212,41 @@
 .discoverTextBlock h2{ font-size:34px; margin:0 0 8px }
 .discoverTextBlock p{ margin:0 0 12px; color:rgba(255,255,255,0.9) }
 .cta{ display:inline-block; padding:10px 16px; border-radius:10px; background:linear-gradient(90deg,#fb923c,#ffdd57); color:#07102a; font-weight:700; text-decoration:none }
+
+/* Floating Consultant Button */
+.consultantButton{
+  position:fixed;
+  bottom:30px;
+  right:30px;
+  width:60px;
+  height:60px;
+  border-radius:50%;
+  background:linear-gradient(90deg,#ff6b35,#ff8a4d);
+  border:none;
+  cursor:pointer;
+  font-size:28px;
+  box-shadow:0 8px 24px rgba(255,107,53,0.4);
+  transition:all 0.3s ease;
+  z-index:999;
+  animation:float 3s ease-in-out infinite;
+}
+
+.consultantButton:hover{
+  transform:scale(1.1);
+  box-shadow:0 12px 32px rgba(255,107,53,0.5);
+}
+
+@keyframes float{
+  0%,100%{transform:translateY(0);}
+  50%{transform:translateY(-10px);}
+}
+
+@media(max-width:768px){
+  .consultantButton{
+    bottom:20px;
+    right:20px;
+    width:50px;
+    height:50px;
+    font-size:24px;
+  }
+}

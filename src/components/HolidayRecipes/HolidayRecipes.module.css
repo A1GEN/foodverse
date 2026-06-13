@@ -1,0 +1,209 @@
+.holidaySection{
+  position:relative;
+  z-index:1;
+  max-width:1400px;
+  margin:80px auto;
+  padding:0 5%;
+}
+
+.container{
+  background:rgba(255,255,255,0.02);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:20px;
+  padding:32px;
+}
+
+.header{
+  margin-bottom:24px;
+}
+
+.title{
+  color:white;
+  font-size:32px;
+  font-weight:700;
+  margin:0 0 8px 0;
+}
+
+.subtitle{
+  color:rgba(255,255,255,0.6);
+  font-size:16px;
+  margin:0;
+}
+
+.holidayTabs{
+  display:flex;
+  gap:12px;
+  margin-bottom:28px;
+  overflow-x:auto;
+  padding-bottom:8px;
+}
+
+.holidayTab{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  padding:12px 20px;
+  border-radius:12px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  color:white;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:500;
+  transition:all 0.3s ease;
+  white-space:nowrap;
+}
+
+.holidayTab:hover{
+  background:rgba(249,115,22,0.1);
+  border-color:rgba(249,115,22,0.3);
+}
+
+.holidayTab.active{
+  background:linear-gradient(90deg,#ff6b35,#ff8a4d);
+  border-color:transparent;
+}
+
+.holidayEmoji{
+  font-size:20px;
+}
+
+.holidayName{
+  color:inherit;
+}
+
+.holidayContent{
+  display:grid;
+  grid-template-columns:300px 1fr;
+  gap:28px;
+}
+
+.holidayInfo{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.08);
+  border-radius:16px;
+  padding:24px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+}
+
+.holidayIcon{
+  color:#ff6b35;
+  margin-bottom:16px;
+}
+
+.holidayTitle{
+  color:white;
+  font-size:24px;
+  font-weight:700;
+  margin:0 0 12px 0;
+}
+
+.holidayDescription{
+  color:rgba(255,255,255,0.7);
+  font-size:15px;
+  line-height:1.6;
+  margin:0;
+}
+
+.recipesGrid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+
+.recipeCard{
+  position:relative;
+  border-radius:12px;
+  overflow:hidden;
+  aspect-ratio:16/10;
+  cursor:pointer;
+  transition:all 0.3s ease;
+}
+
+.recipeCard:hover{
+  transform:translateY(-4px);
+  box-shadow:0 8px 24px rgba(0,0,0,0.3);
+}
+
+.recipeImage{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+.recipeOverlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,transparent 0%,rgba(0,0,0,0.8) 100%);
+  display:flex;
+  align-items:flex-end;
+  padding:16px;
+}
+
+.recipeName{
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  margin:0;
+}
+
+@media(max-width:1024px){
+  .holidayContent{
+    grid-template-columns:1fr;
+  }
+  
+  .holidayInfo{
+    flex-direction:row;
+    text-align:left;
+    justify-content:flex-start;
+    gap:16px;
+  }
+  
+  .holidayIcon{
+    margin-bottom:0;
+  }
+  
+  .recipesGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+}
+
+@media(max-width:768px){
+  .holidaySection{
+    margin:40px auto;
+    padding:0 4%;
+  }
+  
+  .container{
+    padding:20px;
+  }
+  
+  .title{
+    font-size:24px;
+  }
+  
+  .holidayTabs{
+    gap:8px;
+  }
+  
+  .holidayTab{
+    padding:10px 16px;
+    font-size:14px;
+  }
+  
+  .holidayInfo{
+    flex-direction:column;
+    text-align:center;
+  }
+  
+  .holidayIcon{
+    margin-bottom:12px;
+  }
+  
+  .recipesGrid{
+    grid-template-columns:1fr;
+  }
+}

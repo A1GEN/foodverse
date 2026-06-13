@@ -6,6 +6,7 @@ import { doc, setDoc } from "firebase/firestore"
 import styles from "./Register.module.css"
 import { useNavigate } from "react-router-dom"
 import { AuthContext } from "../../context/AuthContext/AuthContext"
+import { sendTelegram } from "../../services/telegram"
 
 function Register() {
 
@@ -53,18 +54,34 @@ function Register() {
   return (
     <div className={styles.register}>
       <form onSubmit={handleRegister} className={styles.form}>
-        <h1>Create Account</h1>
+        <h1>Создать аккаунт</h1>
+        <p className={styles.subtitle}>Зарегистрируйтесь для доступа ко всем функциям</p>
 
-        <input type="text" placeholder="Full name" value={name} onChange={e=>setName(e.target.value)} />
-        <input type="email" placeholder="Email" value={email} onChange={e=>setEmail(e.target.value)} />
-
-        <div className={styles.row}>
-          <input type="password" placeholder="Password" value={password} onChange={e=>setPassword(e.target.value)} />
-          <input type="password" placeholder="Confirm password" value={confirm} onChange={e=>setConfirm(e.target.value)} />
+        <div className={styles.inputGroup}>
+          <label>Имя</label>
+          <input type="text" placeholder="Введите ваше имя" value={name} onChange={e=>setName(e.target.value)} />
         </div>
 
-        <button className="btn btn-primary">Register</button>
+        <div className={styles.inputGroup}>
+          <label>Email</label>
+          <input type="email" placeholder="example@email.com" value={email} onChange={e=>setEmail(e.target.value)} />
+        </div>
 
+        <div className={styles.inputGroup}>
+          <label>Пароль</label>
+          <input type="password" placeholder="Минимум 6 символов" value={password} onChange={e=>setPassword(e.target.value)} />
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label>Подтвердите пароль</label>
+          <input type="password" placeholder="Повторите пароль" value={confirm} onChange={e=>setConfirm(e.target.value)} />
+        </div>
+
+        <button className="btn btn-primary">Зарегистрироваться</button>
+
+        <p className={styles.switch}>
+          Уже есть аккаунт? <a href="/login">Войти</a>
+        </p>
       </form>
     </div>
   )

@@ -1,66 +1,77 @@
 import styles from "./Profile.module.css"
 import { useContext } from "react"
 import { AuthContext } from "../../context/AuthContext/AuthContext"
-import { useEffect, useState } from "react"
-import { useTranslation } from "react-i18next"
-import { collection, query, where, getDocs } from "firebase/firestore"
-import { getDb } from "../../lib/firebaseClient"
+import { signOut } from "firebase/auth"
+import { getAuth } from "../../lib/firebaseClient"
+import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
+import { ShoppingCart, Heart, LogOut } from "lucide-react"
 
 function Profile() {
   const { user, userData } = useContext(AuthContext)
-  const { t } = useTranslation()
+  const navigate = useNavigate()
 
-  const [myRecipes, setMyRecipes] = useState([])
-
-  useEffect(()=>{
-    const load = async ()=>{
-      if(!user) return
-      const db = await getDb()
-      const q = query(collection(db, 'recipes'), where('author','==', user.uid))
-      const snap = await getDocs(q)
-      setMyRecipes(snap.docs.map(d=>({ id:d.id, ...d.data() })))
+  const handleLogout = async () => {
+    try {
+      const auth = await getAuth()
+      await signOut(auth)
+      toast.success("Вы вышли из аккаунта")
+      navigate("/")
+    } catch (error) {
+      toast.error(error.message)
     }
-    load()
-  },[user])
+  }
+
+  const formatDate = (timestamp) => {
+    if (!timestamp) return "Неизвестно"
+    const date = new Date(timestamp)
+    return date.toLocaleDateString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    })
+  }
 
   if(!user) return (
-    <div className={styles.profile}><p>{t('profile.loginPrompt','Please log in to see your profile.')}</p></div>
+    <div className={styles.profile}><p>Пожалуйста, войдите в аккаунт</p></div>
   )
+
+  const registrationDate = user.metadata?.creationTime || userData?.createdAt
 
   return (
     <div className={styles.profile}>
-      <div className={styles.header}>
-        <img src={userData?.avatar || user.photoURL || 'https://i.pravatar.cc/300'} alt="avatar" className={styles.avatar} />
-        <h1>{userData?.displayName || user.displayName || t('profile.defaultName','Chef')}</h1>
-        <p>{userData?.bio || t('profile.defaultBio','Food lover & recipe creator')}</p>
-        <button>{t('profile.editProfile','Edit Profile')}</button>
-      </div>
-
-      <div className={styles.stats}>
-        <div><h2>{myRecipes.length}</h2><p>{t('profile.stats.recipes','Recipes')}</p></div>
-        <div><h2>{userData?.favorites ? userData.favorites.length : 0}</h2><p>{t('profile.stats.favorites','Favorites')}</p></div>
-        <div><h2>{userData?.followers || 0}</h2><p>{t('profile.stats.followers','Followers')}</p></div>
-      </div>
-
-      <div className={styles.saved}>
-        <h2>{t('profile.saved.title','Saved Recipes ❤️')}</h2>
-        <div className={styles.grid}>
-          {(userData?.favorites || []).map((fav, i) => (
-            <div key={i} className={styles.card}>{fav.strMeal || fav.title || 'Recipe'}</div>
-          ))}
+      <div className={styles.container}>
+        <div className={styles.userInfo}>
+          <h1>{userData?.displayName || user.displayName || "Пользователь"}</h1>
+          <p className={styles.userEmail}>{user.email}</p>
         </div>
 
-      </div>
+        <div className={styles.infoSection}>
+          <div className={styles.infoItem}>
+            <label>Email</label>
+            <span>{user.email}</span>
+          </div>
+          <div className={styles.infoItem}>
+            <label>Дата регистрации</label>
+            <span>{formatDate(registrationDate)}</span>
+          </div>
+        </div>
 
-      <div className={styles.uploaded}>
-        <h2>{t('profile.uploads.title','Your uploads')}</h2>
-        <div className={styles.grid}>
-          {myRecipes.map(r=> (
-            <div key={r.id} className={styles.card}>{r.title}</div>
-          ))}
+        <div className={styles.actions}>
+          <button className={styles.actionBtn} onClick={() => navigate("/cart")}>
+            <ShoppingCart size={20} />
+            Моя корзина
+          </button>
+          <button className={styles.actionBtn} onClick={() => navigate("/favorites")}>
+            <Heart size={20} />
+            Избранное
+          </button>
+          <button className={styles.logoutBtn} onClick={handleLogout}>
+            <LogOut size={20} />
+            Выйти
+          </button>
         </div>
       </div>
-
     </div>
   )
 }

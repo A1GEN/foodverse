@@ -3,7 +3,8 @@ import {
 } from "react-router-dom"
 
 import {
-  useContext
+  useContext,
+  useState
 } from "react"
 
 import {
@@ -21,7 +22,7 @@ import {
   LikesContext
 } from "../../context/LikesContext/LikesContext"
 import { useTranslation } from "react-i18next"
-import { Heart, Clock, ShoppingCart } from "lucide-react"
+import { Heart, Clock, ShoppingCart, Share2, Link as LinkIcon } from "lucide-react"
 import { useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/cartSlice'
 
@@ -30,6 +31,7 @@ function RecipeCard({
 }) {
   const { t } = useTranslation()
   const dispatch = useDispatch()
+  const [showShareMenu, setShowShareMenu] = useState(false)
 
   const {
     addToFavorites,
@@ -48,6 +50,30 @@ function RecipeCard({
 
   const handleAddToCart = () => {
     dispatch(addToCart(recipe))
+  }
+
+  const handleShare = (platform) => {
+    const url = window.location.href
+    const title = recipe.strMeal
+    
+    let shareUrl
+    switch(platform) {
+      case 'facebook':
+        shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`
+        break
+      case 'twitter':
+        shareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`
+        break
+      case 'copy':
+        navigator.clipboard.writeText(url)
+        setShowShareMenu(false)
+        return
+      default:
+        return
+    }
+    
+    window.open(shareUrl, '_blank', 'width=600,height=400')
+    setShowShareMenu(false)
   }
 
   const getRating = (id) => {
@@ -125,6 +151,29 @@ function RecipeCard({
             )}
             <button className={`${styles.likeButton} btn btn-ghost`} onClick={() => toggleLike(recipe.idMeal)}>{likes[recipe.idMeal] || 0} <Heart size={16} /></button>
             <button className={`${styles.cartButton} btn btn-ghost`} onClick={handleAddToCart} aria-label="Add to cart"><ShoppingCart size={18} /></button>
+            <div className={styles.shareWrapper}>
+              <button 
+                className={`${styles.shareButton} btn btn-ghost`} 
+                onClick={() => setShowShareMenu(!showShareMenu)}
+                aria-label="Share"
+              >
+                <Share2 size={18} />
+              </button>
+              {showShareMenu && (
+                <div className={styles.shareMenu}>
+                  <button onClick={() => handleShare('facebook')} className={styles.shareOption}>
+                    📘 Facebook
+                  </button>
+                  <button onClick={() => handleShare('twitter')} className={styles.shareOption}>
+                    🐦 Twitter
+                  </button>
+                  <button onClick={() => handleShare('copy')} className={styles.shareOption}>
+                    <LinkIcon size={16} />
+                    Копировать
+                  </button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
 

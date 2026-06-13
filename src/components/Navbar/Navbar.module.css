@@ -32,7 +32,7 @@
   gap:20px;
 }
 
-.left{ flex:1; display:flex; align-items:center; }
+.left{ flex:1; display:flex; align-items:center; gap:12px; }
 .center{ flex:1; display:flex; justify-content:center; }
 .right{ flex:1; display:flex; justify-content:flex-end; align-items:center; gap:8px }
 
@@ -223,7 +223,7 @@
 
 /* mobile */
 .menuBtn{
-  display:none;
+  display:block;
   border:none;
   background:transparent;
   color:var(--text);
@@ -233,7 +233,6 @@
 @media(max-width:880px){
   .center{ display:none }
   .links{ display:none; }
-  .menuBtn{ display:block; }
   .right{ gap:6px }
   .nav{ padding:12px 14px }
   .logo{ font-size:18px }
@@ -262,3 +261,161 @@
 .mobileControls{ display:flex; justify-content:space-between; align-items:center; gap:8px; padding-top:6px }
 .mobileLanguages{ display:flex; flex-wrap:wrap; gap:6px }
 .mobileLanguages button{ border:none; padding:6px 10px; border-radius:8px; background:rgba(255,255,255,0.06); color:var(--text); cursor:pointer; font-size:12px }
+
+/* Full Menu */
+.fullMenu{
+  position:fixed;
+  top:68px;
+  left:0;
+  bottom:0;
+  width:50%;
+  background:rgba(15,23,42,0.98);
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  z-index:10000;
+  padding:32px 24px;
+  overflow-y:auto;
+  border-right:1px solid rgba(255,255,255,0.1);
+}
+
+.menuHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:32px;
+  padding-bottom:20px;
+  border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+.menuHeader h2{
+  color:white;
+  font-size:32px;
+  font-weight:700;
+  margin:0;
+}
+
+.closeBtn{
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:10px;
+  padding:10px;
+  color:white;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  transition:all 0.2s ease;
+}
+
+.closeBtn:hover{
+  background:rgba(239,68,68,0.1);
+  border-color:rgba(239,68,68,0.3);
+}
+
+.menuGrid{
+  display:flex;
+  flex-direction:column;
+  gap:24px;
+  margin-bottom:32px;
+}
+
+.menuColumn h3{
+  color:rgba(255,255,255,0.8);
+  font-size:14px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin:0 0 16px 0;
+}
+
+.menuColumn a,
+.menuColumn button{
+  display:block;
+  padding:12px 16px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  color:white;
+  text-decoration:none;
+  font-size:15px;
+  font-weight:500;
+  cursor:pointer;
+  transition:all 0.2s ease;
+  margin-bottom:8px;
+  text-align:left;
+  border:none;
+  width:100%;
+}
+
+.menuColumn a:hover,
+.menuColumn button:hover{
+  background:rgba(249,115,22,0.1);
+  border-color:rgba(249,115,22,0.3);
+  transform:translateX(4px);
+}
+
+.menuFooter{
+  padding-top:24px;
+  border-top:1px solid rgba(255,255,255,0.1);
+}
+
+.langSection h3{
+  color:rgba(255,255,255,0.8);
+  font-size:14px;
+  font-weight:600;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin:0 0 16px 0;
+}
+
+.langOptions{
+  display:flex;
+  gap:12px;
+  flex-wrap:wrap;
+}
+
+.langOptions button{
+  padding:12px 20px;
+  border-radius:10px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.1);
+  color:white;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:500;
+  transition:all 0.2s ease;
+}
+
+.langOptions button:hover{
+  background:rgba(249,115,22,0.1);
+  border-color:rgba(249,115,22,0.3);
+}
+
+.langOptions button.activeLang{
+  background:linear-gradient(90deg,#ff6b35,#ff8a4d);
+  border-color:transparent;
+}
+
+@media(max-width:1024px){
+  .fullMenu{
+    width:60%;
+  }
+}
+
+@media(max-width:768px){
+  .fullMenu{
+    width:80%;
+  }
+  
+  .menuHeader h2{
+    font-size:24px;
+  }
+  
+  .langOptions{
+    flex-direction:column;
+  }
+  
+  .langOptions button{
+    width:100%;
+  }
+}

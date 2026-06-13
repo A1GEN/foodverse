@@ -72,12 +72,6 @@ function Navbar() {
 
   const location = useLocation()
 
-  useEffect(()=>{
-    if (!menuOpen) return
-    const t = setTimeout(()=> setMenuOpen(false), 0)
-    return ()=> clearTimeout(t)
-  },[location.pathname, menuOpen])
-
   // close language menu on outside click
   useEffect(()=>{
     const onDoc = (e)=>{
@@ -160,6 +154,14 @@ function Navbar() {
       <div className={styles.navInner}>
 
         <div className={styles.left}>
+          <button 
+            className={styles.menuBtn} 
+            onClick={() => setMenuOpen(v=>!v)} 
+            aria-label="menu" 
+            aria-expanded={menuOpen}
+          >
+            {menuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
           <Link to="/" className={styles.logoLink}>
             <Motion.h1 whileHover={{ scale: 1.05 }} className={styles.logo}>FoodVerse</Motion.h1>
           </Link>
@@ -250,35 +252,70 @@ function Navbar() {
 
             {user && (<button className={styles.logout} onClick={logout} aria-label="Logout">{t('logout')}</button>)}
 
-            <button 
-              className={styles.menuBtn} 
-              onClick={() => setMenuOpen(v=>!v)} 
-              aria-label="menu" 
-              aria-expanded={menuOpen}
-            >
-              {menuOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
           </div>
 
         </div>
 
         {menuOpen && (
-          <Motion.div className={styles.mobileMenu} role="menu" initial={{ opacity:0, y:-8 }} animate={{ opacity:1, y:0 }} transition={{ duration:0.18 }}>
-            <Link to="/" className={location.pathname === "/" ? styles.activeLink : ""}>{t("home")}</Link>
-            <Link to="/catalog" className={location.pathname === "/catalog" ? styles.activeLink : ""}>{t("catalog", "Каталог")}</Link>
-            <Link to="/create" className={location.pathname === "/create" ? styles.activeLink : ""}>{t('create')}</Link>
-            <Link to="/recipes" className={location.pathname === "/recipes" ? styles.activeLink : ""}>{t("recipes", "Рецепты")}</Link>
-            {!user && <Link to="/login">{t("login")}</Link>}
-            {user && <Link to="/profile">{user.displayName || 'Профиль'}</Link>}
-            <div className={styles.mobileControls}>
-              <div className={styles.mobileLanguages}>
-                {[
-                  ['en','EN'],['ru','RU'],['kg','KG']
-                ].map(([code,label])=> (
-                  <button key={code} onClick={() => { i18n.changeLanguage(code); setMenuOpen(false) }}>{label}</button>
-                ))}
+          <Motion.div className={styles.fullMenu} role="menu" initial={{ opacity:0 }} animate={{ opacity:1 }} transition={{ duration:0.3 }}>
+            <div className={styles.menuHeader}>
+              <h2>Menu</h2>
+              <button onClick={() => setMenuOpen(false)} className={styles.closeBtn}>
+                <X size={24} />
+              </button>
+            </div>
+
+            <div className={styles.menuGrid}>
+              <div className={styles.menuColumn}>
+                <h3>Аккаунт</h3>
+                {!user && (
+                  <>
+                    <Link to="/login" onClick={() => setMenuOpen(false)}>Войти</Link>
+                    <Link to="/register" onClick={() => setMenuOpen(false)}>Регистрация</Link>
+                  </>
+                )}
+                {user && (
+                  <>
+                    <Link to="/profile" onClick={() => setMenuOpen(false)}>Профиль</Link>
+                    <button onClick={() => { logout(); setMenuOpen(false); }}>Выйти</button>
+                  </>
+                )}
               </div>
-              <Motion.button className={styles.themeBtn} onClick={toggleTheme} aria-label="Toggle theme">{ darkMode ? <Sun size={20} /> : <Moon size={20} /> }</Motion.button>
+
+              <div className={styles.menuColumn}>
+                <h3>Навигация</h3>
+                <Link to="/" onClick={() => setMenuOpen(false)}>Главная</Link>
+                <Link to="/catalog" onClick={() => setMenuOpen(false)}>Каталог</Link>
+                <Link to="/installment" onClick={() => setMenuOpen(false)}>Рассрочка</Link>
+                <Link to="/about" onClick={() => setMenuOpen(false)}>О нас</Link>
+                <Link to="/contact" onClick={() => setMenuOpen(false)}>Контакты</Link>
+              </div>
+
+              <div className={styles.menuColumn}>
+                <h3>Действия</h3>
+                <Link to="/favorites" onClick={() => setMenuOpen(false)}>Избранное</Link>
+                <Link to="/cart" onClick={() => setMenuOpen(false)}>Корзина</Link>
+                <button onClick={() => { toggleTheme(); setMenuOpen(false); }}>
+                  {darkMode ? '☀️ Светлая тема' : '🌙 Тёмная тема'}
+                </button>
+              </div>
+            </div>
+
+            <div className={styles.menuFooter}>
+              <div className={styles.langSection}>
+                <h3>Язык</h3>
+                <div className={styles.langOptions}>
+                  <button onClick={() => { i18n.changeLanguage('ru'); setMenuOpen(false); }} className={i18n.language === 'ru' ? styles.activeLang : ''}>
+                    🇷🇺 Русский
+                  </button>
+                  <button onClick={() => { i18n.changeLanguage('en'); setMenuOpen(false); }} className={i18n.language === 'en' ? styles.activeLang : ''}>
+                    🇬🇧 English
+                  </button>
+                  <button onClick={() => { i18n.changeLanguage('kg'); setMenuOpen(false); }} className={i18n.language === 'kg' ? styles.activeLang : ''}>
+                    🇰🇬 Кыргызча
+                  </button>
+                </div>
+              </div>
             </div>
           </Motion.div>
         )}

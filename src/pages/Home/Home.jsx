@@ -3,17 +3,16 @@ import { motion as Motion } from "framer-motion"
 import styles from "./Home.module.css"
 
 import Hero from "../../components/Hero/Hero"
-import Search from "../../components/Search/Search"
-import PopularCategories from "../../components/PopularCategories/PopularCategories"
-import Categories from "../../components/Categories/Categories"
 import TrendingRecipes from "../../components/TrendingRecipes/TrendingRecipes"
-import RecipeOfDay from "../../components/RecipeOfDay/RecipeOfDay"
 import RecipeCard from "../../components/RecipeCard/RecipeCard"
 import SkeletonCard from "../../components/SkeletonCard/SkeletonCard"
 import Desserts from "../../components/Desserts/Desserts"
 import TopChefs from "../../components/TopChefs/TopChefs"
-import { Suspense, lazy } from "react"
-const AIChatChef = lazy(() => import("../../components/AdminSidebar/AIChatChef/AIChatChef"))
+import ConsultantChat from "../../components/ConsultantChat/ConsultantChat"
+import SeasonalRecipes from "../../components/SeasonalRecipes/SeasonalRecipes"
+import HolidayRecipes from "../../components/HolidayRecipes/HolidayRecipes"
+import IngredientSearch from "../../components/IngredientSearch/IngredientSearch"
+import NationalCuisines from "../../components/NationalCuisines/NationalCuisines"
 import { collection, getDocs } from "firebase/firestore"
 import { getDb } from "../../lib/firebaseClient"
 import { useTranslation } from "react-i18next"
@@ -21,9 +20,8 @@ import { useTranslation } from "react-i18next"
 function Home() {
   const { t } = useTranslation()
   const [recipes, setRecipes] = useState([])
-  const [search, setSearch] = useState("")
   const [loading, setLoading] = useState(true)
-  const [selectedCategory, setSelectedCategory] = useState("")
+  const [showConsultant, setShowConsultant] = useState(false)
 
   const fetchRecipes = async (query = "chicken", mode = "title") => {
     try {
@@ -74,20 +72,6 @@ function Home() {
     }
   }, [])
 
-  const handleSearchMode = (q, mode) => {
-    if (!q || q.trim() === "") return
-    fetchRecipes(q, mode)
-  }
-
-  const handleCategory = (category) => {
-    setSelectedCategory(category || "")
-    if (!category) {
-      fetchRecipes()
-    } else {
-      fetchRecipes(category, "category")
-    }
-  }
-
   return (
     <Motion.div className={styles.home} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }}>
 
@@ -95,67 +79,34 @@ function Home() {
         <Hero />
       </div>
 
-      {/* Classic catalog / content block (static) */}
-      <section className={styles.classicCatalog}>
-        <div className={styles.classicInner}>
-          <div className={styles.topLinks}>
-            <button type="button" aria-label="chip-fav" className={styles.chip}>{t('chips.favorites')}</button>
-            <button type="button" aria-label="chip-recipes" className={styles.chip}>{t('chips.recipes')}</button>
-            <button type="button" aria-label="chip-articles" className={styles.chip}>{t('chips.articles')}</button>
-            <button type="button" aria-label="chip-kitchen" className={styles.chip}>{t('chips.ourKitchen')}</button>
-            <button type="button" aria-label="chip-search" className={styles.chip}>{t('chips.superSearch')}</button>
-            <button type="button" aria-label="chip-news" className={styles.chip}>{t('chips.newsletters')}</button>
-            <button type="button" aria-label="chip-add" className={styles.chip}>{t('chips.addRecipe')}</button>
-          </div>
-
-          <h2 className={styles.classicTitle}>{t('classicTitle')}</h2>
-
-          <div className={styles.catalogGrid}>
-            <div>
-              <h3>{t('classic.section1.title','First course recipes')}</h3>
-              <p>{t('classic.section1.text','Soups and broths from many cuisines: borscht, gazpacho, miso soup and more.')}</p>
-
-              <h3>{t('classic.section2.title','Main course recipes')}</h3>
-              <p>{t('classic.section2.text','Hearty main dishes: stews, roasts, grills, pasta, rice and more.')}</p>
-            </div>
-
-            <div>
-              <h3>{t('classic.section3.title','Preserves & pickles')}</h3>
-              <p>{t('classic.section3.text','Preserves, pickles and canned goods for seasonal storage and quick meals.')}</p>
-
-              <h3>{t('classic.section4.title','Snacks & appetizers')}</h3>
-              <p>{t('classic.section4.text','Starters and small bites: spreads, canapés, dips, finger foods and street snacks.')}</p>
-            </div>
-
-            <div>
-              <h3>{t('classic.section5.title','Baked & dough dishes')}</h3>
-              <p>{t('classic.section5.text','Breads, pastries, pies, dumplings and all kinds of dough-based treats.')}</p>
-            </div>
-          </div>
-
-          <p className={styles.description}>{t('classicDescription')}</p>
-        </div>
-      </section>
-
-      {/* Popular Categories */}
-      <section className={styles.section}>
-        <PopularCategories />
-      </section>
-
-      {/* Search */}
-      <section className={styles.section}>
-        <Search search={search} setSearch={setSearch} handleSearch={handleSearchMode} />
-      </section>
-
-      {/* Categories */}
-      <section className={styles.section}>
-        <Categories handleCategory={handleCategory} selectedCategory={selectedCategory} />
-      </section>
-
-      {/* Trending & Recipe of the Day */}
+      {/* Trending Recipes */}
       <section className={styles.section}>
         <TrendingRecipes />
-        <RecipeOfDay />
+      </section>
+
+      {/* Seasonal Recipes */}
+      <section className={styles.section}>
+        <SeasonalRecipes />
+      </section>
+
+      {/* Holiday Recipes */}
+      <section className={styles.section}>
+        <HolidayRecipes />
+      </section>
+
+      {/* National Cuisines */}
+      <section className={styles.section}>
+        <NationalCuisines />
+      </section>
+
+      {/* Ingredient Search */}
+      <section className={styles.section}>
+        <IngredientSearch />
+      </section>
+
+      {/* Desserts */}
+      <section className={styles.section}>
+        <Desserts />
       </section>
 
       {/* Recipes Grid */}
@@ -181,22 +132,22 @@ function Home() {
         </div>
       </section>
 
-      {/* Desserts */}
-      <section className={styles.section}>
-        <Desserts />
-      </section>
-
       {/* Top Chefs */}
       <section className={styles.section}>
         <TopChefs />
       </section>
 
-      {/* AI Chef (lazy) */}
-      <section className={styles.section}>
-        <Suspense fallback={<div style={{padding:20}}>Loading AI module...</div>}>
-          <AIChatChef />
-        </Suspense>
-      </section>
+      {/* Consultant Chat Modal */}
+      <ConsultantChat isOpen={showConsultant} onClose={() => setShowConsultant(false)} />
+
+      {/* Floating Consultant Button */}
+      <button 
+        onClick={() => setShowConsultant(true)}
+        className={styles.consultantButton}
+        title="Консультант"
+      >
+        💬
+      </button>
 
     </Motion.div>
   )
