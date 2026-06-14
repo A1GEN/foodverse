@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/cartSlice'
 import { getProducts, searchProducts, getProductsByCategory } from '../../services/productService'
+import { getCategories } from '../../services/categoryService'
 import { Search, Filter, X, ShoppingCart, SlidersHorizontal, ChevronDown, Utensils, Clock, Flame } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import styles from './Catalog.module.css'
@@ -11,7 +12,9 @@ function Catalog() {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const [products, setProducts] = useState([])
+  const [categories, setCategories] = useState([])
   const [loading, setLoading] = useState(true)
+  const [categoriesLoading, setCategoriesLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
   const [showFilters, setShowFilters] = useState(false)
@@ -21,15 +24,28 @@ function Catalog() {
   const { items } = useSelector(state => state.cart)
   const dispatch = useDispatch()
 
-  const categories = [
-    { id: 'All', name: 'Все', icon: <Utensils size={18} /> },
-    { id: '1', name: 'Завтраки', icon: <Utensils size={18} /> },
-    { id: '2', name: 'Обеды', icon: <Utensils size={18} /> },
-    { id: '3', name: 'Ужины', icon: <Utensils size={18} /> },
-    { id: '4', name: 'Десерты', icon: <Utensils size={18} /> },
-    { id: '5', name: 'Напитки', icon: <Utensils size={18} /> },
-    { id: '6', name: 'Закуски', icon: <Utensils size={18} /> }
-  ]
+  useEffect(() => {
+    loadCategories()
+  }, [])
+
+  const loadCategories = async () => {
+    setCategoriesLoading(true)
+    try {
+      const data = await getCategories()
+      console.log('Categories from Supabase:', data)
+      setCategories([{ id: 'All', name: 'Все', icon: <Utensils size={18} /> }, ...data.map(cat => ({
+        id: cat.id,
+        name: cat.category_name,
+        image: cat.image,
+        icon: <Utensils size={18} />
+      }))])
+    } catch (error) {
+      console.error('Error loading categories:', error)
+      setCategories([{ id: 'All', name: 'Все', icon: <Utensils size={18} /> }])
+    } finally {
+      setCategoriesLoading(false)
+    }
+  }
 
   const sortOptions = [
     { id: 'popular', name: 'Популярные' },
@@ -169,18 +185,22 @@ function Catalog() {
 
             <div className={styles.filterSection}>
               <h4>Категории</h4>
-              <div className={styles.categoryList}>
-                {categories.map(category => (
-                  <button
-                    key={category.id}
-                    onClick={() => handleCategoryChange(category.id)}
-                    className={`${styles.categoryBtn} ${selectedCategory === category.id ? styles.active : ''}`}
-                  >
-                    <span className={styles.categoryIcon}>{category.icon}</span>
-                    {category.name}
-                  </button>
-                ))}
-              </div>
+              {categoriesLoading ? (
+                <div className={styles.loading}>Загрузка категорий...</div>
+              ) : (
+                <div className={styles.categoryList}>
+                  {categories.map(category => (
+                    <button
+                      key={category.id}
+                      onClick={() => handleCategoryChange(category.id)}
+                      className={`${styles.categoryBtn} ${selectedCategory === category.id ? styles.active : ''}`}
+                    >
+                      <span className={styles.categoryIcon}>{category.icon}</span>
+                      {category.name}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className={styles.filterSection}>
