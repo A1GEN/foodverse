@@ -25,6 +25,7 @@ import Cart from "./pages/Cart/Cart"
 import Catalog from "./pages/Catalog/Catalog"
 import Recipes from "./pages/Recipes/Recipes"
 import Checkout from "./pages/Checkout/Checkout"
+import Product from "./pages/Product/Product"
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/checkout" element={<Checkout />} />
+        <Route path="/product/:id" element={<Product />} />
 
       </Routes>
 

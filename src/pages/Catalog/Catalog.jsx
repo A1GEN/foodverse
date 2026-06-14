@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/cartSlice'
-import { getRecipesByCategory, searchRecipes, getRecipes } from '../../services/recipeApi'
-import RecipeCard from '../../components/RecipeCard/RecipeCard'
-import { Search, Filter, X, ShoppingCart, SlidersHorizontal, ChevronDown } from 'lucide-react'
+import { getProducts, searchProducts, getProductsByCategory } from '../../services/productService'
+import { Search, Filter, X, ShoppingCart, SlidersHorizontal, ChevronDown, Utensils, Clock, Flame } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import styles from './Catalog.module.css'
+import { Link } from 'react-router-dom'
 
 function Catalog() {
   const { t } = useTranslation()
-  const [recipes, setRecipes] = useState([])
+  const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
@@ -21,66 +21,58 @@ function Catalog() {
   const dispatch = useDispatch()
 
   const categories = [
-    { id: 'All', name: 'Все', icon: '🍽️' },
-    { id: 'Beef', name: 'Говядина', icon: '🥩' },
-    { id: 'Chicken', name: 'Курица', icon: '🍗' },
-    { id: 'Dessert', name: 'Десерты', icon: '🍰' },
-    { id: 'Seafood', name: 'Морепродукты', icon: '🦐' },
-    { id: 'Vegetarian', name: 'Вегетарианское', icon: '🥗' },
-    { id: 'Pasta', name: 'Паста', icon: '🍝' },
-    { id: 'Breakfast', name: 'Завтрак', icon: '🍳' }
+    { id: 'All', name: 'Все', icon: <Utensils size={18} /> },
+    { id: '1', name: 'Завтраки', icon: <Utensils size={18} /> },
+    { id: '2', name: 'Обеды', icon: <Utensils size={18} /> },
+    { id: '3', name: 'Ужины', icon: <Utensils size={18} /> },
+    { id: '4', name: 'Десерты', icon: <Utensils size={18} /> },
+    { id: '5', name: 'Напитки', icon: <Utensils size={18} /> },
+    { id: '6', name: 'Закуски', icon: <Utensils size={18} /> }
   ]
 
   const sortOptions = [
     { id: 'popular', name: 'Популярные' },
     { id: 'newest', name: 'Новинки' },
-    { id: 'price-low', name: 'Сначала дешевые' },
-    { id: 'price-high', name: 'Сначала дорогие' },
-    { id: 'rating', name: 'По рейтингу' }
+    { id: 'calories-low', name: 'Меньше калорий' },
+    { id: 'calories-high', name: 'Больше калорий' },
+    { id: 'time-low', name: 'Быстрее готовить' },
+    { id: 'time-high', name: 'Дольше готовить' }
   ]
 
-  const priceRanges = [
-    { id: 'all', name: 'Все цены' },
-    { id: 'low', name: 'До 500 ₽' },
-    { id: 'medium', name: '500 - 1000 ₽' },
-    { id: 'high', name: '1000 - 2000 ₽' },
-    { id: 'premium', name: 'От 2000 ₽' }
+  const difficultyOptions = [
+    { id: 'all', name: 'Все уровни' },
+    { id: 'easy', name: 'Легко' },
+    { id: 'medium', name: 'Средне' },
+    { id: 'hard', name: 'Сложно' }
   ]
 
   useEffect(() => {
-    loadRecipes()
+    loadProducts()
   }, [selectedCategory, searchQuery])
 
-  const loadRecipes = async () => {
+  const loadProducts = async () => {
     setLoading(true)
     try {
       let data
       if (searchQuery) {
-        data = await searchRecipes(searchQuery)
+        data = await searchProducts(searchQuery)
       } else if (selectedCategory === 'All') {
-        data = await getRecipes()
+        data = await getProducts()
       } else {
-        data = await getRecipesByCategory(selectedCategory)
+        data = await getProductsByCategory(selectedCategory)
       }
       
-      // Ensure data is always an array
-      if (Array.isArray(data)) {
-        setRecipes(data)
-      } else if (data && data.meals && Array.isArray(data.meals)) {
-        setRecipes(data.meals)
-      } else {
-        setRecipes([])
-      }
+      setProducts(data || [])
     } catch (error) {
-      console.error('Error loading recipes:', error)
-      setRecipes([])
+      console.error('Error loading products:', error)
+      setProducts([])
     } finally {
       setLoading(false)
     }
   }
 
-  const handleAddToCart = (recipe) => {
-    dispatch(addToCart(recipe))
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product))
   }
 
   const handleCategoryChange = (category) => {
@@ -91,8 +83,8 @@ function Catalog() {
     setSortBy(sort)
   }
 
-  const handlePriceChange = (price) => {
-    setPriceRange(price)
+  const handleDifficultyChange = (difficulty) => {
+    setPriceRange(difficulty)
   }
 
   const clearFilters = () => {
@@ -102,31 +94,24 @@ function Catalog() {
     setPriceRange('all')
   }
 
-  const filteredRecipes = Array.isArray(recipes) ? recipes.filter(recipe => {
+  const filteredProducts = Array.isArray(products) ? products.filter(product => {
     // Search filter
-    if (searchQuery && recipe.strMeal && !recipe.strMeal.toLowerCase().includes(searchQuery.toLowerCase())) {
+    if (searchQuery && product.name && !product.name.toLowerCase().includes(searchQuery.toLowerCase())) {
       return false
     }
     // Category filter
-    if (selectedCategory !== 'All' && recipe.strCategory !== selectedCategory) {
+    if (selectedCategory !== 'All' && product.category_id !== selectedCategory) {
       return false
-    }
-    // Price filter (simulated)
-    if (priceRange !== 'all') {
-      const price = recipe.price || Math.floor(Math.random() * 2500) + 100
-      if (priceRange === 'low' && price > 500) return false
-      if (priceRange === 'medium' && (price < 500 || price > 1000)) return false
-      if (priceRange === 'high' && (price < 1000 || price > 2000)) return false
-      if (priceRange === 'premium' && price < 2000) return false
     }
     return true
   }).sort((a, b) => {
     // Sort logic
     if (sortBy === 'popular') return (b.popularity || 0) - (a.popularity || 0)
-    if (sortBy === 'newest') return (b.idMeal || 0) - (a.idMeal || 0)
-    if (sortBy === 'price-low') return (a.price || 500) - (b.price || 500)
-    if (sortBy === 'price-high') return (b.price || 500) - (a.price || 500)
-    if (sortBy === 'rating') return (b.rating || 0) - (a.rating || 0)
+    if (sortBy === 'newest') return new Date(b.created_at) - new Date(a.created_at)
+    if (sortBy === 'calories-low') return (a.calories || 0) - (b.calories || 0)
+    if (sortBy === 'calories-high') return (b.calories || 0) - (a.calories || 0)
+    if (sortBy === 'time-low') return (a.cooking_time || 0) - (b.cooking_time || 0)
+    if (sortBy === 'time-high') return (b.cooking_time || 0) - (a.cooking_time || 0)
     return 0
   }) : []
 
@@ -214,15 +199,15 @@ function Catalog() {
             </div>
 
             <div className={styles.filterSection}>
-              <h4>Цена</h4>
+              <h4>Сложность</h4>
               <div className={styles.priceList}>
-                {priceRanges.map(range => (
+                {difficultyOptions.map(option => (
                   <button
-                    key={range.id}
-                    onClick={() => handlePriceChange(range.id)}
-                    className={`${styles.priceBtn} ${priceRange === range.id ? styles.active : ''}`}
+                    key={option.id}
+                    onClick={() => handleDifficultyChange(option.id)}
+                    className={`${styles.priceBtn} ${priceRange === option.id ? styles.active : ''}`}
                   >
-                    {range.name}
+                    {option.name}
                   </button>
                 ))}
               </div>
@@ -231,11 +216,11 @@ function Catalog() {
         )}
 
         {loading ? (
-          <div className={styles.loading}>Загрузка рецептов...</div>
-        ) : filteredRecipes.length === 0 ? (
+          <div className={styles.loading}>Загрузка продуктов...</div>
+        ) : filteredProducts.length === 0 ? (
           <div className={styles.empty}>
             <ShoppingCart size={64} className={styles.emptyIcon} />
-            <p>Рецепты не найдены</p>
+            <p>Продукты не найдены</p>
             <button onClick={clearFilters} className={styles.resetBtn}>
               Сбросить фильтры
             </button>
@@ -243,7 +228,7 @@ function Catalog() {
         ) : (
           <>
             <div className={styles.results}>
-              <span>Найдено {filteredRecipes.length} рецептов</span>
+              <span>Найдено {filteredProducts.length} продуктов</span>
               {activeFiltersCount > 0 && (
                 <button onClick={clearFilters} className={styles.clearFiltersBtn}>
                   <X size={14} /> Очистить фильтры
@@ -252,11 +237,28 @@ function Catalog() {
             </div>
 
             <div className={styles.grid}>
-              {filteredRecipes.map(recipe => (
-                <div key={recipe.idMeal} className={styles.recipeCard}>
-                  <RecipeCard recipe={recipe} />
+              {filteredProducts.map(product => (
+                <div key={product.id} className={styles.productCard}>
+                  <Link to={`/product/${product.id}`} className={styles.productLink}>
+                    <img src={product.image} alt={product.name} className={styles.productImage} />
+                    <div className={styles.productInfo}>
+                      <h3 className={styles.productName}>{product.name}</h3>
+                      <p className={styles.productCountry}>{product.country}</p>
+                      <div className={styles.productMeta}>
+                        <span className={styles.metaItem}>
+                          <Clock size={14} />
+                          {product.cooking_time} мин
+                        </span>
+                        <span className={styles.metaItem}>
+                          <Flame size={14} />
+                          {product.calories} ккал
+                        </span>
+                      </div>
+                      <p className={styles.productDescription}>{product.description?.substring(0, 100)}...</p>
+                    </div>
+                  </Link>
                   <button
-                    onClick={() => handleAddToCart(recipe)}
+                    onClick={() => handleAddToCart(product)}
                     className={styles.addToCartBtn}
                   >
                     <ShoppingCart size={18} /> В корзину
