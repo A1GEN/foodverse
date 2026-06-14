@@ -267,36 +267,57 @@ function Navbar() {
 
             <div className={styles.menuGrid}>
               <div className={styles.menuColumn}>
-                <h3>Аккаунт</h3>
+                <h3>{t('menu.account')}</h3>
                 {!user && (
                   <>
-                    <Link to="/login" onClick={() => setMenuOpen(false)}>Войти</Link>
-                    <Link to="/register" onClick={() => setMenuOpen(false)}>Регистрация</Link>
+                    <Link to="/login" onClick={() => setMenuOpen(false)}>{t('menu.login')}</Link>
+                    <Link to="/register" onClick={() => setMenuOpen(false)}>{t('menu.register')}</Link>
                   </>
                 )}
                 {user && (
                   <>
-                    <Link to="/profile" onClick={() => setMenuOpen(false)}>Профиль</Link>
-                    <button onClick={() => { logout(); setMenuOpen(false); }}>Выйти</button>
+                    <Link to="/profile" onClick={() => setMenuOpen(false)}>{t('menu.profile')}</Link>
+                    <button onClick={() => { logout(); setMenuOpen(false); }}>{t('menu.logout')}</button>
                   </>
                 )}
               </div>
 
               <div className={styles.menuColumn}>
-                <h3>Навигация</h3>
-                <Link to="/" onClick={() => setMenuOpen(false)}>Главная</Link>
-                <Link to="/catalog" onClick={() => setMenuOpen(false)}>Каталог</Link>
-                <Link to="/installment" onClick={() => setMenuOpen(false)}>Рассрочка</Link>
-                <Link to="/about" onClick={() => setMenuOpen(false)}>О нас</Link>
-                <Link to="/contact" onClick={() => setMenuOpen(false)}>Контакты</Link>
+                <h3>{t('menu.navigation')}</h3>
+                <Link to="/" onClick={() => setMenuOpen(false)}>{t('menu.home')}</Link>
+                <Link to="/catalog" onClick={() => setMenuOpen(false)}>{t('menu.catalog')}</Link>
+                <Link to="/recipes" onClick={() => setMenuOpen(false)}>{t('menu.recipes')}</Link>
+                <Link to="/contact" onClick={() => setMenuOpen(false)}>{t('menu.contacts')}</Link>
               </div>
 
               <div className={styles.menuColumn}>
-                <h3>Действия</h3>
-                <Link to="/favorites" onClick={() => setMenuOpen(false)}>Избранное</Link>
-                <Link to="/cart" onClick={() => setMenuOpen(false)}>Корзина</Link>
+                <h3>{t('menu.contacts')}</h3>
+                <div className={styles.contactInfo}>
+                  <div className={styles.contactItem}>
+                    <span className={styles.contactLabel}>Телефон:</span>
+                    <a href="tel:+996555123456" className={styles.contactValue}>+996 555 123 456</a>
+                  </div>
+                  <div className={styles.contactItem}>
+                    <span className={styles.contactLabel}>Email:</span>
+                    <a href="mailto:info@foodverse.kg" className={styles.contactValue}>info@foodverse.kg</a>
+                  </div>
+                  <div className={styles.contactItem}>
+                    <span className={styles.contactLabel}>Адрес:</span>
+                    <span className={styles.contactValue}>г. Бишкек, пр. Чуй 123</span>
+                  </div>
+                  <div className={styles.contactItem}>
+                    <span className={styles.contactLabel}>Режим работы:</span>
+                    <span className={styles.contactValue}>Ежедневно 9:00 - 22:00</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className={styles.menuColumn}>
+                <h3>{t('menu.actions')}</h3>
+                <Link to="/favorites" onClick={() => setMenuOpen(false)}>{t('menu.favorites')}</Link>
+                <Link to="/cart" onClick={() => setMenuOpen(false)}>{t('menu.cart')}</Link>
                 <button onClick={() => { toggleTheme(); setMenuOpen(false); }}>
-                  {darkMode ? '☀️ Светлая тема' : '🌙 Тёмная тема'}
+                  {darkMode ? t('menu.lightTheme') : t('menu.darkTheme')}
                 </button>
               </div>
             </div>

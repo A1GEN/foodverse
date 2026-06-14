@@ -3,7 +3,7 @@ import { supabase } from '../supabase'
 export const getProducts = async () => {
   try {
     const { data, error } = await supabase
-      .from('products')
+      .from('foods')
       .select('*')
       .order('created_at', { ascending: false })
     
@@ -18,7 +18,7 @@ export const getProducts = async () => {
 export const getProductById = async (id) => {
   try {
     const { data, error } = await supabase
-      .from('products')
+      .from('foods')
       .select('*')
       .eq('id', id)
       .single()
@@ -34,7 +34,7 @@ export const getProductById = async (id) => {
 export const getProductsByCategory = async (categoryId) => {
   try {
     const { data, error } = await supabase
-      .from('products')
+      .from('foods')
       .select('*')
       .eq('category_id', categoryId)
       .order('created_at', { ascending: false })
@@ -50,7 +50,7 @@ export const getProductsByCategory = async (categoryId) => {
 export const searchProducts = async (query) => {
   try {
     const { data, error } = await supabase
-      .from('products')
+      .from('foods')
       .select('*')
       .ilike('name', `%${query}%`)
       .order('created_at', { ascending: false })

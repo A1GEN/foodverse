@@ -2,9 +2,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { removeFromCart, updateQuantity, clearCart } from '../../redux/cartSlice'
 import { Link } from 'react-router-dom'
 import { Trash2, Plus, Minus, ShoppingBag, ArrowRight } from 'lucide-react'
+import { useTranslation } from 'react-i18next'
 import styles from './Cart.module.css'
 
 function Cart() {
+  const { t } = useTranslation()
   const { items } = useSelector(state => state.cart)
   const dispatch = useDispatch()
 
@@ -29,39 +31,39 @@ function Cart() {
       <div className={styles.container}>
         <h1 className={styles.title}>
           <ShoppingBag size={32} className={styles.titleIcon} />
-          Корзина
+          {t('cart.title')}
         </h1>
 
         {items.length === 0 ? (
           <div className={styles.empty}>
             <ShoppingBag size={64} className={styles.emptyIcon} />
-            <p>Ваша корзина пуста</p>
+            <p>{t('cart.empty')}</p>
             <Link to="/catalog" className={styles.shopBtn}>
-              Смотреть рецепты <ArrowRight size={16} />
+              {t('cart.shopRecipes')} <ArrowRight size={16} />
             </Link>
           </div>
         ) : (
           <>
             <div className={styles.header}>
-              <span>{total} {total === 1 ? 'товар' : 'товаров'}</span>
+              <span>{total} {total === 1 ? t('cart.total') : t('cart.items')}</span>
               <button onClick={handleClearCart} className={styles.clearBtn}>
-                <Trash2 size={16} /> Очистить корзину
+                <Trash2 size={16} /> {t('cart.clearCart')}
               </button>
             </div>
 
             <div className={styles.items}>
               {items.map(item => (
-                <div key={item.idMeal} className={styles.item}>
-                  <img src={item.strMealThumb} alt={item.strMeal} className={styles.itemImage} />
+                <div key={item.idMeal || item.id} className={styles.item}>
+                  <img src={item.strMealThumb || item.image} alt={item.strMeal || item.name} className={styles.itemImage} />
                   
                   <div className={styles.itemInfo}>
-                    <h3>{item.strMeal}</h3>
-                    <p className={styles.category}>{item.strCategory}</p>
+                    <h3>{item.strMeal || item.name}</h3>
+                    <p className={styles.category}>{item.strCategory || item.category}</p>
                   </div>
 
                   <div className={styles.quantityControl}>
                     <button 
-                      onClick={() => handleQuantityChange(item.idMeal, (item.quantity || 1) - 1)}
+                      onClick={() => handleQuantityChange(item.idMeal || item.id, (item.quantity || 1) - 1)}
                       className={styles.qtyBtn}
                       disabled={(item.quantity || 1) <= 1}
                     >
@@ -69,7 +71,7 @@ function Cart() {
                     </button>
                     <span className={styles.qty}>{item.quantity || 1}</span>
                     <button 
-                      onClick={() => handleQuantityChange(item.idMeal, (item.quantity || 1) + 1)}
+                      onClick={() => handleQuantityChange(item.idMeal || item.id, (item.quantity || 1) + 1)}
                       className={styles.qtyBtn}
                     >
                       <Plus size={16} />
@@ -77,7 +79,7 @@ function Cart() {
                   </div>
 
                   <button 
-                    onClick={() => handleRemove(item.idMeal)}
+                    onClick={() => handleRemove(item.idMeal || item.id)}
                     className={styles.removeBtn}
                     aria-label="Remove item"
                   >
@@ -93,7 +95,7 @@ function Cart() {
                 <strong>{total}</strong>
               </div>
               <Link to="/checkout" className={styles.checkoutBtn}>
-                Оформить заказ <ArrowRight size={18} />
+                {t('cart.checkout')} <ArrowRight size={18} />
               </Link>
             </div>
           </>

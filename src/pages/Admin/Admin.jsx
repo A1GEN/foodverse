@@ -8,23 +8,24 @@ import styles from "./Admin.module.css"
 import AnalyticsCharts from "../../components/AnalyticsCharts/AnalyticsCharts"
 import { useEffect, useState } from "react"
 import { getAdminRecipes, deleteAdminRecipe, updateAdminRecipe, createAdminRecipe } from "../../services/saveRecipe"
+import { getAllUsers, deleteUser as deleteUserFromDb, updateUser as updateUserFromDb } from "../../services/userService"
 import { toast } from "react-toastify"
 import AdminEditModal from "../../components/AdminEditModal/AdminEditModal"
 import { useTranslation } from "react-i18next"
-import { Users, TrendingUp, Activity, Settings, Search, Filter, Plus, Edit2, Trash2, Eye, Calendar, Clock, Star } from "lucide-react"
+import { Users, TrendingUp, Activity, Settings, Search, Filter, Plus, Edit2, Trash2, Eye, Calendar, Clock, Star, UserCheck, UserX, Mail, Shield } from "lucide-react"
 
 function Admin() {
 
   const [recipes, setRecipes] = useState([])
-  const [users, setUsers] = useState([
-    { id: 'u1', name: 'Ольга Петрова', email: 'olga@example.com', role: 'user', joined: '2024-01-15', recipes: 12 },
-    { id: 'u2', name: 'Арген Админ', email: 'argen@gmail.com', role: 'admin', joined: '2024-01-01', recipes: 45 }
-  ])
+  const [users, setUsers] = useState([])
+  const [loadingUsers, setLoadingUsers] = useState(true)
   const [activeTab, setActiveTab] = useState('overview')
   const [searchQuery, setSearchQuery] = useState('')
 
   const [editModal, setEditModal] = useState(false)
   const [editData, setEditData] = useState(null)
+  const [userEditModal, setUserEditModal] = useState(false)
+  const [userEditData, setUserEditData] = useState(null)
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(8)
   const [filterStatus, setFilterStatus] = useState('all')
@@ -38,6 +39,22 @@ function Admin() {
         if(!mounted) return
         setRecipes(data)
       }catch(e){ console.error('admin recipes fetch', e); toast.error('Ошибка загрузки рецептов') }
+    })()
+    return ()=> mounted = false
+  },[])
+
+  useEffect(()=>{
+    let mounted = true
+    ;(async()=>{
+      try{
+        setLoadingUsers(true)
+        const data = await getAllUsers()
+        if(!mounted) return
+        setUsers(data)
+      }catch(e){ console.error('admin users fetch', e); toast.error('Ошибка загрузки пользователей') }
+      finally{
+        if(mounted) setLoadingUsers(false)
+      }
     })()
     return ()=> mounted = false
   },[])
@@ -58,7 +75,45 @@ function Admin() {
     publishedRecipes: recipes.filter(r => r.status === 'published').length,
     draftRecipes: recipes.filter(r => r.status === 'draft').length,
     totalUsers: users.length,
-    activeUsers: users.filter(u => u.role === 'user').length
+    activeUsers: users.filter(u => u.role !== 'admin').length
+  }
+
+  const handleDeleteUser = async (userId) => {
+    if (!confirm('Вы уверены, что хотите удалить этого пользователя?')) return
+    try {
+      await deleteUserFromDb(userId)
+      setUsers(users.filter(u => u.id !== userId))
+      toast.success('Пользователь удален')
+    } catch (error) {
+      console.error('Error deleting user:', error)
+      toast.error('Ошибка удаления пользователя')
+    }
+  }
+
+  const handleEditUser = (user) => {
+    setUserEditData(user)
+    setUserEditModal(true)
+  }
+
+  const handleSaveUser = async (updatedUser) => {
+    try {
+      await updateUserFromDb(updatedUser.id, {
+        displayName: updatedUser.displayName,
+        email: updatedUser.email,
+        role: updatedUser.role
+      })
+      setUsers(users.map(u => u.id === updatedUser.id ? { ...u, ...updatedUser } : u))
+      toast.success('Пользователь обновлен')
+      setUserEditModal(false)
+      setUserEditData(null)
+    } catch (error) {
+      console.error('Error updating user:', error)
+      toast.error('Ошибка обновления пользователя')
+    }
+  }
+
+  const handleViewProfile = (userId) => {
+    window.open(`/profile/${userId}`, '_blank')
   }
 
   return (
@@ -247,31 +302,93 @@ function Admin() {
                 <span>Активных: {stats.activeUsers}</span>
               </div>
             </div>
+            
+            <div className={styles.controls}>
+              <div className={styles.searchBox}>
+                <Search size={18} className={styles.searchIcon} />
+                <input
+                  type="text"
+                  placeholder="Поиск пользователей..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className={styles.searchInput}
+                />
+              </div>
+            </div>
+
             <div className={styles.list}>
-              {users.map(u=> (
+              {loadingUsers && <div className={styles.empty}>Загрузка пользователей...</div>}
+              {!loadingUsers && users.length === 0 && <div className={styles.empty}>Пользователи не найдены</div>}
+              {!loadingUsers && users
+                .filter(u => 
+                  searchQuery === '' || 
+                  (u.displayName || '').toLowerCase().includes(searchQuery.toLowerCase()) ||
+                  (u.email || '').toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                .map(u=> (
                 <div key={u.id} className={styles.row}>
                   <div className={styles.rowInfo}>
-                    <div className={styles.rowTitle}>{u.name}</div>
+                    <div className={styles.rowTitle}>{u.displayName || 'Без имени'}</div>
                     <div className={styles.rowMeta}>
-                      <span>{u.email}</span>
-                      <span className={styles.rowRole}>{u.role === 'admin' ? 'Админ' : 'Пользователь'}</span>
-                      <span className={styles.rowDate}><Calendar size={14} /> {u.joined}</span>
+                      <span className={styles.rowEmail}><Mail size={14} /> {u.email}</span>
+                      <span className={styles.rowRole}>
+                        <Shield size={14} /> {u.role === 'admin' ? 'Админ' : 'Пользователь'}
+                      </span>
+                      {u.createdAt && <span className={styles.rowDate}><Calendar size={14} /> {new Date(u.createdAt.seconds * 1000).toLocaleDateString('ru-RU')}</span>}
                     </div>
                   </div>
                   <div className={styles.actions}>
-                    <button className={styles.actionBtn} onClick={()=> window.open(`/profile`, '_blank')} title="Профиль">
+                    <button className={styles.actionBtn} onClick={()=> handleViewProfile(u.id)} title="Профиль">
                       <Eye size={16} />
                     </button>
-                    <button className={styles.actionBtn} onClick={()=> toast.info('Редактирование пользователя')} title="Редактировать">
+                    <button className={styles.actionBtn} onClick={()=> handleEditUser(u)} title="Редактировать">
                       <Edit2 size={16} />
                     </button>
-                    <button className={`${styles.actionBtn} ${styles.deleteBtn}`} onClick={()=> toast.info('Пользователь заблокирован')} title="Блокировать">
+                    <button className={`${styles.actionBtn} ${styles.deleteBtn}`} onClick={()=> handleDeleteUser(u.id)} title="Удалить">
                       <Trash2 size={16} />
                     </button>
                   </div>
                 </div>
               ))}
             </div>
+
+            {userEditModal && (
+              <div className={styles.modalOverlay} onClick={() => setUserEditModal(false)}>
+                <div className={styles.modal} onClick={e => e.stopPropagation()}>
+                  <h3>Редактировать пользователя</h3>
+                  <div className={styles.formGroup}>
+                    <label>Имя</label>
+                    <input
+                      type="text"
+                      value={userEditData?.displayName || ''}
+                      onChange={e => setUserEditData({ ...userEditData, displayName: e.target.value })}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      value={userEditData?.email || ''}
+                      onChange={e => setUserEditData({ ...userEditData, email: e.target.value })}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Роль</label>
+                    <select
+                      value={userEditData?.role || 'user'}
+                      onChange={e => setUserEditData({ ...userEditData, role: e.target.value })}
+                    >
+                      <option value="user">Пользователь</option>
+                      <option value="admin">Админ</option>
+                    </select>
+                  </div>
+                  <div className={styles.modalActions}>
+                    <button onClick={() => setUserEditModal(false)} className={styles.cancelBtn}>Отмена</button>
+                    <button onClick={() => handleSaveUser(userEditData)} className={styles.saveBtn}>Сохранить</button>
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         )}
 

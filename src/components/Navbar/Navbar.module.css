@@ -357,6 +357,39 @@
   transform:translateX(4px);
 }
 
+.contactInfo{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.contactItem{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+  padding:12px 18px;
+  background:rgba(255,255,255,0.03);
+  border:1px solid rgba(255,255,255,0.06);
+  border-radius:10px;
+}
+
+.contactLabel{
+  font-size:11px;
+  color:rgba(255,255,255,0.5);
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+
+.contactValue{
+  font-size:13px;
+  color:rgba(255,255,255,0.8);
+  text-decoration:none;
+}
+
+.contactValue:hover{
+  color:var(--accent, #ff6b35);
+}
+
 .menuFooter{
   padding-top:24px;
   border-top:1px solid rgba(255,255,255,0.1);

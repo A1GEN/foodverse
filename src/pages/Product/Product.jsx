@@ -114,7 +114,7 @@ function Product() {
             </div>
             <div className={styles.metaItem}>
               <Utensils size={18} />
-              <span>{product.difficulty || 'Средне'}</span>
+              <span>{product.difficulti || 'Средне'}</span>
             </div>
           </div>
 

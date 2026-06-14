@@ -278,6 +278,12 @@
   gap:4px;
 }
 
+.rowEmail{
+  display:flex;
+  align-items:center;
+  gap:4px;
+}
+
 .actions{
   display:flex;
   gap:8px;
@@ -445,6 +451,46 @@
 
 .modal input:focus,.modal select:focus{
   border-color:rgba(249,115,22,0.5);
+}
+
+.formGroup{
+  margin-bottom:16px;
+}
+
+.modalActions{
+  display:flex;
+  gap:12px;
+  margin-top:24px;
+  justify-content:flex-end;
+}
+
+.cancelBtn,.saveBtn{
+  padding:10px 20px;
+  border-radius:8px;
+  border:1px solid rgba(255,255,255,0.1);
+  color:white;
+  cursor:pointer;
+  font-size:14px;
+  font-weight:500;
+  transition:all 0.2s ease;
+}
+
+.cancelBtn{
+  background:rgba(255,255,255,0.06);
+}
+
+.cancelBtn:hover{
+  background:rgba(255,255,255,0.1);
+}
+
+.saveBtn{
+  background:linear-gradient(90deg,#ff6b35,#ff8a4d);
+  border:none;
+}
+
+.saveBtn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(255,107,53,0.3);
 }
 
 @media(max-width:768px){

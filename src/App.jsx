@@ -6,6 +6,7 @@ import {
 } from "react-router-dom"
 
 import Navbar from "./components/Navbar/Navbar"
+import Footer from "./components/Footer/Footer"
 import LoadingScreen from "./components/LoadingScreen/LoadingScreen"
 import { useState } from "react"
 
@@ -26,6 +27,7 @@ import Catalog from "./pages/Catalog/Catalog"
 import Recipes from "./pages/Recipes/Recipes"
 import Checkout from "./pages/Checkout/Checkout"
 import Product from "./pages/Product/Product"
+import Success from "./pages/Success/Success"
 
 function App() {
 
@@ -58,8 +60,11 @@ function App() {
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/success" element={<Success />} />
 
       </Routes>
+
+      <Footer />
 
     </>
 
