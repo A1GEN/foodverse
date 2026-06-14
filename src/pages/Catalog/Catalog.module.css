@@ -374,6 +374,7 @@
 .productLink{
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 .productImage{
@@ -444,6 +445,34 @@
 .addToCartBtn:hover{
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(255,107,53,0.3);
+}
+
+.productLinks{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.recipeLink{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  background: rgba(34,197,94,0.1);
+  border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 8px;
+  color: #22c974;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-top: 12px;
+}
+
+.recipeLink:hover{
+  background: rgba(34,197,94,0.2);
+  border-color: rgba(34,197,94,0.5);
 }
 
 @media(max-width: 768px){

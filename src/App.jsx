@@ -27,6 +27,8 @@ import Catalog from "./pages/Catalog/Catalog"
 import Recipes from "./pages/Recipes/Recipes"
 import Checkout from "./pages/Checkout/Checkout"
 import Product from "./pages/Product/Product"
+import Recipe from "./pages/Recipe/Recipe"
+import About from "./pages/About/About"
 import Success from "./pages/Success/Success"
 
 function App() {
@@ -60,6 +62,8 @@ function App() {
         <Route path="/recipes" element={<Recipes />} />
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/product/:id" element={<Product />} />
+        <Route path="/recipe-food/:id" element={<Recipe />} />
+        <Route path="/about" element={<About />} />
         <Route path="/success" element={<Success />} />
 
       </Routes>

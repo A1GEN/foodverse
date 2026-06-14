@@ -3,10 +3,8 @@ import { motion as Motion } from "framer-motion"
 import styles from "./Home.module.css"
 
 import Hero from "../../components/Hero/Hero"
-import TrendingRecipes from "../../components/TrendingRecipes/TrendingRecipes"
 import RecipeCard from "../../components/RecipeCard/RecipeCard"
 import SkeletonCard from "../../components/SkeletonCard/SkeletonCard"
-import Desserts from "../../components/Desserts/Desserts"
 import TopChefs from "../../components/TopChefs/TopChefs"
 import ConsultantChat from "../../components/ConsultantChat/ConsultantChat"
 import SeasonalRecipes from "../../components/SeasonalRecipes/SeasonalRecipes"
@@ -79,11 +77,6 @@ function Home() {
         <Hero />
       </div>
 
-      {/* Trending Recipes */}
-      <section className={styles.section}>
-        <TrendingRecipes />
-      </section>
-
       {/* Seasonal Recipes */}
       <section className={styles.section}>
         <SeasonalRecipes />
@@ -102,11 +95,6 @@ function Home() {
       {/* Ingredient Search */}
       <section className={styles.section}>
         <IngredientSearch />
-      </section>
-
-      {/* Desserts */}
-      <section className={styles.section}>
-        <Desserts />
       </section>
 
       {/* Recipes Grid */}

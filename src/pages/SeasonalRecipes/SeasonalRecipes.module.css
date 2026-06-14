@@ -1,0 +1,170 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
+  padding: 40px 20px;
+}
+
+.backBtn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  margin-bottom: 30px;
+}
+
+.backBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(249, 115, 22, 0.3);
+}
+
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.title {
+  font-size: 42px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 12px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.seasons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  gap: 30px;
+}
+
+.seasonCard {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 30px;
+  transition: all 0.3s ease;
+}
+
+.seasonCard:hover {
+  border-color: rgba(249, 115, 22, 0.3);
+  transform: translateY(-5px);
+}
+
+.seasonHeader {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.seasonIcon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, rgba(255, 107, 53, 0.1), rgba(255, 138, 77, 0.05));
+  border-radius: 16px;
+  color: var(--accent, #ff6b35);
+  flex-shrink: 0;
+}
+
+.seasonInfo {
+  flex: 1;
+}
+
+.seasonTitle {
+  font-size: 24px;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 8px;
+}
+
+.seasonDescription {
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  margin: 0;
+}
+
+.recipes {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.recipeItem {
+  padding: 16px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.recipeItem:hover {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.recipeHeader {
+  margin-bottom: 8px;
+}
+
+.recipeName {
+  font-size: 16px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+}
+
+.recipeMeta {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.metaItem {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 32px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .seasons {
+    grid-template-columns: 1fr;
+  }
+
+  .seasonHeader {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .seasonIcon {
+    margin: 0 auto;
+  }
+}

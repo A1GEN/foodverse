@@ -5,10 +5,11 @@ import { getProducts, searchProducts, getProductsByCategory } from '../../servic
 import { Search, Filter, X, ShoppingCart, SlidersHorizontal, ChevronDown, Utensils, Clock, Flame } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import styles from './Catalog.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Catalog() {
   const { t } = useTranslation()
+  const navigate = useNavigate()
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
@@ -72,7 +73,7 @@ function Catalog() {
   }
 
   const handleAddToCart = (product) => {
-    dispatch(addToCart(product))
+    navigate(`/product/${product.id}`)
   }
 
   const handleCategoryChange = (category) => {
@@ -239,29 +240,34 @@ function Catalog() {
             <div className={styles.grid}>
               {filteredProducts.map(product => (
                 <div key={product.id} className={styles.productCard}>
-                  <Link to={`/product/${product.id}`} className={styles.productLink}>
-                    <img src={product.image} alt={product.name} className={styles.productImage} />
-                    <div className={styles.productInfo}>
-                      <h3 className={styles.productName}>{product.name}</h3>
-                      <p className={styles.productCountry}>{product.country}</p>
-                      <div className={styles.productMeta}>
-                        <span className={styles.metaItem}>
-                          <Clock size={14} />
-                          {product.cooking_time} мин
-                        </span>
-                        <span className={styles.metaItem}>
-                          <Flame size={14} />
-                          {product.calories} ккал
-                        </span>
+                  <div className={styles.productLinks}>
+                    <div onClick={() => navigate(`/product/${product.id}`)} className={styles.productLink}>
+                      <img src={product.image} alt={product.name} className={styles.productImage} />
+                      <div className={styles.productInfo}>
+                        <h3 className={styles.productName}>{product.name}</h3>
+                        <p className={styles.productCountry}>{product.country}</p>
+                        <div className={styles.productMeta}>
+                          <span className={styles.metaItem}>
+                            <Clock size={14} />
+                            {product.cooking_time} мин
+                          </span>
+                          <span className={styles.metaItem}>
+                            <Flame size={14} />
+                            {product.calories} ккал
+                          </span>
+                        </div>
+                        <p className={styles.productDescription}>{product.description?.substring(0, 100)}...</p>
                       </div>
-                      <p className={styles.productDescription}>{product.description?.substring(0, 100)}...</p>
                     </div>
-                  </Link>
+                    <Link to={`/recipe-food/${product.id}`} className={styles.recipeLink}>
+                      <Utensils size={16} /> Рецепт
+                    </Link>
+                  </div>
                   <button
                     onClick={() => handleAddToCart(product)}
                     className={styles.addToCartBtn}
                   >
-                    <ShoppingCart size={18} /> В корзину
+                    <ShoppingCart size={18} /> Заказать
                   </button>
                 </div>
               ))}

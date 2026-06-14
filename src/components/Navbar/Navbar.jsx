@@ -172,7 +172,7 @@ function Navbar() {
             <Link to="/" className={location.pathname === "/" ? styles.activeLink : ""}>{t("home")}</Link>
             <Link to="/catalog" className={location.pathname === "/catalog" ? styles.activeLink : ""}>{t("catalog", "Каталог")}</Link>
             <Link to="/create" className={location.pathname === "/create" ? styles.activeLink : ""}>{t("create")}</Link>
-            <Link to="/recipes" className={location.pathname === "/recipes" ? styles.activeLink : ""}>{t("recipes", "Рецепты")}</Link>
+            <Link to="/about" className={location.pathname === "/about" ? styles.activeLink : ""}>{t("about", "О нас")}</Link>
           </nav>
         </div>
 

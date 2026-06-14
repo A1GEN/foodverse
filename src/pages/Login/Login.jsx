@@ -5,7 +5,6 @@ import { getAuth } from "../../lib/firebaseClient"
 import { toast } from "react-toastify"
 import styles from "./Login.module.css"
 import { useNavigate } from "react-router-dom"
-import { AuthContext } from "../../context/AuthContext/AuthContext"
 
 function Login() {
   const navigate = useNavigate()

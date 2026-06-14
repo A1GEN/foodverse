@@ -5,7 +5,6 @@ import { toast } from "react-toastify"
 import { doc, setDoc } from "firebase/firestore"
 import styles from "./Register.module.css"
 import { useNavigate } from "react-router-dom"
-import { AuthContext } from "../../context/AuthContext/AuthContext"
 import { sendTelegram } from "../../services/telegram"
 
 function Register() {

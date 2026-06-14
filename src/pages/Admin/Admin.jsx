@@ -1,11 +1,3 @@
-import AdminSidebar
-  from "../../components/AdminSidebar/AdminSidebar"
-
-import AdminStats
-  from "../../components/AdminStats/AdminStats"
-
-import styles from "./Admin.module.css"
-import AnalyticsCharts from "../../components/AnalyticsCharts/AnalyticsCharts"
 import { useEffect, useState } from "react"
 import { getAdminRecipes, deleteAdminRecipe, updateAdminRecipe, createAdminRecipe } from "../../services/saveRecipe"
 import { getAllUsers, deleteUser as deleteUserFromDb, updateUser as updateUserFromDb } from "../../services/userService"
@@ -13,6 +5,10 @@ import { toast } from "react-toastify"
 import AdminEditModal from "../../components/AdminEditModal/AdminEditModal"
 import { useTranslation } from "react-i18next"
 import { Users, TrendingUp, Activity, Settings, Search, Filter, Plus, Edit2, Trash2, Eye, Calendar, Clock, Star, UserCheck, UserX, Mail, Shield } from "lucide-react"
+import styles from "./Admin.module.css"
+import AdminSidebar from "../../components/AdminSidebar/AdminSidebar"
+import AdminStats from "../../components/AdminStats/AdminStats"
+import AnalyticsCharts from "../../components/AnalyticsCharts/AnalyticsCharts"
 
 function Admin() {
 
