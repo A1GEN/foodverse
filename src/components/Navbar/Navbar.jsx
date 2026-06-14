@@ -171,7 +171,6 @@ function Navbar() {
             <nav className={styles.links} aria-label="Main navigation">
             <Link to="/" className={location.pathname === "/" ? styles.activeLink : ""}>{t("home")}</Link>
             <Link to="/catalog" className={location.pathname === "/catalog" ? styles.activeLink : ""}>{t("catalog", "Каталог")}</Link>
-            <Link to="/create" className={location.pathname === "/create" ? styles.activeLink : ""}>{t("create")}</Link>
             <Link to="/about" className={location.pathname === "/about" ? styles.activeLink : ""}>{t("about", "О нас")}</Link>
           </nav>
         </div>
@@ -270,8 +269,8 @@ function Navbar() {
                 <h3>{t('menu.account')}</h3>
                 {!user && (
                   <>
-                    <Link to="/login" onClick={() => setMenuOpen(false)}>{t('menu.login')}</Link>
-                    <Link to="/register" onClick={() => setMenuOpen(false)}>{t('menu.register')}</Link>
+                    <Link to="/login" onClick={() => setMenuOpen(false)} className={styles.authBtn}>{t('menu.login')}</Link>
+                    <Link to="/register" onClick={() => setMenuOpen(false)} className={styles.authBtnPrimary}>{t('menu.register')}</Link>
                   </>
                 )}
                 {user && (
@@ -287,29 +286,6 @@ function Navbar() {
                 <Link to="/" onClick={() => setMenuOpen(false)}>{t('menu.home')}</Link>
                 <Link to="/catalog" onClick={() => setMenuOpen(false)}>{t('menu.catalog')}</Link>
                 <Link to="/recipes" onClick={() => setMenuOpen(false)}>{t('menu.recipes')}</Link>
-                <Link to="/contact" onClick={() => setMenuOpen(false)}>{t('menu.contacts')}</Link>
-              </div>
-
-              <div className={styles.menuColumn}>
-                <h3>{t('menu.contacts')}</h3>
-                <div className={styles.contactInfo}>
-                  <div className={styles.contactItem}>
-                    <span className={styles.contactLabel}>Телефон:</span>
-                    <a href="tel:+996555123456" className={styles.contactValue}>+996 555 123 456</a>
-                  </div>
-                  <div className={styles.contactItem}>
-                    <span className={styles.contactLabel}>Email:</span>
-                    <a href="mailto:info@foodverse.kg" className={styles.contactValue}>info@foodverse.kg</a>
-                  </div>
-                  <div className={styles.contactItem}>
-                    <span className={styles.contactLabel}>Адрес:</span>
-                    <span className={styles.contactValue}>г. Бишкек, пр. Чуй 123</span>
-                  </div>
-                  <div className={styles.contactItem}>
-                    <span className={styles.contactLabel}>Режим работы:</span>
-                    <span className={styles.contactValue}>Ежедневно 9:00 - 22:00</span>
-                  </div>
-                </div>
               </div>
 
               <div className={styles.menuColumn}>

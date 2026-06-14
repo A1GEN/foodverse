@@ -357,6 +357,39 @@
   transform:translateX(4px);
 }
 
+.authBtn{
+  background:rgba(255,255,255,0.06) !important;
+  border:1px solid rgba(255,255,255,0.15) !important;
+  font-weight:600 !important;
+  text-align:center !important;
+  padding:16px 24px !important;
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1) !important;
+}
+
+.authBtn:hover{
+  background:rgba(255,255,255,0.1) !important;
+  border-color:rgba(255,255,255,0.3) !important;
+  transform:translateX(6px) !important;
+  box-shadow:0 4px 16px rgba(0,0,0,0.2) !important;
+}
+
+.authBtnPrimary{
+  background:linear-gradient(135deg,#ff6b35,#ff8a4d) !important;
+  border:1px solid rgba(255,107,53,0.3) !important;
+  font-weight:700 !important;
+  text-align:center !important;
+  padding:16px 24px !important;
+  box-shadow:0 4px 16px rgba(255,107,53,0.3) !important;
+  transition:all 0.3s cubic-bezier(0.4,0,0.2,1) !important;
+}
+
+.authBtnPrimary:hover{
+  background:linear-gradient(135deg,#ff8a4d,#ff6b35) !important;
+  border-color:rgba(255,107,53,0.5) !important;
+  transform:translateX(6px) translateY(-2px) !important;
+  box-shadow:0 8px 24px rgba(255,107,53,0.4) !important;
+}
+
 .contactInfo{
   display:flex;
   flex-direction:column;

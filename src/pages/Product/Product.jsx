@@ -68,11 +68,11 @@ function Product() {
 
   const ingredients = Array.isArray(product.ingredients) 
     ? product.ingredients 
-    : product.ingredients ? product.ingredients.split(',').map(i => i.trim()) : []
+    : typeof product.ingredients === 'string' ? product.ingredients.split(',').map(i => i.trim()) : []
 
   const instructions = Array.isArray(product.instructions)
     ? product.instructions
-    : product.instructions ? product.instructions.split('\n').filter(i => i.trim()) : []
+    : typeof product.instructions === 'string' ? product.instructions.split('\n').filter(i => i.trim()) : []
 
   return (
     <div className={styles.container}>

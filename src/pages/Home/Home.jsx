@@ -9,7 +9,6 @@ import TopChefs from "../../components/TopChefs/TopChefs"
 import ConsultantChat from "../../components/ConsultantChat/ConsultantChat"
 import SeasonalRecipes from "../../components/SeasonalRecipes/SeasonalRecipes"
 import HolidayRecipes from "../../components/HolidayRecipes/HolidayRecipes"
-import IngredientSearch from "../../components/IngredientSearch/IngredientSearch"
 import NationalCuisines from "../../components/NationalCuisines/NationalCuisines"
 import { collection, getDocs } from "firebase/firestore"
 import { getDb } from "../../lib/firebaseClient"
@@ -90,11 +89,6 @@ function Home() {
       {/* National Cuisines */}
       <section className={styles.section}>
         <NationalCuisines />
-      </section>
-
-      {/* Ingredient Search */}
-      <section className={styles.section}>
-        <IngredientSearch />
       </section>
 
       {/* Recipes Grid */}
