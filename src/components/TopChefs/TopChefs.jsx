@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import { Heart, Utensils, X, Award, Star, MapPin } from 'lucide-react'
 import styles from "./TopChefs.module.css"
 import { useTranslation } from "react-i18next"
 
@@ -60,8 +61,8 @@ function TopChefs() {
             <div className={styles.info}>
               <h3>{chef.name}</h3>
               <div className={styles.stats}>
-                <span>🍽 {chef.recipes} {t('topChefs.recipesLabel')}</span>
-                <span>❤️ {chef.followers.toLocaleString()} {t('topChefs.followersLabel')}</span>
+                <span><Utensils size={14} className={styles.icon} /> {chef.recipes} {t('topChefs.recipesLabel')}</span>
+                <span><Heart size={14} className={styles.icon} /> {chef.followers.toLocaleString()} {t('topChefs.followersLabel')}</span>
               </div>
             </div>
 
@@ -74,11 +75,73 @@ function TopChefs() {
       {selected !== null && (
         <div className={styles.modalOverlay} onClick={()=>setSelected(null)}>
           <div className={styles.modal} onClick={(e)=>e.stopPropagation()}>
-            <button className={styles.close} onClick={()=>setSelected(null)}>✕</button>
-            <img src={chefs[selected].image} alt={chefs[selected].name} />
-            <h3>{chefs[selected].name}</h3>
-            <p>{t('topChefs.modalInfo', { count: chefs[selected].recipes, followers: chefs[selected].followers.toLocaleString() })}</p>
-            <p>{t('topChefs.modalExplore', { name: chefs[selected].name })}</p>
+            <button className={styles.close} onClick={()=>setSelected(null)} aria-label="Close">
+              <X size={24} />
+            </button>
+            
+            <div className={styles.modalHeader}>
+              <div className={styles.modalImageWrapper}>
+                <img src={chefs[selected].image} alt={chefs[selected].name} />
+                <div className={styles.modalImageOverlay} />
+              </div>
+            </div>
+
+            <div className={styles.modalContent}>
+              <div className={styles.modalBadge}>
+                <Award size={16} className={styles.badgeIcon} />
+                <span>Top Chef</span>
+              </div>
+
+              <h3 className={styles.modalTitle}>{chefs[selected].name}</h3>
+
+              <div className={styles.modalStats}>
+                <div className={styles.statItem}>
+                  <div className={styles.statIcon}>
+                    <Utensils size={20} />
+                  </div>
+                  <div className={styles.statInfo}>
+                    <span className={styles.statValue}>{chefs[selected].recipes}</span>
+                    <span className={styles.statLabel}>{t('topChefs.recipesLabel')}</span>
+                  </div>
+                </div>
+
+                <div className={styles.statDivider} />
+
+                <div className={styles.statItem}>
+                  <div className={styles.statIcon}>
+                    <Heart size={20} />
+                  </div>
+                  <div className={styles.statInfo}>
+                    <span className={styles.statValue}>{(chefs[selected].followers / 1000000).toFixed(1)}M</span>
+                    <span className={styles.statLabel}>{t('topChefs.followersLabel')}</span>
+                  </div>
+                </div>
+
+                <div className={styles.statDivider} />
+
+                <div className={styles.statItem}>
+                  <div className={styles.statIcon}>
+                    <Star size={20} />
+                  </div>
+                  <div className={styles.statInfo}>
+                    <span className={styles.statValue}>4.9</span>
+                    <span className={styles.statLabel}>Rating</span>
+                  </div>
+                </div>
+              </div>
+
+              <p className={styles.modalDescription}>
+                {t('topChefs.modalInfo', { count: chefs[selected].recipes, followers: chefs[selected].followers.toLocaleString() })}
+              </p>
+
+              <p className={styles.modalExplore}>
+                {t('topChefs.modalExplore', { name: chefs[selected].name })}
+              </p>
+
+              <button className={styles.modalButton}>
+                View Recipes <Utensils size={16} />
+              </button>
+            </div>
           </div>
         </div>
       )}

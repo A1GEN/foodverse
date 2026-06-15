@@ -11,7 +11,6 @@ import {
 
   Moon,
   Sun,
-  Search,
   User,
   ShoppingCart,
   Heart,
@@ -61,10 +60,7 @@ function Navbar() {
 
   const [menuOpen, setMenuOpen] = useState(false)
   const [langOpen, setLangOpen] = useState(false)
-  const [searchOpen, setSearchOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState("")
   const langRef = useRef()
-  const searchRef = useRef()
   const navigate = useNavigate()
 
   const [scrolled,setScrolled] =
@@ -77,9 +73,6 @@ function Navbar() {
     const onDoc = (e)=>{
       if(langRef.current && !langRef.current.contains(e.target)){
         setLangOpen(false)
-      }
-      if(searchRef.current && !searchRef.current.contains(e.target)){
-        setSearchOpen(false)
       }
     }
     document.addEventListener('click', onDoc)
@@ -111,15 +104,6 @@ function Navbar() {
     }
 
   },[])
-
-  const handleSearch = (e) => {
-    e.preventDefault()
-    if (searchQuery.trim()) {
-      navigate(`/?search=${encodeURIComponent(searchQuery)}`)
-      setSearchOpen(false)
-      setSearchQuery("")
-    }
-  }
 
   return (
 
@@ -176,38 +160,6 @@ function Navbar() {
         </div>
 
         <div className={styles.right}>
-
-          <div className={styles.searchWrapper} ref={searchRef}>
-            <Motion.button 
-              className={styles.iconBtn} 
-              onClick={() => setSearchOpen(v=>!v)}
-              whileHover={{ scale:1.1 }}
-              whileTap={{ scale:0.9 }}
-              aria-label="Search"
-            >
-              <Search size={20} />
-            </Motion.button>
-            {searchOpen && (
-              <Motion.form 
-                className={styles.searchForm}
-                onSubmit={handleSearch}
-                initial={{ opacity:0, y:-10 }}
-                animate={{ opacity:1, y:0 }}
-                transition={{ duration:0.2 }}
-              >
-                <input
-                  type="text"
-                  placeholder={t('search.placeholder', 'Search recipes...')}
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className={styles.searchInput}
-                />
-                <button type="submit" className={styles.searchSubmit}>
-                  <Search size={18} />
-                </button>
-              </Motion.form>
-            )}
-          </div>
 
           <Link to="/favorites" className={styles.iconBtn} aria-label="Favorites">
             <Heart size={20} />
@@ -285,7 +237,6 @@ function Navbar() {
                 <h3>{t('menu.navigation')}</h3>
                 <Link to="/" onClick={() => setMenuOpen(false)}>{t('menu.home')}</Link>
                 <Link to="/catalog" onClick={() => setMenuOpen(false)}>{t('menu.catalog')}</Link>
-                <Link to="/recipes" onClick={() => setMenuOpen(false)}>{t('menu.recipes')}</Link>
               </div>
 
               <div className={styles.menuColumn}>

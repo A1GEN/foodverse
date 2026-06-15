@@ -77,7 +77,7 @@ function Comments({ recipeId }){
 
   return (
     <div className={styles.comments}>
-      <h2>{t('comments.title','Comments 💬')}</h2>
+      <h2>{t('comments.title','Comments')} <MessageCircle size={20} className={styles.icon} /></h2>
       <div className={styles.form}>
         <textarea placeholder={t('comments.placeholder','Write comment...')} value={message} onChange={e=>setMessage(e.target.value)} />
         <button onClick={addComment}>{t('comments.add','Add Comment')}</button>

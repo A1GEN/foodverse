@@ -47,14 +47,14 @@ function Footer() {
                 <Phone size={18} />
                 <div>
                   <span className={styles.contactLabel}>{t('footer.phone')}:</span>
-                  <a href="tel:+996555123456" className={styles.contactValue}>+996 555 123 456</a>
+                  <a href="tel:+996502333384" className={styles.contactValue}>+996 502 333 384</a>
                 </div>
               </li>
               <li className={styles.contactItem}>
                 <Mail size={18} />
                 <div>
                   <span className={styles.contactLabel}>{t('footer.email')}:</span>
-                  <a href="mailto:info@foodverse.kg" className={styles.contactValue}>info@foodverse.kg</a>
+                  <a href="mailto:m3534994@gmail.com" className={styles.contactValue}>m3534994@gmail.com</a>
                 </div>
               </li>
               <li className={styles.contactItem}>

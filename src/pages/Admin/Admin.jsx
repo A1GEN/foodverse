@@ -4,7 +4,7 @@ import { getAllUsers, deleteUser as deleteUserFromDb, updateUser as updateUserFr
 import { toast } from "react-toastify"
 import AdminEditModal from "../../components/AdminEditModal/AdminEditModal"
 import { useTranslation } from "react-i18next"
-import { Users, TrendingUp, Activity, Settings, Search, Filter, Plus, Edit2, Trash2, Eye, Calendar, Clock, Star, UserCheck, UserX, Mail, Shield } from "lucide-react"
+import { Users, TrendingUp, Activity, Settings, Search, Filter, Plus, Edit2, Trash2, Eye, Calendar, Clock, Star, UserCheck, UserX, Mail, Shield, Globe, Bell, Database, Palette } from "lucide-react"
 import styles from "./Admin.module.css"
 import AdminSidebar from "../../components/AdminSidebar/AdminSidebar"
 import AdminStats from "../../components/AdminStats/AdminStats"
@@ -176,8 +176,8 @@ function Admin() {
 
         {activeTab === 'overview' && (
           <>
-            <AdminStats />
-            <AnalyticsCharts />
+            <AdminStats stats={stats} />
+            <AnalyticsCharts recipes={recipes} users={users} />
           </>
         )}
 
@@ -395,25 +395,96 @@ function Admin() {
             </div>
             <div className={styles.settingsGrid}>
               <div className={styles.settingCard}>
-                <h3>Общие настройки</h3>
-                <p>Настройте основные параметры сайта</p>
-                <button className={styles.settingBtn} onClick={()=> toast.info('Настройки общих параметров')}>Настроить</button>
+                <div className={styles.settingIcon}>
+                  <Globe size={24} />
+                </div>
+                <h3>Язык сайта</h3>
+                <p>Выберите основной язык сайта</p>
+                <select className={styles.settingSelect} defaultValue="ru">
+                  <option value="ru">Русский</option>
+                  <option value="en">English</option>
+                  <option value="ky">Кыргызча</option>
+                </select>
               </div>
               <div className={styles.settingCard}>
+                <div className={styles.settingIcon}>
+                  <Bell size={24} />
+                </div>
                 <h3>Уведомления</h3>
                 <p>Управляйте email уведомлениями</p>
-                <button className={styles.settingBtn} onClick={()=> toast.info('Настройки уведомлений')}>Настроить</button>
+                <div className={styles.settingToggle}>
+                  <span>Email уведомления</span>
+                  <input type="checkbox" defaultChecked />
+                </div>
+                <div className={styles.settingToggle}>
+                  <span>Push уведомления</span>
+                  <input type="checkbox" defaultChecked />
+                </div>
               </div>
               <div className={styles.settingCard}>
+                <div className={styles.settingIcon}>
+                  <Shield size={24} />
+                </div>
                 <h3>Безопасность</h3>
                 <p>Настройки безопасности и доступа</p>
-                <button className={styles.settingBtn} onClick={()=> toast.info('Настройки безопасности')}>Настроить</button>
+                <div className={styles.settingToggle}>
+                  <span>Двухфакторная аутентификация</span>
+                  <input type="checkbox" />
+                </div>
+                <div className={styles.settingToggle}>
+                  <span>Логирование действий</span>
+                  <input type="checkbox" defaultChecked />
+                </div>
               </div>
               <div className={styles.settingCard}>
-                <h3>Интеграции</h3>
-                <p>Настройки сторонних сервисов</p>
-                <button className={styles.settingBtn} onClick={()=> toast.info('Настройки интеграций')}>Настроить</button>
+                <div className={styles.settingIcon}>
+                  <Database size={24} />
+                </div>
+                <h3>Резервное копирование</h3>
+                <p>Автоматическое резервирование данных</p>
+                <div className={styles.settingToggle}>
+                  <span>Автобэкап ежедневно</span>
+                  <input type="checkbox" defaultChecked />
+                </div>
+                <button className={styles.settingBtn} onClick={()=> toast.success('Резервная копия создана')}>
+                  Создать бэкап сейчас
+                </button>
               </div>
+              <div className={styles.settingCard}>
+                <div className={styles.settingIcon}>
+                  <Palette size={24} />
+                </div>
+                <h3>Тема по умолчанию</h3>
+                <p>Выберите тему для новых пользователей</p>
+                <select className={styles.settingSelect} defaultValue="dark">
+                  <option value="dark">Темная</option>
+                  <option value="light">Светлая</option>
+                  <option value="auto">Автоматически</option>
+                </select>
+              </div>
+              <div className={styles.settingCard}>
+                <div className={styles.settingIcon}>
+                  <Users size={24} />
+                </div>
+                <h3>Модерация</h3>
+                <p>Настройки модерации контента</p>
+                <div className={styles.settingToggle}>
+                  <span>Автомодерация комментариев</span>
+                  <input type="checkbox" />
+                </div>
+                <div className={styles.settingToggle}>
+                  <span>Премодерация рецептов</span>
+                  <input type="checkbox" />
+                </div>
+              </div>
+            </div>
+            <div className={styles.settingsActions}>
+              <button className={styles.saveSettingsBtn} onClick={()=> toast.success('Настройки сохранены')}>
+                Сохранить все настройки
+              </button>
+              <button className={styles.resetSettingsBtn} onClick={()=> toast.info('Настройки сброшены')}>
+                Сбросить по умолчанию
+              </button>
             </div>
           </section>
         )}

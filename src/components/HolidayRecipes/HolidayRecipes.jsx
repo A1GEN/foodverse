@@ -36,7 +36,6 @@ function HolidayRecipes() {
       id: 'valentine',
       name: 'День влюбленных',
       icon: <Heart size={24} />,
-      emoji: '❤️',
       description: 'Романтический ужин, десерты для двоих',
       recipes: [
         { name: 'Стейк с розмарином', image: 'https://images.unsplash.com/photo-1600891964092-4316c288032e?w=400' },

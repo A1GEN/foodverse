@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { motion as Motion } from "framer-motion"
 import styles from "./Home.module.css"
+import { MessageCircle } from "lucide-react"
 
 import Hero from "../../components/Hero/Hero"
 import RecipeCard from "../../components/RecipeCard/RecipeCard"
@@ -128,7 +129,7 @@ function Home() {
         className={styles.consultantButton}
         title="Консультант"
       >
-        💬
+        <MessageCircle size={24} />
       </button>
 
     </Motion.div>

@@ -122,6 +122,13 @@ function About() {
                 <p>Запуск доставки по всему Кыргызстану и выход на международный рынок</p>
               </div>
             </div>
+            <div className={styles.timelineItem}>
+              <div className={styles.timelineYear}>2026</div>
+              <div className={styles.timelineContent}>
+                <h3>Будущее</h3>
+                <p>Запуск AI-платформы для персонализированных рекомендаций рецептов и интеграция с международными кухнями</p>
+              </div>
+            </div>
           </div>
         </section>
 

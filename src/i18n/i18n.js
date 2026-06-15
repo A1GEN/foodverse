@@ -50,9 +50,9 @@ const resources = {
         view: "View Recipe"
       },
       trending: {
-        title: "Trending Recipes 🔥",
-        subtitle: "Most popular food today 😎",
-        hot: "HOT 🔥",
+        title: "Trending Recipes",
+        subtitle: "Most popular food today",
+        hot: "HOT",
         view: "View"
       },
       popularCategories: "Popular categories",
@@ -61,7 +61,7 @@ const resources = {
       saved: "Saved",
       minutesShort: "m",
       topChefs: {
-        title: "Top Chefs 👨‍🍳",
+        title: "Top Chefs",
         recipesLabel: "recipes",
         followersLabel: "followers",
         modalInfo: "Top chef with {{count}} curated recipes and {{followers}} followers.",
@@ -79,15 +79,15 @@ const resources = {
       more: "More",
       showLess: "Show Less",
       categories: {
-        pizza: "🍕 Pizza",
-        desserts: "🍰 Desserts",
-        salads: "🥗 Salads",
-        iceCream: "🍦 Ice Cream",
-        soups: "🍜 Soups",
-        fastFood: "🍔 Fast Food",
-        meat: "🥩 Meat",
-        seafood: "🐟 Seafood",
-        streetFood: "🌮 Street Food",
+        pizza: "Pizza",
+        desserts: "Desserts",
+        salads: "Salads",
+        iceCream: "Ice Cream",
+        soups: "Soups",
+        fastFood: "Fast Food",
+        meat: "Meat",
+        seafood: "Seafood",
+        streetFood: "Street Food",
         bakery: "🥐 Bakery"
       },
       heroTitle: "Discover Amazing Recipes",

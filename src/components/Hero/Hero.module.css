@@ -35,33 +35,9 @@
   z-index:1;
 }
 
-.shimmer{
-  position:absolute;
-  inset:0;
-  background:linear-gradient(
-    45deg,
-    transparent 0%,
-    rgba(255,255,255,0.1) 50%,
-    transparent 100%
-  );
-  background-size:200% 200%;
-  animation:shimmer 3s ease-in-out infinite;
-  z-index:2;
-  pointer-events:none;
-}
-
-@keyframes shimmer{
-  0%{
-    background-position:200% 200%;
-  }
-  100%{
-    background-position:-200% -200%;
-  }
-}
-
 .content{
   position:relative;
-  z-index:3;
+  z-index:2;
   text-align:center;
   color:white;
   padding:20px;
@@ -155,7 +131,7 @@ body.dark .hero{ filter: brightness(0.86) saturate(1.05) }
   transform:translateX(-50%);
   display:flex;
   gap:12px;
-  z-index:3;
+  z-index:2;
 }
 
 .dot{

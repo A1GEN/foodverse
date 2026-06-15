@@ -40,8 +40,6 @@ function Hero() {
 
       <div className={styles.overlay}></div>
 
-      <div className={styles.shimmer}></div>
-
       <Motion.div
         className={styles.content}
         initial={{
