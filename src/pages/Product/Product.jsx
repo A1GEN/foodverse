@@ -3,19 +3,21 @@ import { useParams, useNavigate } from 'react-router-dom'
 import { getProductById } from '../../services/productService'
 import { useSelector, useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/cartSlice'
+import { toggleFavorite } from '../../redux/favoritesSlice'
 import { Clock, Flame, Utensils, ChevronLeft, ShoppingCart, Heart, Share2, Star, CheckCircle } from 'lucide-react'
 import styles from './Product.module.css'
+import Reviews from '../../components/Reviews/Reviews'
 
 function Product() {
   const { id } = useParams()
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const { items } = useSelector(state => state.cart)
+  const { items: favorites } = useSelector(state => state.favorites)
   
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [quantity, setQuantity] = useState(1)
-  const [isFavorite, setIsFavorite] = useState(false)
 
   useEffect(() => {
     loadProduct()
@@ -47,7 +49,11 @@ function Product() {
   }
 
   const toggleFavorite = () => {
-    setIsFavorite(!isFavorite)
+    dispatch(toggleFavorite(product))
+  }
+
+  const isFavorite = () => {
+    return favorites.some(item => (item.idMeal || item.id) === product.id)
   }
 
   if (loading) {
@@ -87,9 +93,9 @@ function Product() {
           <div className={styles.imageActions}>
             <button 
               onClick={toggleFavorite}
-              className={`${styles.actionBtn} ${isFavorite ? styles.favorite : ''}`}
+              className={`${styles.actionBtn} ${isFavorite() ? styles.favorite : ''}`}
             >
-              <Heart size={20} fill={isFavorite ? 'currentColor' : 'none'} />
+              <Heart size={20} fill={isFavorite() ? 'currentColor' : 'none'} />
             </button>
             <button className={styles.actionBtn}>
               <Share2 size={20} />
@@ -141,25 +147,9 @@ function Product() {
             <p>{product.description}</p>
           </div>
 
-          <div className={styles.ingredients}>
-            <h3>Ингредиенты</h3>
-            <ul className={styles.ingredientsList}>
-              {ingredients.map((ingredient, index) => (
-                <li key={index}>
-                  <CheckCircle size={16} />
-                  {ingredient}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className={styles.instructions}>
-            <h3>Инструкции</h3>
-            <ol className={styles.instructionsList}>
-              {instructions.map((instruction, index) => (
-                <li key={index}>{instruction}</li>
-              ))}
-            </ol>
+          <div className={styles.priceSection}>
+            <h3>Цена</h3>
+            <p className={styles.price}>{product.price ? `${product.price} сом` : 'Цена не указана'}</p>
           </div>
 
           <div className={styles.actions}>
@@ -187,6 +177,8 @@ function Product() {
           </div>
         </div>
       </div>
+
+      <Reviews productId={product.id} />
     </div>
   )
 }

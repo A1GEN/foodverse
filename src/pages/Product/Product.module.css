@@ -1,7 +1,7 @@
 .container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 100px 20px 40px 20px;
   min-height: 100vh;
 }
 
@@ -175,6 +175,20 @@
   margin: 0;
 }
 
+.priceSection h3 {
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--text, #fff);
+  margin: 0 0 16px 0;
+}
+
+.price {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ff6b35;
+  margin: 0;
+}
+
 .ingredientsList {
   list-style: none;
   padding: 0;
@@ -317,11 +331,20 @@
 
 @media (max-width: 768px) {
   .container {
-    padding: 24px 16px;
+    padding: 80px 16px 30px;
+  }
+  
+  .backBtn {
+    padding: 10px 16px;
+    font-size: 13px;
   }
   
   .title {
-    font-size: 28px;
+    font-size: 24px;
+  }
+  
+  .country {
+    font-size: 14px;
   }
   
   .productImage {
@@ -338,6 +361,55 @@
   
   .quantityControl {
     width: 100%;
-    justify-content: center;
+  }
+  
+  .addToCartBtn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 70px 12px 20px;
+  }
+  
+  .backBtn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+  
+  .country {
+    font-size: 13px;
+  }
+  
+  .productImage {
+    height: 250px;
+  }
+  
+  .meta {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  
+  .metaItem {
+    font-size: 12px;
+  }
+  
+  .nutritionItem {
+    padding: 12px;
+  }
+  
+  .price {
+    font-size: 24px;
+  }
+  
+  .qtyBtn {
+    width: 36px;
+    height: 36px;
+    font-size: 16px;
   }
 }

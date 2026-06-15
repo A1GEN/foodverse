@@ -30,6 +30,8 @@ import Product from "./pages/Product/Product"
 import Recipe from "./pages/Recipe/Recipe"
 import About from "./pages/About/About"
 import Success from "./pages/Success/Success"
+import Delivery from "./pages/Delivery/Delivery"
+import Contacts from "./pages/Contacts/Contacts"
 
 function App() {
 
@@ -65,6 +67,8 @@ function App() {
         <Route path="/recipe-food/:id" element={<Recipe />} />
         <Route path="/about" element={<About />} />
         <Route path="/success" element={<Success />} />
+        <Route path="/delivery" element={<Delivery />} />
+        <Route path="/contacts" element={<Contacts />} />
 
       </Routes>
 

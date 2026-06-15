@@ -9,7 +9,7 @@
   --bg: #ffffff;
   --panel: #f8fafc;
   --muted: #334155;
-  --primary: #fb923c; /* warmer orange */
+  --primary: #ff6b35; /* improved orange for better contrast */
   --accent: #ffdd57;
   --text: #0f172a;
   --hero-bg: url('/hero.jpg');
@@ -33,10 +33,10 @@ body{
 
 body.dark{
   --bg: #0f172a;
-  --panel: rgba(255,255,255,0.04);
-  --muted: #334155;
-  --primary: #f97316;
-  --text: #ffffff;
+  --panel: rgba(30, 41, 59, 0.8);
+  --muted: #94a3b8;
+  --primary: #ff6b35;
+  --text: #f1f5f9;
 }
 
 .glass{
@@ -75,6 +75,7 @@ html{
     );
 
   -webkit-background-clip:text;
+  background-clip:text;
 
   -webkit-text-fill-color:
     transparent;
@@ -98,7 +99,7 @@ body{
 
 /* Global UI primitives */
 .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:10px 14px; border-radius:var(--radius-md); border:none; cursor:pointer; font-weight:700 }
-.btn-primary{ background: linear-gradient(90deg,var(--primary), #ffb86b); color: #07102a; box-shadow:0 8px 24px rgba(249,115,22,0.14) }
+.btn-primary{ background: linear-gradient(90deg,var(--primary), #ff8a4d); color: #ffffff; box-shadow:0 8px 24px rgba(255, 107, 53, 0.3) }
 .btn-primary{ border-radius:16px }
 .btn-ghost{ background: transparent; color: var(--text); border:1px solid rgba(255,255,255,0.06) }
 .card-base{ background: var(--panel); border-radius:var(--radius-lg); padding:var(--space-md); box-shadow:0 8px 32px rgba(2,6,23,0.4) }

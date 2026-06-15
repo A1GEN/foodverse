@@ -1,16 +1,19 @@
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getProductById } from '../../services/productService'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggleFavorite } from '../../redux/favoritesSlice'
 import { Clock, Flame, Utensils, ChevronLeft, Heart, Share2, CheckCircle, ChefHat, Timer, BookOpen } from 'lucide-react'
 import styles from './Recipe.module.css'
 
 function Recipe() {
   const { id } = useParams()
   const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const { items: favorites } = useSelector(state => state.favorites)
   
   const [product, setProduct] = useState(null)
   const [loading, setLoading] = useState(true)
-  const [isFavorite, setIsFavorite] = useState(false)
 
   useEffect(() => {
     loadRecipe()
@@ -20,6 +23,9 @@ function Recipe() {
     setLoading(true)
     try {
       const data = await getProductById(id)
+      console.log('Recipe data from Supabase:', data)
+      console.log('Ingredients type:', typeof data.ingredients, Array.isArray(data.ingredients))
+      console.log('Instructions type:', typeof data.instructions, Array.isArray(data.instructions))
       setProduct(data)
     } catch (error) {
       console.error('Error loading recipe:', error)
@@ -29,7 +35,11 @@ function Recipe() {
   }
 
   const toggleFavorite = () => {
-    setIsFavorite(!isFavorite)
+    dispatch(toggleFavorite(product))
+  }
+
+  const isFavorite = () => {
+    return favorites.some(item => (item.idMeal || item.id) === product.id)
   }
 
   if (loading) {
@@ -50,11 +60,22 @@ function Recipe() {
 
   const ingredients = Array.isArray(product.ingredients) 
     ? product.ingredients 
-    : typeof product.ingredients === 'string' ? product.ingredients.split(',').map(i => i.trim()) : []
-
+    : typeof product.ingredients === 'object' && product.ingredients !== null 
+      ? Object.values(product.ingredients).filter(v => v) 
+      : typeof product.ingredients === 'string' 
+        ? product.ingredients.split(',').map(i => i.trim()) 
+        : []
+  
   const instructions = Array.isArray(product.instructions)
     ? product.instructions
-    : typeof product.instructions === 'string' ? product.instructions.split('\n').filter(i => i.trim()) : []
+    : typeof product.instructions === 'object' && product.instructions !== null
+      ? Object.values(product.instructions).filter(v => v)
+      : typeof product.instructions === 'string' 
+        ? product.instructions.split('\n').filter(i => i.trim()) 
+        : []
+
+  console.log('Parsed ingredients:', ingredients)
+  console.log('Parsed instructions:', instructions)
 
   return (
     <div className={styles.container}>
@@ -75,9 +96,9 @@ function Recipe() {
           <div className={styles.headerActions}>
             <button 
               onClick={toggleFavorite}
-              className={`${styles.actionBtn} ${isFavorite ? styles.favorite : ''}`}
+              className={`${styles.actionBtn} ${isFavorite() ? styles.favorite : ''}`}
             >
-              <Heart size={20} fill={isFavorite ? 'currentColor' : 'none'} />
+              <Heart size={20} fill={isFavorite() ? 'currentColor' : 'none'} />
             </button>
             <button className={styles.actionBtn}>
               <Share2 size={20} />

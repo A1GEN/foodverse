@@ -403,6 +403,13 @@
   margin: 0;
 }
 
+.productPrice{
+  color: #ff6b35;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 8px 0;
+}
+
 .productMeta{
   display: flex;
   gap: 16px;
@@ -453,6 +460,44 @@
   flex: 1;
 }
 
+.productPrice{
+  color: #ff6b35;
+  font-size: 18px;
+  font-weight: 700;
+  margin: 8px 0;
+}
+
+.productActions{
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.favoriteBtn{
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.favoriteBtn:hover{
+  background: rgba(249,115,22,0.2);
+  border-color: rgba(249,115,22,0.4);
+}
+
+.favoriteBtn.active{
+  color: #ff6b35;
+  background: rgba(255,107,53,0.1);
+  border-color: rgba(255,107,53,0.3);
+}
+
 .recipeLink{
   display: flex;
   align-items: center;
@@ -476,8 +521,12 @@
 }
 
 @media(max-width: 768px){
+  .catalog{
+    padding: 80px 4% 30px;
+  }
+  
   .title{
-    font-size: 28px;
+    font-size: 24px;
   }
   
   .controls{
@@ -490,5 +539,43 @@
   
   .grid{
     grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .filterToggle{
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+}
+
+@media(max-width: 480px){
+  .catalog{
+    padding: 70px 3% 20px;
+  }
+  
+  .title{
+    font-size: 20px;
+  }
+  
+  .searchBox{
+    padding: 10px 12px;
+  }
+  
+  .filterToggle{
+    font-size: 12px;
+    padding: 8px 12px;
+  }
+  
+  .productCard{
+    border-radius: 12px;
+  }
+  
+  .productImage{
+    height: 180px;
+  }
+  
+  .addToCartBtn{
+    font-size: 14px;
+    padding: 10px;
   }
 }

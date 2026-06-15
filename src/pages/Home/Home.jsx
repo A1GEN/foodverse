@@ -4,56 +4,30 @@ import styles from "./Home.module.css"
 import { MessageCircle } from "lucide-react"
 
 import Hero from "../../components/Hero/Hero"
-import RecipeCard from "../../components/RecipeCard/RecipeCard"
+import ProductCard from "../../components/ProductCard/ProductCard"
 import SkeletonCard from "../../components/SkeletonCard/SkeletonCard"
 import TopChefs from "../../components/TopChefs/TopChefs"
 import ConsultantChat from "../../components/ConsultantChat/ConsultantChat"
 import SeasonalRecipes from "../../components/SeasonalRecipes/SeasonalRecipes"
 import HolidayRecipes from "../../components/HolidayRecipes/HolidayRecipes"
 import NationalCuisines from "../../components/NationalCuisines/NationalCuisines"
-import { collection, getDocs } from "firebase/firestore"
-import { getDb } from "../../lib/firebaseClient"
+import { getProducts } from "../../services/productService"
 import { useTranslation } from "react-i18next"
 
 function Home() {
   const { t } = useTranslation()
-  const [recipes, setRecipes] = useState([])
+  const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [showConsultant, setShowConsultant] = useState(false)
 
-  const fetchRecipes = async (query = "chicken", mode = "title") => {
+  const fetchProducts = async () => {
     try {
       setLoading(true)
-
-      let url = `https://www.themealdb.com/api/json/v1/1/search.php?s=${query}`
-      if (mode === "category") url = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${query}`
-      if (mode === "ingredient") url = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${query}`
-
-      const response = await fetch(url)
-      const data = await response.json()
-
-      let results = data.meals || []
-
-      // include user-uploaded recipes from Firestore
-      try {
-        const _db = await getDb()
-        const snap = await getDocs(collection(_db, "recipes"))
-        const local = snap.docs.map((d) => ({ ...d.data(), idMeal: d.id }))
-        const qLower = query.toLowerCase()
-        const filtered = local.filter((r) => {
-          if (mode === "title") return (r.title || "").toLowerCase().includes(qLower)
-          if (mode === "category") return (r.category || "").toLowerCase().includes(qLower)
-          if (mode === "ingredient") return (r.ingredients || []).some((i) => (i || "").toLowerCase().includes(qLower))
-          return false
-        })
-        results = results.concat(filtered)
-      } catch (e) {
-        console.error("local recipes fetch", e)
-      }
-
-      setRecipes(results)
+      const data = await getProducts()
+      setProducts(data || [])
     } catch (error) {
-      console.error(error)
+      console.error("Error fetching products:", error)
+      setProducts([])
     } finally {
       setLoading(false)
     }
@@ -63,7 +37,7 @@ function Home() {
     let mounted = true
     ;(async () => {
       if (!mounted) return
-      await fetchRecipes()
+      await fetchProducts()
     })()
     return () => {
       mounted = false
@@ -92,8 +66,8 @@ function Home() {
         <NationalCuisines />
       </section>
 
-      {/* Recipes Grid */}
-      <section id="recipes" className={styles.section}>
+      {/* Products Grid */}
+      <section id="products" className={styles.section}>
         <div className={styles.discoverBanner}>
           <div className={styles.discoverImageWrap}>
             <img src="https://images.unsplash.com/photo-1543352634-2c2f6f2d3f0b?q=80&w=1600&auto=format&fit=crop" alt="Featured dish" />
@@ -101,7 +75,7 @@ function Home() {
             <div className={styles.discoverTextBlock}>
               <h2>{t('discover.chefTitle')}</h2>
               <p>{t('discover.chefText')}</p>
-              <a href="#recipes" className={styles.cta}>{t('discover.cta')}</a>
+              <a href="#products" className={styles.cta}>{t('discover.cta')}</a>
             </div>
           </div>
         </div>
@@ -110,7 +84,7 @@ function Home() {
           {loading ? (
             [...Array(6)].map((_, index) => <SkeletonCard key={index} />)
           ) : (
-            recipes.map((recipe) => <RecipeCard key={recipe.idMeal} recipe={recipe} />)
+            products.map((product) => <ProductCard key={product.id} product={product} />)
           )}
         </div>
       </section>

@@ -1,9 +1,10 @@
 import { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { addToCart } from '../../redux/cartSlice'
+import { toggleFavorite } from '../../redux/favoritesSlice'
 import { getProducts, searchProducts, getProductsByCategory } from '../../services/productService'
 import { getCategories } from '../../services/categoryService'
-import { Search, Filter, X, ShoppingCart, SlidersHorizontal, ChevronDown, Utensils, Clock, Flame } from 'lucide-react'
+import { Search, Filter, X, ShoppingCart, SlidersHorizontal, ChevronDown, Utensils, Clock, Flame, Heart } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import styles from './Catalog.module.css'
 import { Link, useNavigate } from 'react-router-dom'
@@ -22,6 +23,7 @@ function Catalog() {
   const [priceRange, setPriceRange] = useState('all')
   
   const { items } = useSelector(state => state.cart)
+  const { items: favorites } = useSelector(state => state.favorites)
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -33,12 +35,19 @@ function Catalog() {
     try {
       const data = await getCategories()
       console.log('Categories from Supabase:', data)
-      setCategories([{ id: 'All', name: 'Все', icon: <Utensils size={18} /> }, ...data.map(cat => ({
-        id: cat.id,
-        name: cat.category_name,
-        image: cat.image,
-        icon: <Utensils size={18} />
-      }))])
+      
+      // Extract unique countries from products
+      const products = await getProducts()
+      const uniqueCountries = Array.from(new Set(products.map(p => p.country).filter(Boolean)))
+      
+      setCategories([
+        { id: 'All', name: 'Все', icon: <Utensils size={18} /> },
+        ...uniqueCountries.map(country => ({
+          id: country,
+          name: country,
+          icon: <Utensils size={18} />
+        }))
+      ])
     } catch (error) {
       console.error('Error loading categories:', error)
       setCategories([{ id: 'All', name: 'Все', icon: <Utensils size={18} /> }])
@@ -92,6 +101,14 @@ function Catalog() {
     navigate(`/product/${product.id}`)
   }
 
+  const handleToggleFavorite = (product) => {
+    dispatch(toggleFavorite(product))
+  }
+
+  const isFavorite = (productId) => {
+    return favorites.some(item => (item.idMeal || item.id) === productId)
+  }
+
   const handleCategoryChange = (category) => {
     setSelectedCategory(category)
   }
@@ -116,8 +133,8 @@ function Catalog() {
     if (searchQuery && product.name && !product.name.toLowerCase().includes(searchQuery.toLowerCase())) {
       return false
     }
-    // Category filter
-    if (selectedCategory !== 'All' && product.category_id !== selectedCategory) {
+    // Country filter (using category as country)
+    if (selectedCategory !== 'All' && product.country !== selectedCategory) {
       return false
     }
     return true
@@ -184,9 +201,9 @@ function Catalog() {
             </div>
 
             <div className={styles.filterSection}>
-              <h4>Категории</h4>
+              <h4>Страны</h4>
               {categoriesLoading ? (
-                <div className={styles.loading}>Загрузка категорий...</div>
+                <div className={styles.loading}>Загрузка стран...</div>
               ) : (
                 <div className={styles.categoryList}>
                   {categories.map(category => (
@@ -266,6 +283,7 @@ function Catalog() {
                       <div className={styles.productInfo}>
                         <h3 className={styles.productName}>{product.name}</h3>
                         <p className={styles.productCountry}>{product.country}</p>
+                        <p className={styles.productPrice}>{product.price ? `${product.price} сом` : 'Цена не указана'}</p>
                         <div className={styles.productMeta}>
                           <span className={styles.metaItem}>
                             <Clock size={14} />
@@ -279,9 +297,17 @@ function Catalog() {
                         <p className={styles.productDescription}>{product.description?.substring(0, 100)}...</p>
                       </div>
                     </div>
-                    <Link to={`/recipe-food/${product.id}`} className={styles.recipeLink}>
-                      <Utensils size={16} /> Рецепт
-                    </Link>
+                    <div className={styles.productActions}>
+                      <button 
+                        onClick={() => handleToggleFavorite(product)}
+                        className={`${styles.favoriteBtn} ${isFavorite(product.id) ? styles.active : ''}`}
+                      >
+                        <Heart size={16} fill={isFavorite(product.id) ? 'currentColor' : 'none'} />
+                      </button>
+                      <Link to={`/recipe-food/${product.id}`} className={styles.recipeLink}>
+                        <Utensils size={16} /> Рецепт
+                      </Link>
+                    </div>
                   </div>
                   <button
                     onClick={() => handleAddToCart(product)}

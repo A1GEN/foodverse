@@ -45,7 +45,6 @@ import {
 
 import styles from "./Navbar.module.css"
 import { AuthContext } from "../../context/AuthContext/AuthContext"
-import { FavoritesContext } from "../../context/FavoritesContext/FavoritesContext"
 import { useSelector } from 'react-redux'
 
 function Navbar() {
@@ -55,7 +54,7 @@ function Navbar() {
   const { darkMode, toggleTheme } = useContext(ThemeContext)
 
   const { user, logout } = useContext(AuthContext)
-  const { favorites } = useContext(FavoritesContext)
+  const { items: favorites } = useSelector(state => state.favorites)
   const { items: cart } = useSelector(state => state.cart)
 
   const [menuOpen, setMenuOpen] = useState(false)
@@ -155,6 +154,8 @@ function Navbar() {
             <nav className={styles.links} aria-label="Main navigation">
             <Link to="/" className={location.pathname === "/" ? styles.activeLink : ""}>{t("home")}</Link>
             <Link to="/catalog" className={location.pathname === "/catalog" ? styles.activeLink : ""}>{t("catalog", "Каталог")}</Link>
+            <Link to="/delivery" className={location.pathname === "/delivery" ? styles.activeLink : ""}>{t("delivery", "Доставка")}</Link>
+            <Link to="/contacts" className={location.pathname === "/contacts" ? styles.activeLink : ""}>{t("contacts", "Контакты")}</Link>
             <Link to="/about" className={location.pathname === "/about" ? styles.activeLink : ""}>{t("about", "О нас")}</Link>
           </nav>
         </div>

@@ -2,6 +2,7 @@ import styles from "./Hero.module.css"
 import { useTranslation } from "react-i18next"
 import { motion as Motion } from "framer-motion"
 import { useState, useEffect } from "react"
+import { ChevronLeft, ChevronRight } from "lucide-react"
 
 function Hero() {
   const { t } = useTranslation()
@@ -26,6 +27,14 @@ function Hero() {
     setCurrentSlide(index)
   }
 
+  const goToPrevious = () => {
+    setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length)
+  }
+
+  const goToNext = () => {
+    setCurrentSlide((prev) => (prev + 1) % slides.length)
+  }
+
   return (
     <section className={styles.hero}>
       <div className={styles.slider}>
@@ -39,6 +48,14 @@ function Hero() {
       </div>
 
       <div className={styles.overlay}></div>
+
+      <button className={styles.navButton} style={{ left: '20px' }} onClick={goToPrevious} aria-label="Previous slide">
+        <ChevronLeft size={32} />
+      </button>
+
+      <button className={styles.navButton} style={{ right: '20px' }} onClick={goToNext} aria-label="Next slide">
+        <ChevronRight size={32} />
+      </button>
 
       <Motion.div
         className={styles.content}

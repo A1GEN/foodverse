@@ -144,7 +144,7 @@ const resources = {
         delivery: "Delivery & Payment",
         returns: "Returns",
         privacy: "Privacy Policy",
-        copyright: "© 2024 FoodVerse. All rights reserved."
+        copyright: "© 2026 FoodVerse. All rights reserved."
       },
       checkout: {
         title: "Checkout",

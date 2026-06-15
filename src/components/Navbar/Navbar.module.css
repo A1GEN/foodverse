@@ -238,6 +238,16 @@
   .logo{ font-size:18px }
   .searchForm{ right:-60px; min-width:180px; }
   .searchInput{ min-width:140px; }
+  .iconBtn{ padding:8px; }
+  .badge{ font-size:10px; width:16px; height:16px; }
+}
+
+@media(max-width:480px){
+  .nav{ padding:10px 12px }
+  .logo{ font-size:16px }
+  .iconBtn{ padding:6px; }
+  .right{ gap:4px }
+  .menuBtn{ padding:6px; }
 }
 
 .mobileMenu{
