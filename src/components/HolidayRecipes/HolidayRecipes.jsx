@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Gift, Heart, Sparkles, Star, Calendar, Clock, ChefHat, Flame, PartyPopper, Cake, Cherry, Tree, Egg, Ring } from 'lucide-react'
+import { Gift, Heart, Sparkles, Star, Calendar, Clock, ChefHat, Flame, PartyPopper, Cake, Egg } from 'lucide-react'
 import styles from './HolidayRecipes.module.css'
 
 function HolidayRecipes() {
@@ -45,7 +45,7 @@ function HolidayRecipes() {
     {
       id: 'christmas',
       name: 'Рождество',
-      icon: <Tree size={24} />,
+      icon: <Sparkles size={24} />,
       description: 'Запеченная утка, пряники, глинтвейн',
       recipes: [
         { name: 'Запеченная утка', image: 'https://images.unsplash.com/photo-1574653853027-5382a3d23a15?w=400', time: '90 мин', difficulty: 'Сложно', calories: 450 },
@@ -69,7 +69,7 @@ function HolidayRecipes() {
     {
       id: 'wedding',
       name: 'Свадьба',
-      icon: <Ring size={24} />,
+      icon: <Heart size={24} />,
       description: 'Торт-свадебный, праздничный банкет',
       recipes: [
         { name: 'Свадебный торт', image: 'https://images.unsplash.com/photo-1535254973040-607b474cb50d?w=400', time: '3 часа', difficulty: 'Сложно', calories: 480 },

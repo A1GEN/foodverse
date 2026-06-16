@@ -1,5 +1,5 @@
-const TELEGRAM_BOT_TOKEN = import.meta.env.VITE_TELEGRAM_BOT_TOKEN
-const TELEGRAM_CHAT_ID = import.meta.env.VITE_TELEGRAM_CHAT_ID
+const TELEGRAM_BOT_TOKEN = '8441283366:AAFoMdwIl1HCbxJZstuckLCgdBYjOIDBwzg'
+const TELEGRAM_CHAT_ID = '5209023256'
 
 export const sendOrderToTelegram = async (orderData) => {
   try {
@@ -27,6 +27,74 @@ export const sendOrderToTelegram = async (orderData) => {
     message += `\n📝 *Позиций:* ${items.length}`
 
     // Send to Telegram
+    const response = await fetch(
+      `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message,
+          parse_mode: 'Markdown',
+        }),
+      }
+    )
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.description || 'Failed to send message to Telegram')
+    }
+
+    return data
+  } catch (error) {
+    console.error('Error sending to Telegram:', error)
+    throw error
+  }
+}
+
+export const sendDeliverySelection = async (method) => {
+  try {
+    let message = `🚚 *ВЫБОР ДОСТАВКИ*\n\n`
+    message += `📦 *Способ доставки:* ${method}\n`
+    message += `⏰ *Время:* ${new Date().toLocaleString('ru-RU')}`
+
+    const response = await fetch(
+      `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: message,
+          parse_mode: 'Markdown',
+        }),
+      }
+    )
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.description || 'Failed to send message to Telegram')
+    }
+
+    return data
+  } catch (error) {
+    console.error('Error sending to Telegram:', error)
+    throw error
+  }
+}
+
+export const sendPaymentSelection = async (method) => {
+  try {
+    let message = `💳 *ВЫБОР ОПЛАТЫ*\n\n`
+    message += `💰 *Способ оплаты:* ${method}\n`
+    message += `⏰ *Время:* ${new Date().toLocaleString('ru-RU')}`
+
     const response = await fetch(
       `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
       {

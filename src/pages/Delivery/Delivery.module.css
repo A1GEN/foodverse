@@ -71,12 +71,27 @@
   border-radius: 16px;
   padding: 24px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  position: relative;
 }
 
 .card:hover {
   transform: translateY(-4px);
   border-color: rgba(255, 107, 53, 0.3);
   box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.card.selected {
+  background: rgba(249, 115, 22, 0.1);
+  border-color: rgba(249, 115, 22, 0.5);
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.2);
+}
+
+.checkIcon {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: #ff6b35;
 }
 
 .cardIcon {
@@ -135,11 +150,20 @@
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 12px;
   transition: all 0.3s ease;
+  cursor: pointer;
+  position: relative;
 }
 
 .paymentMethod:hover {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(255, 107, 53, 0.2);
+  transform: translateX(4px);
+}
+
+.paymentMethod.selected {
+  background: rgba(249, 115, 22, 0.1);
+  border-color: rgba(249, 115, 22, 0.5);
+  box-shadow: 0 4px 20px rgba(249, 115, 22, 0.2);
 }
 
 .methodIcon {

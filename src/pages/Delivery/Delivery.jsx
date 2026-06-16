@@ -1,7 +1,34 @@
-import { Truck, CreditCard, Shield, Clock, MapPin, Phone, Mail } from 'lucide-react'
+import { useState } from 'react'
+import { Truck, CreditCard, Shield, Clock, MapPin, Phone, Mail, Check } from 'lucide-react'
+import { sendDeliverySelection, sendPaymentSelection } from '../../services/telegramService'
 import styles from './Delivery.module.css'
 
 function Delivery() {
+  const [selectedDelivery, setSelectedDelivery] = useState(null)
+  const [selectedPayment, setSelectedPayment] = useState(null)
+
+  const handleDeliverySelect = async (method) => {
+    setSelectedDelivery(method)
+    try {
+      await sendDeliverySelection(method)
+      alert('Выбор доставки отправлен в Telegram!')
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Ошибка при отправке. Попробуйте еще раз.')
+    }
+  }
+
+  const handlePaymentSelect = async (method) => {
+    setSelectedPayment(method)
+    try {
+      await sendPaymentSelection(method)
+      alert('Выбор оплаты отправлен в Telegram!')
+    } catch (error) {
+      console.error('Error:', error)
+      alert('Ошибка при отправке. Попробуйте еще раз.')
+    }
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -18,7 +45,10 @@ function Delivery() {
           </div>
 
           <div className={styles.cards}>
-            <div className={styles.card}>
+            <div 
+              className={`${styles.card} ${selectedDelivery === 'express' ? styles.selected : ''}`}
+              onClick={() => handleDeliverySelect('Экспресс доставка')}
+            >
               <div className={styles.cardIcon}>
                 <Clock size={28} />
               </div>
@@ -26,9 +56,13 @@ function Delivery() {
               <p className={styles.cardTime}>30-45 минут</p>
               <p className={styles.cardPrice}>Бесплатно при заказе от 1000 сом</p>
               <p className={styles.cardDesc}>Доставка по городу в течение 30-45 минут после оформления заказа</p>
+              {selectedDelivery === 'express' && <Check className={styles.checkIcon} size={20} />}
             </div>
 
-            <div className={styles.card}>
+            <div 
+              className={`${styles.card} ${selectedDelivery === 'standard' ? styles.selected : ''}`}
+              onClick={() => handleDeliverySelect('Стандартная доставка')}
+            >
               <div className={styles.cardIcon}>
                 <MapPin size={28} />
               </div>
@@ -36,9 +70,13 @@ function Delivery() {
               <p className={styles.cardTime}>1-2 часа</p>
               <p className={styles.cardPrice}>150 сом</p>
               <p className={styles.cardDesc}>Доставка по городу в течение 1-2 часов</p>
+              {selectedDelivery === 'standard' && <Check className={styles.checkIcon} size={20} />}
             </div>
 
-            <div className={styles.card}>
+            <div 
+              className={`${styles.card} ${selectedDelivery === 'outofcity' ? styles.selected : ''}`}
+              onClick={() => handleDeliverySelect('Доставка за город')}
+            >
               <div className={styles.cardIcon}>
                 <Truck size={28} />
               </div>
@@ -46,6 +84,7 @@ function Delivery() {
               <p className={styles.cardTime}>2-3 часа</p>
               <p className={styles.cardPrice}>от 300 сом</p>
               <p className={styles.cardDesc}>Доставка в пригород и соседние районы</p>
+              {selectedDelivery === 'outofcity' && <Check className={styles.checkIcon} size={20} />}
             </div>
           </div>
         </section>
@@ -58,7 +97,10 @@ function Delivery() {
           </div>
 
           <div className={styles.paymentMethods}>
-            <div className={styles.paymentMethod}>
+            <div 
+              className={`${styles.paymentMethod} ${selectedPayment === 'card' ? styles.selected : ''}`}
+              onClick={() => handlePaymentSelect('Банковской картой')}
+            >
               <div className={styles.methodIcon}>
                 <CreditCard size={24} />
               </div>
@@ -67,9 +109,13 @@ function Delivery() {
                 <p>Visa, MasterCard, Elkart</p>
               </div>
               <div className={styles.methodBadge}>Онлайн</div>
+              {selectedPayment === 'card' && <Check className={styles.checkIcon} size={20} />}
             </div>
 
-            <div className={styles.paymentMethod}>
+            <div 
+              className={`${styles.paymentMethod} ${selectedPayment === 'mobile' ? styles.selected : ''}`}
+              onClick={() => handlePaymentSelect('Мобильный платеж')}
+            >
               <div className={styles.methodIcon}>
                 <Phone size={24} />
               </div>
@@ -78,9 +124,13 @@ function Delivery() {
                 <p>Balance, O! Money, MegaPay</p>
               </div>
               <div className={styles.methodBadge}>Онлайн</div>
+              {selectedPayment === 'mobile' && <Check className={styles.checkIcon} size={20} />}
             </div>
 
-            <div className={styles.paymentMethod}>
+            <div 
+              className={`${styles.paymentMethod} ${selectedPayment === 'cash' ? styles.selected : ''}`}
+              onClick={() => handlePaymentSelect('Наличными при получении')}
+            >
               <div className={styles.methodIcon}>
                 <Shield size={24} />
               </div>
@@ -89,6 +139,7 @@ function Delivery() {
                 <p>Оплата курьеру при доставке</p>
               </div>
               <div className={styles.methodBadge}>При получении</div>
+              {selectedPayment === 'cash' && <Check className={styles.checkIcon} size={20} />}
             </div>
           </div>
         </section>
