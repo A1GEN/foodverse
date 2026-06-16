@@ -33,6 +33,12 @@
   padding:24px 5%;
 }
 
+/* Featured Dish Section */
+.section:first-of-type{
+  margin-top: 40px;
+  padding: 40px 5%;
+}
+
 .sectionTitle{
   color:white;
   font-size:42px;
@@ -108,6 +114,35 @@
   .twoGrid{ grid-template-columns:1fr; }
   .section{ padding:48px 5%; }
   .heroWrap{ margin:24px auto 0; padding:16px 5%; }
+  
+  .discoverImageWrap img{ max-height:280px; }
+  .discoverTextBlock{ left:20px; bottom:20px; max-width:calc(100% - 40px); }
+  .discoverTextBlock h2{ font-size:28px; }
+  .discoverTextBlock p{ font-size:15px; }
+  .cta{ padding:12px 20px; font-size:14px; }
+  
+  .grid{ grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap:20px; }
+}
+
+@media(max-width:480px){
+  .title{ font-size:28px; }
+  .twoGrid{ grid-template-columns:1fr; }
+  .section{ padding:32px 4%; }
+  .heroWrap{ margin:16px auto 0; padding:12px 4%; }
+  
+  .discoverImageWrap img{ max-height:220px; }
+  .discoverTextBlock{ left:16px; bottom:16px; max-width:calc(100% - 32px); }
+  .discoverTextBlock h2{ font-size:22px; }
+  .discoverTextBlock p{ font-size:13px; }
+  .cta{ padding:10px 16px; font-size:13px; }
+  
+  .grid{ grid-template-columns: 1fr; gap:16px; }
+  .catalogGrid{ grid-template-columns:1fr; }
+  
+  .classicCatalog{ padding:16px 4%; }
+  .classicInner{ padding:12px; }
+  .classicTitle{ font-size:18px; }
+  .chip{ padding:6px 10px; font-size:12px; }
 }
 
 .twoGrid > *:hover,
@@ -204,14 +239,75 @@
 }
 
 /* discover banner */
-.discoverBanner{ display:flex; gap:18px; align-items:center; margin-bottom:28px; border-radius:14px; overflow:hidden; }
-.discoverImageWrap{ position:relative; width:100%; border-radius:12px; overflow:hidden }
-.discoverImageWrap img{ width:100%; max-height:320px; object-fit:cover; display:block }
-.discoverOverlay{ position:absolute; inset:0; background:linear-gradient(180deg, rgba(2,6,23,0.5), rgba(2,6,23,0.2)) }
-.discoverTextBlock{ position:absolute; left:40px; bottom:28px; color:#fff; max-width:540px }
-.discoverTextBlock h2{ font-size:34px; margin:0 0 8px }
-.discoverTextBlock p{ margin:0 0 12px; color:rgba(255,255,255,0.9) }
-.cta{ display:inline-block; padding:10px 16px; border-radius:10px; background:linear-gradient(90deg,#fb923c,#ffdd57); color:#07102a; font-weight:700; text-decoration:none }
+.discoverBanner{ 
+  display:flex; 
+  gap:18px; 
+  align-items:center; 
+  margin:0; 
+  border-radius:16px; 
+  overflow:hidden; 
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+.discoverImageWrap{ 
+  position:relative; 
+  width:100%; 
+  border-radius:16px; 
+  overflow:hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.discoverImageWrap img{ 
+  width:100%; 
+  max-height:400px; 
+  object-fit:cover; 
+  display:block;
+  transition: transform 0.5s ease;
+}
+.discoverImageWrap:hover img{
+  transform: scale(1.05);
+}
+.discoverOverlay{ 
+  position:absolute; 
+  inset:0; 
+  background:linear-gradient(180deg, rgba(15, 23, 42, 0.3) 0%, rgba(15, 23, 42, 0.7) 100%);
+}
+.discoverTextBlock{ 
+  position:absolute; 
+  left:40px; 
+  bottom:32px; 
+  color:#fff; 
+  max-width:600px;
+  z-index: 2;
+}
+.discoverTextBlock h2{ 
+  font-size:42px; 
+  margin:0 0 12px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+.discoverTextBlock p{ 
+  margin:0 0 20px; 
+  color:rgba(255,255,255,0.95);
+  font-size: 18px;
+  line-height: 1.5;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+.cta{ 
+  display:inline-block; 
+  padding:14px 28px; 
+  border-radius:12px; 
+  background:linear-gradient(135deg, #ff6b35, #ff8a4d); 
+  color:#fff; 
+  font-weight:700; 
+  text-decoration:none;
+  font-size: 16px;
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.3);
+  transition: all 0.3s ease;
+}
+.cta:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255, 107, 53, 0.4);
+}
 
 /* Floating Consultant Button */
 .consultantButton{

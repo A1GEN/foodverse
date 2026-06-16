@@ -342,8 +342,9 @@
 
 .grid{
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(300px, 320px));
   gap: 24px;
+  justify-content: center;
 }
 
 .recipeCard{
@@ -354,21 +355,21 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+  border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);
-  border-radius:20px;
-  padding:20px;
-  box-shadow: 0 6px 24px rgba(2,6,23,0.6);
-  transition:transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  border-radius: 16px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  height: 100%;
 }
 
 .productCard:hover{
-  transform: translateY(-8px);
-  border-color: rgba(249,115,22,0.35);
-  box-shadow: 0 18px 48px rgba(15,23,42,0.6);
+  transform: translateY(-6px);
+  border-color: rgba(255, 107, 53, 0.3);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
 }
 
 .productLink{
@@ -379,22 +380,30 @@
 
 .productImage{
   width: 100%;
-  height: 200px;
+  height: 180px;
   object-fit: cover;
   border-radius: 12px;
+  margin-bottom: 12px;
 }
 
 .productInfo{
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
 }
 
 .productName{
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 16px;
+  font-weight: 700;
   color: var(--text, #fff);
   margin: 0;
+  line-height: 1.3;
+  min-height: 42px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .productCountry{
@@ -412,8 +421,11 @@
 
 .productMeta{
   display: flex;
-  gap: 16px;
+  gap: 8px;
   flex-wrap: wrap;
+  padding: 6px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .metaItem{
@@ -422,13 +434,21 @@
   gap: 4px;
   font-size: 12px;
   color: rgba(255, 255, 255, 0.7);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 3px 6px;
+  border-radius: 4px;
 }
 
 .productDescription{
-  font-size: 14px;
-  color: rgba(255, 255, 255, 0.7);
-  line-height: 1.5;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+  line-height: 1.4;
   margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-height: 36px;
 }
 
 .addToCartBtn{
@@ -436,17 +456,18 @@
   margin-top: 12px;
   padding: 12px;
   border-radius: 10px;
-  background: linear-gradient(90deg, #ff6b35, #ff8a4d);
+  background: linear-gradient(135deg, #ff6b35, #ff8a4d);
   border: none;
   color: white;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 16px rgba(255, 107, 53, 0.2);
 }
 
 .addToCartBtn:hover{
@@ -457,6 +478,7 @@
 .productLinks{
   display: flex;
   flex-direction: column;
+  gap: 8px;
   flex: 1;
 }
 
@@ -469,16 +491,17 @@
 
 .productActions{
   display: flex;
-  gap: 8px;
+  gap: 6px;
   align-items: center;
+  margin-top: 6px;
 }
 
 .favoriteBtn{
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: white;
   cursor: pointer;
   display: flex;
@@ -502,17 +525,16 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 10px;
-  background: rgba(34,197,94,0.1);
-  border: 1px solid rgba(34,197,94,0.3);
-  border-radius: 8px;
+  gap: 6px;
+  padding: 6px 10px;
+  background: rgba(34, 197, 94, 0.1);
+  border: 1px solid rgba(34, 197, 94, 0.3);
+  border-radius: 6px;
   color: #22c974;
   text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
   transition: all 0.3s ease;
-  margin-top: 12px;
 }
 
 .recipeLink:hover{
@@ -526,7 +548,76 @@
   }
   
   .title{
+    font-size: 28px;
+  }
+  
+  .controls{
+    flex-direction: column;
+  }
+  
+  .searchBox{
+    min-width: 100%;
+  }
+  
+  .grid{
+    grid-template-columns: repeat(auto-fill, minmax(280px, 300px));
+    gap: 20px;
+  }
+  
+  .filterToggle{
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+  
+  .productImage{
+    height: 160px;
+  }
+  
+  .productCard{
+    padding: 14px;
+  }
+}
+
+@media(max-width: 480px){
+  .catalog{
+    padding: 70px 3% 20px;
+  }
+  
+  .title{
     font-size: 24px;
+  }
+  
+  .searchBox{
+    padding: 10px 12px;
+  }
+  
+  .filterToggle{
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+  
+  .productCard{
+    border-radius: 12px;
+    padding: 12px;
+  }
+  
+  .productImage{
+    height: 140px;
+  }
+  
+  .productName{
+    font-size: 15px;
+    min-height: 40px;
+  }
+  
+  .addToCartBtn{
+    font-size: 13px;
+    padding: 10px;
+  }
+  
+  .favoriteBtn{
+    width: 32px;
+    height: 32px;
   }
   
   .controls{
@@ -540,42 +631,5 @@
   .grid{
     grid-template-columns: 1fr;
     gap: 16px;
-  }
-  
-  .filterToggle{
-    font-size: 14px;
-    padding: 10px 16px;
-  }
-}
-
-@media(max-width: 480px){
-  .catalog{
-    padding: 70px 3% 20px;
-  }
-  
-  .title{
-    font-size: 20px;
-  }
-  
-  .searchBox{
-    padding: 10px 12px;
-  }
-  
-  .filterToggle{
-    font-size: 12px;
-    padding: 8px 12px;
-  }
-  
-  .productCard{
-    border-radius: 12px;
-  }
-  
-  .productImage{
-    height: 180px;
-  }
-  
-  .addToCartBtn{
-    font-size: 14px;
-    padding: 10px;
   }
 }

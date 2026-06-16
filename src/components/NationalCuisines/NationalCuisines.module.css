@@ -221,21 +221,57 @@
 }
 
 .recipeCard:hover .recipeOverlay{
-  background:linear-gradient(180deg,transparent 20%,rgba(0,0,0,0.95) 100%);
+  background:linear-gradient(180deg,rgba(0,0,0,0.3) 0%,rgba(0,0,0,0.95) 100%);
+}
+
+.recipeContent{
+  width:100%;
+  transform:translateY(0);
+  transition:transform 0.4s ease;
+}
+
+.recipeCard:hover .recipeContent{
+  transform:translateY(-8px);
 }
 
 .recipeName{
   color:white;
   font-size:18px;
   font-weight:700;
-  margin:0;
+  margin:0 0 12px 0;
   text-shadow:0 2px 8px rgba(0,0,0,0.5);
-  transform:translateY(0);
-  transition:transform 0.4s ease;
 }
 
-.recipeCard:hover .recipeName{
-  transform:translateY(-4px);
+.recipeMeta{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+  opacity:0;
+  transform:translateY(20px);
+  transition:all 0.4s ease;
+}
+
+.recipeCard:hover .recipeMeta{
+  opacity:1;
+  transform:translateY(0);
+}
+
+.recipeTime,
+.recipeDifficulty,
+.recipeCalories{
+  color:rgba(255,255,255,0.9);
+  font-size:13px;
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.recipeTime svg,
+.recipeDifficulty svg,
+.recipeCalories svg{
+  width:14px;
+  height:14px;
 }
 
 @media(max-width:1024px){
@@ -269,7 +305,7 @@
   }
   
   .container{
-    padding:28px;
+    padding:24px;
     border-radius:20px;
   }
   
@@ -280,21 +316,21 @@
   }
   
   .title{
-    font-size:32px;
+    font-size:28px;
   }
   
   .subtitle{
-    font-size:16px;
+    font-size:15px;
   }
   
   .cuisineTabs{
-    gap:10px;
+    gap:8px;
     justify-content:flex-start;
   }
   
   .cuisineTab{
-    padding:12px 18px;
-    font-size:14px;
+    padding:10px 16px;
+    font-size:13px;
   }
   
   .cuisineInfo{
@@ -309,7 +345,7 @@
   }
   
   .cuisineTitle{
-    font-size:22px;
+    font-size:20px;
   }
   
   .cuisineDescription{
@@ -323,5 +359,107 @@
   
   .recipesGrid{
     grid-template-columns:1fr;
+    gap:16px;
+  }
+  
+  .recipeCard{
+    aspect-ratio:16/9;
+  }
+  
+  .recipeName{
+    font-size:16px;
+  }
+  
+  .recipeMeta{
+    opacity:1;
+    transform:translateY(0);
+  }
+  
+  .recipeTime,
+  .recipeDifficulty,
+  .recipeCalories{
+    font-size:12px;
+  }
+}
+
+@media(max-width:480px){
+  .cuisineSection{
+    margin:40px auto;
+    padding:0 3%;
+  }
+  
+  .container{
+    padding:20px;
+    border-radius:16px;
+  }
+  
+  .title{
+    font-size:24px;
+  }
+  
+  .subtitle{
+    font-size:14px;
+  }
+  
+  .cuisineTabs{
+    gap:6px;
+  }
+  
+  .cuisineTab{
+    padding:8px 14px;
+    font-size:12px;
+  }
+  
+  .cuisineTab .cuisineFlag{
+    font-size:18px;
+  }
+  
+  .cuisineTab .cuisineFlag{
+    font-size:18px;
+  }
+  
+  .cuisineInfo{
+    padding:16px;
+  }
+  
+  .cuisineFlagLarge{
+    font-size:48px;
+    margin-bottom:12px;
+  }
+  
+  .cuisineTitle{
+    font-size:18px;
+  }
+  
+  .cuisineDescription{
+    font-size:13px;
+  }
+  
+  .exploreBtn{
+    padding:10px 16px;
+    font-size:13px;
+  }
+  
+  .recipesGrid{
+    gap:12px;
+  }
+  
+  .recipeCard{
+    aspect-ratio:4/3;
+  }
+  
+  .recipeName{
+    font-size:15px;
+    margin-bottom:8px;
+  }
+  
+  .recipeMeta{
+    gap:4px;
+  }
+  
+  .recipeTime,
+  .recipeDifficulty,
+  .recipeCalories{
+    font-size:11px;
   }
 }

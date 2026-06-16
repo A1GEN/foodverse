@@ -33,7 +33,7 @@
 }
 
 .left{ flex:1; display:flex; align-items:center; gap:12px; }
-.center{ flex:1; display:flex; justify-content:center; }
+.center{ flex:1; display:flex; justify-content:center; align-items: center; }
 .right{ flex:1; display:flex; justify-content:flex-end; align-items:center; gap:8px }
 
 .logoLink{
@@ -52,6 +52,8 @@
   display:flex;
   align-items:center;
   gap:18px;
+  white-space: nowrap;
+  flex-wrap: nowrap;
 }
 
 .links a{
@@ -61,6 +63,9 @@
   padding:10px 14px;
   border-radius:10px;
   transition: all .18s ease;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
 }
 
 .links a:hover{
@@ -240,6 +245,7 @@
   .searchInput{ min-width:140px; }
   .iconBtn{ padding:8px; }
   .badge{ font-size:10px; width:16px; height:16px; }
+  .menuBtn{ display:block !important; }
 }
 
 @media(max-width:480px){
@@ -248,6 +254,9 @@
   .iconBtn{ padding:6px; }
   .right{ gap:4px }
   .menuBtn{ padding:6px; }
+  .loginBtn{ display:none; }
+  .adminBtn{ display:none; }
+  .controls{ gap:4px; }
 }
 
 .mobileMenu{
@@ -475,15 +484,9 @@
   border-color:transparent;
 }
 
-@media(max-width:1024px){
-  .fullMenu{
-    width:60%;
-  }
-}
-
 @media(max-width:768px){
   .fullMenu{
-    width:80%;
+    width:100%;
   }
   
   .menuHeader h2{
@@ -496,6 +499,36 @@
   
   .langOptions button{
     width:100%;
+  }
+}
+
+@media(max-width:480px){
+  .fullMenu{
+    padding:20px;
+  }
+  
+  .menuHeader{
+    margin-bottom:24px;
+    padding-bottom:16px;
+  }
+  
+  .menuHeader h2{
+    font-size:20px;
+  }
+  
+  .menuGrid{
+    gap:16px;
+  }
+  
+  .menuColumn h3{
+    font-size:13px;
+    margin-bottom:12px;
+  }
+  
+  .menuColumn a,
+  .menuColumn button{
+    padding:12px 14px;
+    font-size:14px;
   }
 }  .menuColumn{
   display:flex;

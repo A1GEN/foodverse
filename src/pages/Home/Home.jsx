@@ -68,18 +68,6 @@ function Home() {
 
       {/* Products Grid */}
       <section id="products" className={styles.section}>
-        <div className={styles.discoverBanner}>
-          <div className={styles.discoverImageWrap}>
-            <img src="https://images.unsplash.com/photo-1543352634-2c2f6f2d3f0b?q=80&w=1600&auto=format&fit=crop" alt="Featured dish" />
-            <div className={styles.discoverOverlay} />
-            <div className={styles.discoverTextBlock}>
-              <h2>{t('discover.chefTitle')}</h2>
-              <p>{t('discover.chefText')}</p>
-              <a href="#products" className={styles.cta}>{t('discover.cta')}</a>
-            </div>
-          </div>
-        </div>
-
         <div className={styles.grid}>
           {loading ? (
             [...Array(6)].map((_, index) => <SkeletonCard key={index} />)

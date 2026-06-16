@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
 import { getAdminRecipes, deleteAdminRecipe, updateAdminRecipe, createAdminRecipe } from "../../services/saveRecipe"
 import { getAllUsers, deleteUser as deleteUserFromDb, updateUser as updateUserFromDb } from "../../services/userService"
+import { getProducts, createProduct, updateProduct, deleteProduct } from "../../services/productService"
 import { toast } from "react-toastify"
 import AdminEditModal from "../../components/AdminEditModal/AdminEditModal"
 import { useTranslation } from "react-i18next"
-import { Users, TrendingUp, Activity, Settings, Search, Filter, Plus, Edit2, Trash2, Eye, Calendar, Clock, Star, UserCheck, UserX, Mail, Shield, Globe, Bell, Database, Palette } from "lucide-react"
+import { Users, TrendingUp, Activity, Settings, Search, Filter, Plus, Edit2, Trash2, Eye, Calendar, Clock, Star, UserCheck, UserX, Mail, Shield, Globe, Bell, Database, Palette, Package } from "lucide-react"
 import styles from "./Admin.module.css"
 import AdminSidebar from "../../components/AdminSidebar/AdminSidebar"
 import AdminStats from "../../components/AdminStats/AdminStats"
@@ -14,7 +15,9 @@ function Admin() {
 
   const [recipes, setRecipes] = useState([])
   const [users, setUsers] = useState([])
+  const [products, setProducts] = useState([])
   const [loadingUsers, setLoadingUsers] = useState(true)
+  const [loadingProducts, setLoadingProducts] = useState(true)
   const [activeTab, setActiveTab] = useState('overview')
   const [searchQuery, setSearchQuery] = useState('')
 
@@ -22,6 +25,10 @@ function Admin() {
   const [editData, setEditData] = useState(null)
   const [userEditModal, setUserEditModal] = useState(false)
   const [userEditData, setUserEditData] = useState(null)
+  const [productEditModal, setProductEditModal] = useState(false)
+  const [productEditData, setProductEditData] = useState(null)
+  const [productViewModal, setProductViewModal] = useState(false)
+  const [productViewData, setProductViewData] = useState(null)
   const [page, setPage] = useState(0)
   const [pageSize, setPageSize] = useState(8)
   const [filterStatus, setFilterStatus] = useState('all')
@@ -35,6 +42,22 @@ function Admin() {
         if(!mounted) return
         setRecipes(data)
       }catch(e){ console.error('admin recipes fetch', e); toast.error('Ошибка загрузки рецептов') }
+    })()
+    return ()=> mounted = false
+  },[])
+
+  useEffect(()=>{
+    let mounted = true
+    ;(async()=>{
+      try{
+        setLoadingProducts(true)
+        const data = await getProducts()
+        if(!mounted) return
+        setProducts(data)
+      }catch(e){ console.error('admin products fetch', e); toast.error('Ошибка загрузки товаров') }
+      finally{
+        if(mounted) setLoadingProducts(false)
+      }
     })()
     return ()=> mounted = false
   },[])
@@ -71,7 +94,8 @@ function Admin() {
     publishedRecipes: recipes.filter(r => r.status === 'published').length,
     draftRecipes: recipes.filter(r => r.status === 'draft').length,
     totalUsers: users.length,
-    activeUsers: users.filter(u => u.role !== 'admin').length
+    activeUsers: users.filter(u => u.role !== 'admin').length,
+    totalProducts: products.length
   }
 
   const handleDeleteUser = async (userId) => {
@@ -110,6 +134,62 @@ function Admin() {
 
   const handleViewProfile = (userId) => {
     window.open(`/profile/${userId}`, '_blank')
+  }
+
+  const handleViewProduct = (product) => {
+    setProductViewData(product)
+    setProductViewModal(true)
+  }
+
+  const handleEditProduct = (product) => {
+    setProductEditData(product)
+    setProductEditModal(true)
+  }
+
+  const handleSaveProduct = async (updatedProduct) => {
+    try {
+      await updateProduct(updatedProduct.id, updatedProduct)
+      setProducts(products.map(p => p.id === updatedProduct.id ? { ...p, ...updatedProduct } : p))
+      toast.success('Товар обновлен')
+      setProductEditModal(false)
+      setProductEditData(null)
+    } catch (error) {
+      console.error('Error updating product:', error)
+      toast.error('Ошибка обновления товара')
+    }
+  }
+
+  const handleDeleteProduct = async (productId) => {
+    if (!confirm('Вы уверены, что хотите удалить этот товар?')) return
+    try {
+      await deleteProduct(productId)
+      setProducts(products.filter(p => p.id !== productId))
+      toast.success('Товар удален')
+    } catch (error) {
+      console.error('Error deleting product:', error)
+      toast.error('Ошибка удаления товара')
+    }
+  }
+
+  const handleCreateProduct = async () => {
+    const newProduct = {
+      name: 'Новый товар',
+      country: 'Не указано',
+      price: 0,
+      cooking_time: 30,
+      calories: 500,
+      description: 'Описание нового товара',
+      image: 'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800',
+      difficulti: 'Средне'
+    }
+    try {
+      const created = await createProduct(newProduct)
+      setProducts([created, ...products])
+      toast.success('Товар создан')
+    } catch (error) {
+      console.error('Error creating product:', error)
+      toast.error('Ошибка создания товара')
+    }
   }
 
   return (
@@ -159,6 +239,12 @@ function Admin() {
             onClick={() => setActiveTab('recipes')}
           >
             <Star size={18} /> Рецепты
+          </button>
+          <button 
+            className={`${styles.tab} ${activeTab === 'products' ? styles.active : ''}`}
+            onClick={() => setActiveTab('products')}
+          >
+            <Package size={18} /> Товары
           </button>
           <button 
             className={`${styles.tab} ${activeTab === 'users' ? styles.active : ''}`}
@@ -286,6 +372,182 @@ function Admin() {
                 }catch(e){ console.error(e); toast.error('Ошибка обновления') }
               }}
             />
+          </section>
+        )}
+
+        {activeTab === 'products' && (
+          <section className={styles.section} aria-label="Products admin">
+            <div className={styles.sectionHeader}>
+              <h2>Управление товарами</h2>
+              <button className={styles.createBtn} onClick={handleCreateProduct}>
+                <Plus size={18} /> Создать товар
+              </button>
+            </div>
+
+            <div className={styles.controls}>
+              <div className={styles.searchBox}>
+                <Search size={18} className={styles.searchIcon} />
+                <input
+                  type="text"
+                  placeholder="Поиск товаров..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className={styles.searchInput}
+                />
+              </div>
+              <div className={styles.pageSizeBox}>
+                <select value={pageSize} onChange={e=>{ setPageSize(Number(e.target.value)); setPage(0) }} className={styles.pageSizeSelect}>
+                  <option value={6}>6 на странице</option>
+                  <option value={8}>8 на странице</option>
+                  <option value={12}>12 на странице</option>
+                </select>
+              </div>
+            </div>
+
+            <div className={styles.list}>
+              {loadingProducts && <div className={styles.empty}>Загрузка товаров...</div>}
+              {!loadingProducts && products.length === 0 && <div className={styles.empty}>Товары не найдены</div>}
+              {!loadingProducts && products
+                .filter(p => 
+                  searchQuery === '' || 
+                  (p.name || '').toLowerCase().includes(searchQuery.toLowerCase())
+                )
+                .slice(page * pageSize, page * pageSize + pageSize)
+                .map(p => (
+                <div key={p.id} className={styles.row}>
+                  <div className={styles.rowInfo}>
+                    <div className={styles.rowTitle}>{p.name || 'Без названия'}</div>
+                    <div className={styles.rowMeta}>
+                      <span className={styles.rowCountry}>{p.country || '—'}</span>
+                      <span className={styles.rowPrice}>{p.price || 0} сом</span>
+                      <span className={styles.rowTime}><Clock size={14} /> {p.cooking_time || 0} мин</span>
+                    </div>
+                  </div>
+                  <div className={styles.actions}>
+                    <button className={styles.actionBtn} onClick={() => handleViewProduct(p)} title="Просмотр">
+                      <Eye size={16} />
+                    </button>
+                    <button className={styles.actionBtn} onClick={() => handleEditProduct(p)} title="Редактировать">
+                      <Edit2 size={16} />
+                    </button>
+                    <button className={`${styles.actionBtn} ${styles.deleteBtn}`} onClick={() => handleDeleteProduct(p.id)} title="Удалить">
+                      <Trash2 size={16} />
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.pager}>
+              <button onClick={()=>setPage(p=> Math.max(0,p-1))} disabled={page===0} className={styles.pageBtn}>
+                ← Назад
+              </button>
+              <span className={styles.pageInfo}>Страница {page+1} из {Math.ceil(products.length / pageSize)}</span>
+              <button onClick={()=>setPage(p=> Math.min(Math.ceil(products.length / pageSize)-1,p+1))} disabled={page >= Math.ceil(products.length / pageSize)-1} className={styles.pageBtn}>
+                Вперед →
+              </button>
+            </div>
+
+            {productViewModal && (
+              <div className={styles.modalOverlay} onClick={() => setProductViewModal(false)}>
+                <div className={styles.modal} onClick={e => e.stopPropagation()}>
+                  <h3>Просмотр товара</h3>
+                  <div className={styles.productView}>
+                    {productViewData?.image && (
+                      <img src={productViewData.image} alt={productViewData.name} className={styles.productViewImage} />
+                    )}
+                    <div className={styles.productViewDetails}>
+                      <p><strong>Название:</strong> {productViewData?.name || '—'}</p>
+                      <p><strong>Страна:</strong> {productViewData?.country || '—'}</p>
+                      <p><strong>Цена:</strong> {productViewData?.price || 0} сом</p>
+                      <p><strong>Время готовки:</strong> {productViewData?.cooking_time || 0} мин</p>
+                      <p><strong>Калории:</strong> {productViewData?.calories || 0} ккал</p>
+                      <p><strong>Сложность:</strong> {productViewData?.difficulti || '—'}</p>
+                      <p><strong>Описание:</strong> {productViewData?.description || '—'}</p>
+                    </div>
+                  </div>
+                  <div className={styles.modalActions}>
+                    <button onClick={() => setProductViewModal(false)} className={styles.saveBtn}>Закрыть</button>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {productEditModal && (
+              <div className={styles.modalOverlay} onClick={() => setProductEditModal(false)}>
+                <div className={styles.modal} onClick={e => e.stopPropagation()}>
+                  <h3>Редактировать товар</h3>
+                  <div className={styles.formGroup}>
+                    <label>Название</label>
+                    <input
+                      type="text"
+                      value={productEditData?.name || ''}
+                      onChange={e => setProductEditData({ ...productEditData, name: e.target.value })}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Страна</label>
+                    <input
+                      type="text"
+                      value={productEditData?.country || ''}
+                      onChange={e => setProductEditData({ ...productEditData, country: e.target.value })}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Цена (сом)</label>
+                    <input
+                      type="number"
+                      value={productEditData?.price || 0}
+                      onChange={e => setProductEditData({ ...productEditData, price: Number(e.target.value) })}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Время готовки (мин)</label>
+                    <input
+                      type="number"
+                      value={productEditData?.cooking_time || 0}
+                      onChange={e => setProductEditData({ ...productEditData, cooking_time: Number(e.target.value) })}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Калории</label>
+                    <input
+                      type="number"
+                      value={productEditData?.calories || 0}
+                      onChange={e => setProductEditData({ ...productEditData, calories: Number(e.target.value) })}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Описание</label>
+                    <textarea
+                      value={productEditData?.description || ''}
+                      onChange={e => setProductEditData({ ...productEditData, description: e.target.value })}
+                      rows={3}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>URL изображения</label>
+                    <input
+                      type="text"
+                      value={productEditData?.image || ''}
+                      onChange={e => setProductEditData({ ...productEditData, image: e.target.value })}
+                    />
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label>Сложность</label>
+                    <input
+                      type="text"
+                      value={productEditData?.difficulti || ''}
+                      onChange={e => setProductEditData({ ...productEditData, difficulti: e.target.value })}
+                    />
+                  </div>
+                  <div className={styles.modalActions}>
+                    <button onClick={() => setProductEditModal(false)} className={styles.cancelBtn}>Отмена</button>
+                    <button onClick={() => handleSaveProduct(productEditData)} className={styles.saveBtn}>Сохранить</button>
+                  </div>
+                </div>
+              </div>
+            )}
           </section>
         )}
 

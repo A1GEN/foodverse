@@ -348,4 +348,66 @@
   .ingredientsList {
     grid-template-columns: 1fr;
   }
+
+  .instructionsList {
+    gap: 16px;
+  }
+
+  .instructionItem {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .instructionNumber {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 16px 12px;
+  }
+
+  .backBtn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .recipeImage {
+    height: 200px;
+  }
+
+  .infoCard {
+    padding: 16px;
+  }
+
+  .nutritionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .sectionTitle {
+    font-size: 18px;
+  }
+
+  .ingredientsList {
+    gap: 12px;
+  }
+
+  .instructionsList {
+    gap: 12px;
+  }
+
+  .instructionText {
+    font-size: 14px;
+  }
+
+  .countryInfo {
+    padding: 16px;
+  }
 }

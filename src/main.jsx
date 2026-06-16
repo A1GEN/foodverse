@@ -9,7 +9,7 @@ import "./i18n/i18n"
 import LikesProvider from './context/LikesContext/LikesContext'
 import FavoritesProvider from './context/FavoritesContext/FavoritesContext.jsx'
 import AuthProvider from './context/AuthContext/AuthContext.jsx'
-import { BrowserRouter } from "react-router-dom"
+  import { BrowserRouter } from "react-router-dom"
 import { Provider } from 'react-redux'
 import store from './redux/store'
 

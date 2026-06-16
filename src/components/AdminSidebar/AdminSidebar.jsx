@@ -1,4 +1,4 @@
-import { LayoutDashboard, Utensils, Users } from "lucide-react"
+import { LayoutDashboard, Utensils, Users, Package } from "lucide-react"
 import { Link } from "react-router-dom"
 import styles from "./AdminSidebar.module.css"
 import { useTranslation } from "react-i18next"
@@ -19,6 +19,11 @@ function AdminSidebar() {
         <Link to="#recipes" aria-label="Перейти к рецептам" title={t('admin.recipes', 'Recipes')}>
           <Utensils size={20} />
           {t('admin.recipes', 'Recipes')}
+        </Link>
+
+        <Link to="#products" aria-label="Перейти к товарам" title={t('admin.products', 'Products')}>
+          <Package size={20} />
+          {t('admin.products', 'Products')}
         </Link>
 
         <Link to="#users" aria-label="Перейти к пользователям" title={t('admin.users', 'Users')}>

@@ -62,3 +62,51 @@ export const searchProducts = async (query) => {
     return []
   }
 }
+
+export const createProduct = async (product) => {
+  try {
+    const { data, error } = await supabase
+      .from('foods')
+      .insert([product])
+      .select()
+      .single()
+    
+    if (error) throw error
+    return data
+  } catch (error) {
+    console.error('Error creating product:', error)
+    throw error
+  }
+}
+
+export const updateProduct = async (id, updates) => {
+  try {
+    const { data, error } = await supabase
+      .from('foods')
+      .update(updates)
+      .eq('id', id)
+      .select()
+      .single()
+    
+    if (error) throw error
+    return data
+  } catch (error) {
+    console.error('Error updating product:', error)
+    throw error
+  }
+}
+
+export const deleteProduct = async (id) => {
+  try {
+    const { error } = await supabase
+      .from('foods')
+      .delete()
+      .eq('id', id)
+    
+    if (error) throw error
+    return true
+  } catch (error) {
+    console.error('Error deleting product:', error)
+    throw error
+  }
+}

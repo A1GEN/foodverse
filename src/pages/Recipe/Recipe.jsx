@@ -162,30 +162,31 @@ function Recipe() {
           <p className={styles.descriptionText}>{product.description}</p>
         </div>
 
-        <div className={styles.ingredients}>
-          <h2 className={styles.sectionTitle}>Ингредиенты</h2>
-          <ul className={styles.ingredientsList}>
-            {ingredients.map((ingredient, index) => (
-              <li key={index} className={styles.ingredientItem}>
-                <CheckCircle size={20} className={styles.ingredientIcon} />
-                <span>{ingredient}</span>
-              </li>
-            ))}
-          </ul>
+       <div className={styles.instructions}>
+  <h2 className={styles.sectionTitle}>Инструкции по приготовлению</h2>
+
+  <ol className={styles.instructionsList}>
+    {instructions.map((instruction, index) => (
+      <li key={index} className={styles.instructionItem}>
+        <div className={styles.instructionNumber}>
+          {typeof instruction === 'object' && instruction.step
+            ? instruction.step
+            : index + 1}
         </div>
 
-        <div className={styles.instructions}>
-          <h2 className={styles.sectionTitle}>Инструкции по приготовлению</h2>
-          <ol className={styles.instructionsList}>
-            {instructions.map((instruction, index) => (
-              <li key={index} className={styles.instructionItem}>
-                <div className={styles.instructionNumber}>{index + 1}</div>
-                <div className={styles.instructionText}>{instruction}</div>
-              </li>
-            ))}
-          </ol>
+        <div className={styles.instructionText}>
+          {typeof instruction === 'object' && instruction.text
+            ? instruction.text
+            : typeof instruction === 'string'
+              ? instruction
+              : String(instruction)}
         </div>
+      </li>
+    ))}
+  </ol>
+</div>
 
+        
         <div className={styles.countryInfo}>
           <h2 className={styles.sectionTitle}>Происхождение</h2>
           <p className={styles.countryText}>{product.country}</p>
